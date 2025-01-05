@@ -57,11 +57,11 @@ class _SplashScreenState extends State<SplashScreen> {
       },
       listener: (context, state) {
         if (state is SplashNavigateToIndex) {
-          Navigator.pushReplacementNamed(context, AppRoute.splashScreen);
+          Navigator.pushReplacementNamed(context, AppRoute.userListScreenPath);
         } else if (state is SplashNavigateToLogin) {
-          Navigator.pushReplacementNamed(context, AppRoute.splashScreen);
+          Navigator.pushReplacementNamed(context, AppRoute.userListScreenPath);
         } else {
-          Navigator.pushReplacementNamed(context, AppRoute.splashScreen);
+          Navigator.pushReplacementNamed(context, AppRoute.userListScreenPath);
         }
       },
     );

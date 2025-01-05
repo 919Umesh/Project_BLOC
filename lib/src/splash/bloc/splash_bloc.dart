@@ -13,7 +13,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
 
   Future<void> _navigateToLogin(SplashScreenStarted event, Emitter emit,) async {
     final isLogin = await locator<PrefHelper>().getIsLogin();
-    await Future.delayed(const Duration(seconds: 12));
+    await Future.delayed(const Duration(seconds: 3));
     if(isLogin){
       emit(SplashNavigateToIndex());
     }

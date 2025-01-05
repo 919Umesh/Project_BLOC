@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:project_bloc/src/user_list/bloc/user_list_bloc.dart';
 import '../src/splash/splash.dart';
 import 'app.dart';
 
@@ -12,6 +13,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => SplashBloc()),
+        BlocProvider(create: (context) => UserListBloc()),
       ],
       child: OKToast(
         child: MaterialApp(
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
             ),
             useMaterial3: true,
           ),
-          initialRoute: AppRoute.splashScreen,
+          initialRoute: AppRoute.splashScreenPath,
           onGenerateRoute: RouteGenerator.generateRoute,
         ),
       ),

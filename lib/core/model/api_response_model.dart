@@ -26,14 +26,11 @@ class LoginApiResponse<T> {
 }
 
 class ApiResponse<T> {
-  final int statusCode;
-  final bool status;
+  final int status;
   final String message;
-
   final List<T> data;
 
   ApiResponse({
-    required this.statusCode,
     required this.status,
     required this.message,
     required this.data,
@@ -42,15 +39,15 @@ class ApiResponse<T> {
   factory ApiResponse.fromJson(
       Map<String, dynamic> json, T Function(Map<String, dynamic>) fromJson) {
     return ApiResponse<T>(
-      data: json["data"] == null
+      status: json["status"] ?? 0,
+      message: json["message"] ?? "",
+      data: json["users"] == null
           ? []
-          : List<T>.from(json['data'].map((x) => fromJson(x))),
-      statusCode: json["STATUS_CODE"] ?? 0,
-      status: json["status"] ?? false,
-      message: json["MESSAGE"] ?? "",
+          : List<T>.from(json["users"].map((x) => fromJson(x))),
     );
   }
 }
+
 
 class OtpResponse<T> {
   final int statusCode;

@@ -49,7 +49,7 @@ class PrefHelper {
   }
 
   Future<String> getBaseUrl() async {
-    return 'http://192.168.1.67:3000/';
+    return 'http://192.168.1.67:3000';
   }
 
   /// Login status preference.
