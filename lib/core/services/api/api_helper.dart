@@ -7,14 +7,15 @@ import 'package:project_bloc/core/injection/injection_helper.dart';
 import 'package:project_bloc/core/services/api/api_constants.dart';
 import 'package:project_bloc/core/services/sharepref/share_pref.dart';
 
-
 final apiProvider = locator<APIProvider>();
 
 class APIProvider {
   static final APIProvider _instance = APIProvider._internal();
+
   factory APIProvider() {
     return _instance;
   }
+
   APIProvider._internal();
 
   /// [ getAPI ] used to handle all [ GET ] api call
@@ -59,8 +60,8 @@ class APIProvider {
       http.Response response = await http
           .post(Uri.parse(api), headers: headers, body: body)
           .timeout(const Duration(seconds: 30));
-
-      if (response.statusCode == 200) {
+      debugPrint("API=> $api\nRESPONSE=> ${jsonDecode(response.body)}");
+      if (response.statusCode == 201) {
         return response.body;
       } else {
         return response.body;

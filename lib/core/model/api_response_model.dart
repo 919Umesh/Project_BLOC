@@ -1,3 +1,5 @@
+import '../../src/create_project/model/create_project_model.dart';
+
 class LoginApiResponse<T> {
   final int statusCode;
   final bool status;
@@ -74,4 +76,29 @@ class OtpResponse<T> {
       message: json["Message"] ?? "",
     );
   }
+}
+
+class BasicModel {
+  final String message;
+  final int status;
+  final String data;
+
+  BasicModel({
+    required this.message,
+    required this.status,
+    required this.data,
+  });
+
+  factory BasicModel.fromJson(Map<String, dynamic> json) {
+    return BasicModel(
+      message: json["message"] ?? "",
+      status: json["status"] ?? 0,
+      data: json["data"] ?? "",
+    );
+  }
+  Map<String, dynamic> toJson() => {
+    "message": message,
+    "data": data,
+    "status": status,
+  };
 }

@@ -4,4 +4,5 @@ class AppRoute {
   static const String splashScreenPath = "/Splash";
   static const String userListScreenPath = "/UserListScreen";
   static const String createProjectScreenPath = "/CreateProjectScreen";
+  static const String loginScreenPath = "/LoginScreenPath";
 }
