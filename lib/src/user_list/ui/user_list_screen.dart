@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:project_bloc/app/routes/route_name.dart';
 import 'package:project_bloc/app/themes/colors.dart';
 import 'package:project_bloc/core/core.dart';
@@ -18,8 +19,11 @@ class _UserListScreenState extends State<UserListScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<UserListBloc>().add(LoadUsersRequested());
+      _fetchAndLoadData();
     });
+  }
+  Future<void> _fetchAndLoadData() async {
+    context.read<UserListBloc>().add(LoadUsersRequested());
   }
 
   @override
@@ -32,7 +36,12 @@ class _UserListScreenState extends State<UserListScreen> {
       },
       builder: (BuildContext context, state) {
         return Scaffold(
-          appBar: AppBar(title: const Text("Users")),
+          appBar: AppBar(title: const Text("Users"),actions: [
+            IconButton(onPressed: ()
+            {
+              Navigator.pushNamed(context, AppRoute.accountGroupScreenPath);
+            }, icon: const Icon(Bootstrap.list))
+          ],),
           body: BlocBuilder<UserListBloc, UserListState>(
             buildWhen: (previous, current) {
               return previous != current;
@@ -49,13 +58,6 @@ class _UserListScreenState extends State<UserListScreen> {
               }
               return const Center(child: Text("No data found"));
             },
-          ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: (){
-              Navigator.pushNamed(
-                  context, AppRoute.createProjectScreenPath);
-            },
-            child: const Icon(Icons.add),
           ),
         );
       },

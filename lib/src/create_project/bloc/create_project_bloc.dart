@@ -29,6 +29,7 @@ class CreateProjectBloc extends Bloc<CreateProjectEvent, CreateProjectState> {
           amount: event.amount,
           status: event.status);
       await _createProjectRepository.createProject(product: project);
+      emit(const RegisterSuccess(message: 'Register Successful'));
     } catch (e) {
       emit(RegisterError(message: e.toString()));
       debugPrint(e.toString());

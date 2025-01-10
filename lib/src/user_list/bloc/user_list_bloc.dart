@@ -1,27 +1,63 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:project_bloc/src/user_list/db/user_list_db.dart';
 import 'package:project_bloc/src/user_list/model/user_list_model.dart';
 import '../repository/user_list_repository.dart';
 part 'user_list_event.dart';
 part 'user_list_state.dart';
 
 class UserListBloc extends Bloc<UserListEvent, UserListState> {
-  UserListBloc() : super(UserListInitial()) {
-    on<UserListEvent>((event, emit) {});
-    on<LoadUsersRequested>((event, emit) async {
-      await getUsers(event, emit);
-    });
+  final UserListRepository _userListRepository;
+  List<UserModel> _cachedUsers = [];
+
+  UserListBloc({required UserListRepository userListRepository})
+      : _userListRepository = userListRepository,
+        super(UserListInitial()) {
+    on<LoadUsersRequested>(_onLoadUsers);
+    on<UserNameRequested>(_onUserNameList);
   }
 
-  Future<void> getUsers(LoadUsersRequested event, Emitter emit) async {
+  Future<void> _onLoadUsers(LoadUsersRequested event, Emitter<UserListState> emit) async {
     try {
       emit(UserListLoading());
+
+      if (_cachedUsers.isNotEmpty) {
+        emit(UserListLoadSuccess(users: _cachedUsers));
+        return;
+      }
+
+      final localUsers = await UserListDatabase.instance.getDataList();
+      if (localUsers.isNotEmpty) {
+        _cachedUsers = localUsers;
+        emit(UserListLoadSuccess(users: localUsers));
+        return;
+      }
+
+      // Finally, fetch from API
       final users = await UserListRepository.getUserList();
+      await _saveUsers(users);
+      _cachedUsers = users;
       emit(UserListLoadSuccess(users: users));
     } catch (e) {
-      debugPrint("$e");
+      debugPrint("Error loading users: $e");
       emit(UserListLoadError(errorMessage: e.toString()));
     }
   }
 
+  Future<void> _saveUsers(List<UserModel> users) async {
+    await UserListDatabase.instance.deleteData();
+    for (var user in users) {
+      await UserListDatabase.instance.insertData(user);
+    }
+  }
+
+  Future<void> _onUserNameList(UserNameRequested event, Emitter<UserListState> emit) async {
+    try {
+      emit(UserListLoading());
+      final dataList = await _userListRepository.getUserNameList();
+      emit(UserNameLoadSuccess(userList: dataList));
+    } catch (e) {
+      emit(UserListLoadError(errorMessage: e.toString()));
+    }
+  }
 }

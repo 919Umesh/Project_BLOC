@@ -18,7 +18,6 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     BlocProvider.of<SplashBloc>(context).add(SplashScreenStarted());
   }
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SplashBloc, SplashState>(
@@ -56,12 +55,12 @@ class _SplashScreenState extends State<SplashScreen> {
         );
       },
       listener: (context, state) {
-        if (state is SplashNavigateToIndex) {
-          Navigator.pushReplacementNamed(context, AppRoute.userListScreenPath);
+        if (state is SplashNavigateToHome) {
+          Navigator.pushReplacementNamed(context, AppRoute.projectListScreenPath);
         } else if (state is SplashNavigateToLogin) {
-          Navigator.pushReplacementNamed(context, AppRoute.userListScreenPath);
+          Navigator.pushReplacementNamed(context, AppRoute.loginScreenPath);
         } else {
-          Navigator.pushReplacementNamed(context, AppRoute.userListScreenPath);
+          Navigator.pushReplacementNamed(context, AppRoute.loginScreenPath);
         }
       },
     );

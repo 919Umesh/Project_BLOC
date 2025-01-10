@@ -43,9 +43,9 @@ class ApiResponse<T> {
     return ApiResponse<T>(
       status: json["status"] ?? 0,
       message: json["message"] ?? "",
-      data: json["users"] == null
+      data: json["projects"] == null
           ? []
-          : List<T>.from(json["users"].map((x) => fromJson(x))),
+          : List<T>.from(json["projects"].map((x) => fromJson(x))),
     );
   }
 }

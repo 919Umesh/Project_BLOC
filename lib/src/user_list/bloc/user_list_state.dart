@@ -12,6 +12,14 @@ class UserListLoadSuccess extends UserListState {
   UserListLoadSuccess({required this.users});
 }
 
+class UserNameLoadSuccess extends UserListState {
+  final List<UserModel> userList;
+
+  UserNameLoadSuccess({required this.userList});
+
+  List<Object> get props => [userList];
+}
+
 class UserListLoadError extends UserListState {
   final String errorMessage;
 

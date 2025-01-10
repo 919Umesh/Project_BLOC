@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../services/api/api_helper.dart';
+import '../services/sharepref/flutter_secure_storage.dart';
 import '../services/sharepref/share_pref.dart';
 
 GetIt locator = GetIt.instance;
@@ -13,6 +15,11 @@ Future<void> configureDependencies() async {
     final sharedPreferences = await SharedPreferences.getInstance();
     locator.registerLazySingleton<PrefHelper>(
       () => PrefHelper(sharedPreferences),
+    );
+
+    // Register flutter secure storage
+    locator.registerLazySingleton<SecureStorageHelper>(
+      () => SecureStorageHelper.instance,
     );
 
     locator.registerLazySingleton<APIProvider>(() => APIProvider());

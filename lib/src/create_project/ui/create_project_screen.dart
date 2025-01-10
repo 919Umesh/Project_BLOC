@@ -36,6 +36,7 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
         if (state is RegisterSuccess) {
           state.message.successToast();
           _clearForm();
+          Navigator.pop(context);
         }
         if (state is RegisterError) {
           state.message.errorToast();
