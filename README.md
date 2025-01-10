@@ -19,6 +19,16 @@ Follow these steps to set up the project on your local machine.
 - Node.js (latest version)
 - npm (Node package manager)
 
+### Some of the image of the ui
+![Home Screen](assets/images/PhotoBloc_1.jpg)
+![Home Screen](assets/images/PhotoBloc_2.jpg)
+![Home Screen](assets/images/PhotoBloc_3.jpg)
+![Home Screen](assets/images/PhotoBloc_4.jpg)
+![Home Screen](assets/images/PhotoBloc_5.jpg)
+![Home Screen](assets/images/PhotoBloc_6.jpg)
+
+
+
 ### Setup the Backend (Node.js)
 
 1. Clone the repository:
