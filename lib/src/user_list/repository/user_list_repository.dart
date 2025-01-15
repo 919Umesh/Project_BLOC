@@ -9,8 +9,7 @@ class UserListRepository {
       String api = "/users/getUsers";
 
       var response = await apiProvider.getAPI(endPoint: api);
-      UsersResponseModel userListResponse =
-      UsersResponseModel.fromJson(jsonDecode(response));
+      UsersResponseModel userListResponse = UsersResponseModel.fromJson(response);
       if (userListResponse.status == 200) {
         return userListResponse.users;
       } else {

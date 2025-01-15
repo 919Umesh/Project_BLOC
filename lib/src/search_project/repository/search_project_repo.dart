@@ -8,7 +8,7 @@ class ProjectSearchRepository {
     try {
       String api = "/project/search?name=$query";
       var response = await apiProvider.getAPI(endPoint: api);
-      ProjectResponseModel projectResponse = ProjectResponseModel.fromJson(jsonDecode(response));
+      ProjectResponseModel projectResponse = ProjectResponseModel.fromJson(response);
       if (projectResponse.status == 200) {
         return projectResponse.projects;
       } else {

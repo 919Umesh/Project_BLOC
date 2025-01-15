@@ -8,7 +8,7 @@ class ProjectListRepository {
     try {
       String api = "/project/get?status=$status";
       var response = await apiProvider.getAPI(endPoint: api);
-      ProjectResponseModel projectResponse = ProjectResponseModel.fromJson(jsonDecode(response));
+      ProjectResponseModel projectResponse = ProjectResponseModel.fromJson(response);
       if (projectResponse.status == 200) {
         return projectResponse.projects;
       } else {
