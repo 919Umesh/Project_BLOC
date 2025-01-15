@@ -9,7 +9,7 @@ class DrawerSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.75,
+        width: MediaQuery.of(context).size.width * 0.65,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: const BorderRadius.only(
