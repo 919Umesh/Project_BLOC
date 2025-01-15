@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:project_bloc/core/core.dart';
-import 'package:project_bloc/core/extensions/context_ext.dart';
-import 'package:project_bloc/core/services/sharepref/flutter_secure_storage.dart';
-import '../../../app/app_info.dart';
+
 import '../../../app/routes/route_name.dart';
-import '../../../app/themes/colors.dart';
-import '../../../app/themes/textstyle.dart';
 
 class DrawerSection extends StatelessWidget {
   const DrawerSection({super.key});
@@ -15,174 +10,192 @@ class DrawerSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        width: context.screenWidth / 1.5,
-        decoration: const BoxDecoration(
+        width: MediaQuery.of(context).size.width * 0.75,
+        decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(20.0),
-            bottomRight: Radius.circular(20.0),
+          borderRadius: const BorderRadius.only(
+            topRight: Radius.circular(25.0),
+            bottomRight: Radius.circular(25.0),
           ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.3),
+              spreadRadius: 2,
+              blurRadius: 10,
+              offset: const Offset(0, 3),
+            ),
+          ],
         ),
-        child: ListView(children: [
-          titleSection(context),
-          DrawerIconName(
-            name: "Dashboard",
-            iconName: Icons.dashboard,
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-          divider(),
-          DrawerIconName(
-            name: "Delete Account",
-            iconName: Icons.delete,
-            color: kErrorColor,
-            onTap: () {
-              Fluttertoast.showToast(msg: 'Account Deleted');
-              //Navigator.pushNamed(context, AppRoute.deletePath);
-            },
-          ),
-          divider(),
-          DrawerIconName(
-            name: "Change Password",
-            iconName: Icons.password,
-            onTap: () {
-              Fluttertoast.showToast(msg: 'Change Password');
-             // Navigator.pushNamed(context, AppRoute.changePasswordScreen);
-            },
-          ),
-          divider(),
-          DrawerIconName(
-            name: "Clear Data",
-            iconName: Icons.clear,
-            onTap: () {
-              Fluttertoast.showToast(msg: 'Cleared Data');
-            },
-          ),
-          divider(),
-          DrawerIconName(
-            name: "LogOut",
-            iconName: Icons.logout,
-            onTap: () {
-              logOutFlutter(context);
-            },
-          ),
-          divider(),
-        ]),
-      ).paddingVertical(10.0),
-    );
-  }
-
-  void logOut(BuildContext context) {
-    locator<PrefHelper>().removePreference();
-    Navigator.of(context).pushNamedAndRemoveUntil(
-      AppRoute.splashScreenPath,
-          (route) => false,
-    );
-  }
-  void logOutFlutter(BuildContext context) {
-    locator<SecureStorageHelper>().clearAll();
-    Navigator.of(context).pushNamedAndRemoveUntil(
-      AppRoute.splashScreenPath,
-          (route) => false,
-    );
-  }
-
-  Widget titleSection(context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: kPrimaryColor,
-        border: Border.all(color: kPrimaryColor),
-        borderRadius: const BorderRadius.only(
-          topRight: Radius.circular(20.0),
+        child: Column(
+          children: [
+            _buildHeader(),
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  const SizedBox(height: 10),
+                  _buildMenuItem(
+                    context: context,
+                    title: "Dashboard",
+                    icon: Icons.dashboard_rounded,
+                    onTap: () => Navigator.pop(context),
+                  ),
+                  _buildMenuItem(
+                    context: context,
+                    title: "Change Password",
+                    icon: Icons.lock_rounded,
+                    onTap: () => Fluttertoast.showToast(msg: 'Change Password'),
+                  ),
+                  _buildMenuItem(
+                    context: context,
+                    title: "Clear Data",
+                    icon: Icons.cleaning_services_rounded,
+                    onTap: () => Fluttertoast.showToast(msg: 'Cleared Data'),
+                  ),
+                  _buildMenuItem(
+                    context: context,
+                    title: "Delete Account",
+                    icon: Icons.delete_rounded,
+                    color: Colors.red.shade700,
+                    onTap: () => Fluttertoast.showToast(msg: 'Account Deleted'),
+                  ),
+                  const Divider(height: 40),
+                  _buildMenuItem(
+                    context: context,
+                    title: "Logout",
+                    icon: Icons.logout_rounded,
+                    onTap: () => _handleLogout(context),
+                  ),
+                ],
+              ),
+            ),
+            _buildFooter(),
+          ],
         ),
       ),
+    );
+  }
+
+  Widget _buildHeader() {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Colors.blue.shade700, Colors.blue.shade900],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: const BorderRadius.only(topRight: Radius.circular(25)),
+      ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              const Flexible(
-                child: CircleAvatar(
-                  radius: 20.0,
+              Container(
+                padding: const EdgeInsets.all(2),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Colors.white, width: 2),
+                ),
+                child: const CircleAvatar(
+                  radius: 30,
                   backgroundImage: AssetImage('assets/images/google.png'),
-                  backgroundColor: Colors.transparent,
+                  backgroundColor: Colors.white,
                 ),
               ),
+              const SizedBox(width: 15),
               Expanded(
-                flex: 2,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(AppInfo.appName, style: kWhiteTitleText),
-                    Text(
-                      AppInfo.orgName,
-                      style: kSubTitleTextBold.copyWith(
-                        fontSize: 12.0,
+                    const Text(
+                      'App Name',
+                      style: TextStyle(
                         color: Colors.white,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Organization Name',
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(0.9),
+                        fontSize: 14,
                       ),
                     ),
                   ],
-                ).paddingHorizontal(10.0),
+                ),
               ),
             ],
           ),
-          5.pHeight,
-          const Divider(),
-          5.pHeight,
-
         ],
-      ).paddingAll(10.0),
+      ),
     );
   }
 
-  Widget divider() {
-    return Container(height: 1.0, color: Colors.grey.shade300);
+  Widget _buildMenuItem({
+    required BuildContext context,
+    required String title,
+    required IconData icon,
+    required VoidCallback onTap,
+    Color? color,
+  }) {
+    return Material(
+      color: Colors.transparent,
+      child: ListTile(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 24),
+        leading: Icon(
+          icon,
+          color: color ?? Colors.grey.shade700,
+          size: 24,
+        ),
+        title: Text(
+          title,
+          style: TextStyle(
+            color: color ?? Colors.grey.shade900,
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        onTap: onTap,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        minLeadingWidth: 20,
+        horizontalTitleGap: 12,
+      ),
+    );
   }
-}
 
-class DrawerIconName extends StatelessWidget {
-  final String name;
-  final IconData iconName;
-  final void Function()? onTap;
-  final Color? color;
-
-  const DrawerIconName({
-    super.key,
-    required this.iconName,
-    required this.name,
-    required this.onTap,
-    this.color,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
+  Widget _buildFooter() {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Icon(
-            iconName,
-            size: 25.0,
-            color: color ?? kPrimaryColor,
-          ).paddingRight(15.0),
-          Expanded(
-            flex: 3,
-            child: Text(
-              name,
-              style: TextStyle(
-                fontSize: 15.0,
-                fontWeight: FontWeight.bold,
-                color: color ?? Colors.black,
-              ),
+          const Icon(
+            Icons.info_outline,
+            size: 20,
+            color: Colors.grey,
+          ),
+          const SizedBox(width: 12),
+          Text(
+            'Version 1.0.0',
+            style: TextStyle(
+              color: Colors.grey.shade600,
+              fontSize: 14,
             ),
           ),
         ],
-      ).paddingSymmetric(10.0, 15.0),
+      ),
     );
+  }
+
+  void _handleLogout(BuildContext context) {
+         Navigator.of(context).pushNamedAndRemoveUntil(
+       AppRoute.splashScreenPath,
+           (route) => false,
+   );
   }
 }

@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:project_bloc/core/injection/injection_helper.dart';
 import 'package:project_bloc/core/services/api/api_constants.dart';
 import 'package:project_bloc/core/services/sharepref/share_pref.dart';
@@ -20,7 +19,7 @@ class APIProvider {
   APIProvider._internal();
 
 
-  // [ getAPI ] used to handle all [ GET ] api call
+  /// [ getAPI ] used to handle all [ GET ] api call
   Future getAPI({required String endPoint, String? authToken}) async {
     try {
       String api = await locator<PrefHelper>().getBaseUrl() + endPoint;
@@ -146,13 +145,13 @@ class APIProvider {
 
       Response response = await dio.post(
         api,
-        data: body, // Dio will handle the body directly
+        data: body,
       );
 
       debugPrint("API=> $api\nRESPONSE=> ${response.data}");
 
       if (response.statusCode == 201) {
-        return jsonEncode(response.data); // Ensuring we return a string like the original
+        return jsonEncode(response.data);
       } else {
         return jsonEncode(response.data);
       }

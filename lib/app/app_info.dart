@@ -10,9 +10,5 @@ class AppInfo {
 }
 
 class ConstantInfo {
-  //static const String dbName = "ERPDEMO101";
-  //static const String dbName = "RITAAUTO01";
-  //static const String dbName = "RITA008101";
-
 
 }
