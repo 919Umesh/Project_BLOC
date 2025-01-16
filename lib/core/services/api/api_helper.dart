@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:project_bloc/app/temp/custom_log.dart';
 import 'package:project_bloc/core/injection/injection_helper.dart';
 import 'package:project_bloc/core/services/api/api_constants.dart';
 import 'package:project_bloc/core/services/sharepref/share_pref.dart';
@@ -37,12 +39,14 @@ class APIProvider {
 
       Response response = await dio.get(api);
 
-      debugPrint("API=> $api\nRESPONSE=> ${response.data}");
+      CustomLog.successLog(value: "API=> $api\nRESPONSE=> ${response.data}");
 
       if (response.statusCode == 200) {
+        Fluttertoast.showToast(msg: "Success");
         return response.data;
       } else {
-        return response.data;
+        CustomLog.errorLog(value: response.data);
+        throw Exception("Failed to fetch data. Status Code: ${response.statusCode}");
       }
     }
     //
@@ -83,7 +87,7 @@ class APIProvider {
         data: body,
       );
 
-      debugPrint("API=> $api\nRESPONSE=> ${response.data}");
+      CustomLog.successLog(value: "API=> $api\nRESPONSE=> ${response.data}");
 
       if (response.statusCode == 201) {
         return jsonEncode(response.data);
