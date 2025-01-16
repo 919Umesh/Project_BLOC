@@ -16,7 +16,7 @@ Future<void> configureDependencies() async {
       () => PrefHelper(sharedPreferences),
     );
 
-    // Register flutter secure storage
+    // register flutter secure storage
     locator.registerLazySingleton<SecureStorageHelper>(
       () => SecureStorageHelper.instance,
     );
