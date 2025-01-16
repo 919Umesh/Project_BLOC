@@ -29,6 +29,7 @@ class DatabaseHelper {
     );
   }
 
+  //On logout we have to drop the database to clear all the table
   Future<void> onDropDatabase() async {
     Database? db = await instance.database;
     await db!.delete(DatabaseDetails.userListTable);
