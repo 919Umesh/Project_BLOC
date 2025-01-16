@@ -35,6 +35,7 @@ class DatabaseHelper {
     await db!.delete(DatabaseDetails.userListTable);
   }
 
+  //Create of the database tables
   Future<void> onCreate(Database db, int version) async {
     await CreateTable(db).userListTable();
   }
