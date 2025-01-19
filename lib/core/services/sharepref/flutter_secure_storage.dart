@@ -11,7 +11,7 @@ class SecureStorageHelper {
     await _secureStorage.deleteAll();
   }
 
-  /// Logs out the user by clearing all secure storage except for the base URL.
+  /// Logs out the user by clearing all secure storage
   Future<void> logOut() async {
     String? tempAPI = await getBaseUrl();
     await clearAll();
