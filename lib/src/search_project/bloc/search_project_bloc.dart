@@ -30,6 +30,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
   }
 
+  //Clear the fields
   void _onClearSearch(ClearSearchRequested event, Emitter<SearchState> emit) {
     emit(SearchInitial());
   }
