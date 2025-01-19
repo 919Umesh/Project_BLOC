@@ -13,10 +13,8 @@ class TextFieldDecoration {
     Color? fillColor,
   }) {
     return InputDecoration(
-      prefixIcon:
-          prefixIcon != null ? Icon(prefixIcon, color: kPrimaryColor) : null,
-      suffixIcon:
-          suffixIcon != null ? Icon(suffixIcon, color: kPrimaryColor) : null,
+      prefixIcon: prefixIcon != null ? Icon(prefixIcon, color: kPrimaryColor) : null,
+      suffixIcon: suffixIcon != null ? Icon(suffixIcon, color: kPrimaryColor) : null,
       suffix: suffix,
       prefix: prefix,
       fillColor: fillColor ?? kTextFormFieldColor,
