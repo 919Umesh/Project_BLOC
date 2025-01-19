@@ -49,7 +49,7 @@ class DrawerSection extends StatelessWidget {
                     context: context,
                     title: "Clear Data",
                     icon: Icons.cleaning_services_rounded,
-                    onTap: () => Fluttertoast.showToast(msg: 'Cleared Data'),
+                    onTap: () => Fluttertoast.showToast(msg: 'Cleared All Data'),
                   ),
                   _buildMenuItem(
                     context: context,
