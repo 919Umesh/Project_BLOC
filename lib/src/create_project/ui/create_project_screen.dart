@@ -255,7 +255,7 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
         elevation: 2,
       ),
       child: const Text(
-        "Create Project",
+        "Create New Project",
         style: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w600,
