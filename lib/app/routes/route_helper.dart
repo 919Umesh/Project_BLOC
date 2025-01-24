@@ -27,6 +27,7 @@ class RouteGenerator {
       case AppRoute.accountGroupScreenPath:
         return _pageTransition(child: const AccountGroupScreen());
 
+        //Default Path for navigation
       default:
         return _pageTransition(
           child: Scaffold(
