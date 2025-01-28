@@ -13,7 +13,13 @@ class ProjectListLoadSuccess extends ProjectListState {
 
   List<Object?> get props => [projects];
 }
+class ProjectListLoadMessage extends ProjectListState {
+  final String successMessage;
 
+  ProjectListLoadMessage({required this.successMessage});
+
+  List<Object?> get props => [successMessage];
+}
 class ProjectListLoadError extends ProjectListState {
   final String errorMessage;
 

@@ -29,7 +29,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       locator<SecureStorageHelper>().setIsLogin(true);
       locator<SecureStorageHelper>().setUserCode(response.email);
       await _loginRepository.loginUser(user: response);
-      //After the login success
       emit(const LoginSuccess(message: 'Login Successfully'));
     } catch (e) {
       emit(LoginError(message: e.toString()));
