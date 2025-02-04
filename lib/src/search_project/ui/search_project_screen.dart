@@ -61,9 +61,7 @@ class _ProjectSearchViewState extends State<ProjectSearchView> {
                         icon: const Icon(Icons.clear),
                         onPressed: () {
                           _searchController.clear();
-                          context
-                              .read<SearchBloc>()
-                              .add(ClearSearchRequested());
+                          context.read<SearchBloc>().add(ClearSearchRequested());
                         },
                       )
                     : null,
