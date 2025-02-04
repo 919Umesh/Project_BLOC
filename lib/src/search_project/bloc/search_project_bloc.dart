@@ -20,10 +20,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
 
     try {
-      //State to represent the loading
       emit(SearchLoading());
       final results = await ProjectSearchRepository.searchProjects(query: event.query);
-      //State to represent the success
       emit(SearchSuccess(projects: results));
     } catch (e) {
       emit(SearchError(message: e.toString()));
