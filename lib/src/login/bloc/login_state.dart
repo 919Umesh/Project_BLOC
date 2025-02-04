@@ -21,6 +21,7 @@ class LoginSuccess extends LoginState {
   List<Object> get props => [message];
 }
 
+//Error Messages
 class LoginError extends LoginState {
   final String message;
 
