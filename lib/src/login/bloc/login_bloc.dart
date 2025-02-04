@@ -25,7 +25,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         email: event.email,
         password: event.password,
       );
-
       locator<SecureStorageHelper>().setIsLogin(true);
       locator<SecureStorageHelper>().setUserCode(response.email);
       await _loginRepository.loginUser(user: response);
