@@ -6,7 +6,7 @@ class ProjectSearchRepository {
 
   static Future<List<ProjectModel>> searchProjects({required String query}) async {
     try {
-      //To run the query
+      //End point
       String api = "/project/search?name=$query";
       var response = await apiProvider.getAPI(endPoint: api);
       ProjectResponseModel projectResponse = ProjectResponseModel.fromJson(response);
