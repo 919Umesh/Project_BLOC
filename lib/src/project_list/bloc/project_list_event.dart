@@ -5,6 +5,5 @@ class LoadProjectRequested extends ProjectListEvent {
   final String status;
   LoadProjectRequested({this.status = ''});
 
-
   List<Object?> get props => [status];
 }
