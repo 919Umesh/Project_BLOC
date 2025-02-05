@@ -1,5 +1,3 @@
-import '../../src/create_project/model/create_project_model.dart';
-
 class LoginApiResponse<T> {
   final int statusCode;
   final bool status;

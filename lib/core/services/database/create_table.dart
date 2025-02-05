@@ -6,7 +6,6 @@ class CreateTable {
 
   CreateTable(this.db);
 
-  /// User List Table Db
   userListTable() async {
     await db.execute('''
       CREATE TABLE IF NOT EXISTS ${DatabaseDetails.userListTable} (

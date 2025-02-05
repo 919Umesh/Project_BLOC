@@ -6,12 +6,11 @@ class SecureStorageHelper {
 
   SecureStorageHelper._internal();
 
-  /// Clears all secure storage entries.
+
   Future<void> clearAll() async {
     await _secureStorage.deleteAll();
   }
 
-  /// Logs out the user by clearing all secure storage
   Future<void> logOut() async {
     String? tempAPI = await getBaseUrl();
     await clearAll();
@@ -20,7 +19,6 @@ class SecureStorageHelper {
     }
   }
 
-  /// Dark theme preference.
   final String _kIsDarkTheme = "ShowDarkTheme";
   Future<void> setIsDarkTheme(bool value) async {
     await _secureStorage.write(key: _kIsDarkTheme, value: value.toString());
