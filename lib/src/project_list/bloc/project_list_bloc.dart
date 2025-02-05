@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import '../model/project_list_model.dart';
 import '../repository/project_list_repo.dart';
 part 'project_list_state.dart';
