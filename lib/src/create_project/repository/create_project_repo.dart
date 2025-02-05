@@ -8,7 +8,6 @@ class CreateProjectRepository {
   }) async {
 
     String api = "/project/create";
-    //Json Body
     var body = jsonEncode({
       "name": product.name,
       "duration": product.duration,

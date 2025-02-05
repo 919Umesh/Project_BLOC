@@ -260,7 +260,6 @@ class _ErrorView extends StatelessWidget {
   }
 }
 
-// Debouncer utility class
 class Debouncer {
   final int milliseconds;
   Timer? _timer;
