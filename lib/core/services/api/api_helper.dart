@@ -115,4 +115,46 @@ class APIProvider {
       return jsonEncode(APIConstants.errorMap);
     }
   }
+
+  /// [postFormDataAPI] used to handle all [POST] API calls with FormData (multipart).
+  Future postFormDataAPI({
+    required String endPoint,
+    required FormData formData,
+  }) async {
+    try {
+      String api = await locator<PrefHelper>().getBaseUrl() + endPoint;
+
+      Dio dio = Dio(BaseOptions(
+        connectTimeout: const Duration(seconds: 30),
+        receiveTimeout: const Duration(seconds: 30),
+        sendTimeout: const Duration(seconds: 30),
+      ));
+
+      Response response = await dio.post(
+        api,
+        data: formData,
+      );
+
+      CustomLog.successLog(value: "API=> $api\nRESPONSE=> ${response.data}");
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        return jsonEncode(response.data);
+      } else {
+        return jsonEncode(response.data);
+      }
+    } on DioException catch (e) {
+      if (e.error is SocketException) {
+        return jsonEncode(APIConstants.errorNetworkMap);
+      } else if (e.type == DioExceptionType.connectionTimeout ||
+          e.type == DioExceptionType.receiveTimeout ||
+          e.type == DioExceptionType.sendTimeout) {
+        return jsonEncode(APIConstants.errorTimeoutMap);
+      } else {
+        debugPrint("Dio ERROR ${e.message}");
+        return jsonEncode(APIConstants.errorMap);
+      }
+    } catch (e) {
+      debugPrint("API ERROR $e");
+      return jsonEncode(APIConstants.errorMap);
+    }
+  }
 }
