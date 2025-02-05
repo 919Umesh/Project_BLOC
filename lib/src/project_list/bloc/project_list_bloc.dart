@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../model/project_list_model.dart';
 import '../repository/project_list_repo.dart';
 part 'project_list_state.dart';
@@ -16,7 +17,7 @@ class ProjectListBloc extends Bloc<ProjectListEvent, ProjectListState> {
   Future<void> getProject(LoadProjectRequested event, Emitter emit) async {
     try {
       emit(ProjectListLoading());
-
+      Fluttertoast.showToast(msg: 'dfd');
       final projects = await ProjectListRepository.getProjectList(status: event.status);
       emit(ProjectListLoadSuccess(projects: projects));
     } catch (e) {
