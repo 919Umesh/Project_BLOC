@@ -14,9 +14,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
     return Scaffold(
       appBar: AppBar(title: Text('Create'),
       actions: [
-        IconButton(onPressed:(){}, icon: Icon(Icons.add)),
-        IconButton(onPressed:(){}, icon: Icon(Icons.add)),
-        IconButton(onPressed:(){}, icon: Icon(Icons.add))
+
       ],),
       body: Center(
         child: Text('Center'),
