@@ -1,3 +1,4 @@
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:project_bloc/src/project_list/model/project_list_model.dart';
 import '../../../../core/core.dart';
 
@@ -5,6 +6,7 @@ class ProjectListRepository {
   static Future<List<ProjectModel>> getProjectList(
       {required String status}) async {
     try {
+      Fluttertoast.showToast(msg: 'dgfh');
       String api = "/project/get?status=$status";
       var response = await apiProvider.getAPI(endPoint: api);
       ProjectResponseModel projectResponse = ProjectResponseModel.fromJson(response);

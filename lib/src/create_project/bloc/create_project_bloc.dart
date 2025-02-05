@@ -9,8 +9,7 @@ part 'create_project_event.dart';
 class CreateProjectBloc extends Bloc<CreateProjectEvent, CreateProjectState> {
   final CreateProjectRepository _createProjectRepository;
 
-  CreateProjectBloc({required CreateProjectRepository createProjectRepository})
-      : _createProjectRepository = createProjectRepository,
+  CreateProjectBloc({required CreateProjectRepository createProjectRepository}): _createProjectRepository = createProjectRepository,
         super(RegisterInitial()) {
     on<ProjectCreateRequested>(_onProjectCreateRequested);
   }
