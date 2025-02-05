@@ -23,30 +23,6 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
         onPressed: (){},
         child: Icon(Bootstrap.house_add),
       ),
-      drawer: Drawer(
-        clipBehavior: Clip.antiAlias, // Corrected clipBehavior
-        child: Column(
-          children: [
-            // Drawer Header with an Image
-            Container(
-              width: double.infinity,
-              height: 200, // Adjust height as needed
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/profile.jpg'), // Replace with your image path
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            // Drawer Items
-            const Text('dsg'),
-            const Text('dsg'),
-            const Text('dsg'),
-            const Text('dsg'),
-            const Text('dsg'),
-          ],
-        ),
-      ),
     );
   }
 }
