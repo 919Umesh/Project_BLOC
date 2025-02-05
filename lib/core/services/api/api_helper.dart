@@ -43,7 +43,7 @@ class APIProvider {
       CustomLog.successLog(value: "API=> $api\nRESPONSE=> ${response.data}");
 
       if (response.statusCode == 200) {
-        CustomLog.successLog(value: "API=> $api\nRESPONSE=> ${response.data}");
+        Fluttertoast.showToast(msg: "Success");
         return response.data;
       } else {
         CustomLog.errorLog(value: response.data);
