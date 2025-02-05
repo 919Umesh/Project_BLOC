@@ -19,10 +19,6 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
       body: Center(
         child: Text('Center'),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){},
-        child: Icon(Bootstrap.house_add),
-      ),
     );
   }
 }
