@@ -5,6 +5,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:search_choices/search_choices.dart';
 import '../bloc/create_product_bloc.dart';
 import '../bloc/create_product_event.dart';
 import '../bloc/create_product_state.dart';
@@ -18,8 +19,40 @@ class CreateProductScreen extends StatefulWidget {
 
 class _CreateProductScreenState extends State<CreateProductScreen> {
   final _formKeyProduct = GlobalKey<FormBuilderState>();
-  File? _imageFile;
 
+  File? _imageFile;
+  final List<String> _categories = [
+    'Electronics',
+    'Clothing',
+    'Books',
+    'Food',
+    'Other',
+    'Furniture',
+    'Toys',
+    'Sports',
+    'Health & Beauty',
+    'Home Appliances',
+    'Automotive',
+    'Garden Tools',
+    'Pet Supplies',
+    'Office Supplies',
+    'Jewelry',
+    'Watches',
+    'Shoes',
+    'Bags',
+    'Accessories',
+    'Music Instruments',
+    'Art Supplies',
+    'Crafts',
+    'Baby Products',
+    'Groceries',
+    'Kitchenware',
+    'Fitness Equipment',
+    'Outdoor Gear',
+    'Travel Accessories',
+    'Stationery',
+    'DIY Tools'
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,6 +104,60 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(6.0)),
                 ),
                 keyboardType: TextInputType.number,
+              ),
+              const SizedBox(height: 20),
+              FormBuilderDropdown(
+                name: 'category',
+                decoration: InputDecoration(
+                  labelText: 'Category **',
+                  contentPadding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(6.0)),
+                ),
+                validator: (value) {
+                  if (value == null) {
+                    return 'Please select a category.';
+                  }
+                  return null;
+                },
+                items: _categories
+                    .map((category) => DropdownMenuItem(
+                  value: category,
+                  child: Text(category),
+                ))
+                    .toList(),
+              ),
+              const SizedBox(height: 20),
+              SearchChoices.single(
+                displayClearIcon: true,
+                hint: const Text('Select a category'),
+                value: _categories[0],
+                menuBackgroundColor: Colors.white,
+                icon: const Icon(Icons.arrow_drop_down),
+                underline: Container(
+                  height: 1,
+                  color: Colors.grey,
+                ),
+                isExpanded: true,
+                items: _categories
+                    .map((category) => DropdownMenuItem(
+                  value: category,
+                  child: Text(category),
+                )).toList(),
+                onChanged: (value) {
+                  _formKeyProduct.currentState?.fields['category']?.didChange(value);
+                },
+                selectedValueWidgetFn: (item) {
+                  return Text(item.toString());
+                },
+                dialogBox: true,
+                keyboardType: TextInputType.text,
+                searchHint: const Text('Search categories...'),
+                validator: (value) {
+                  if (value == null) {
+                    return 'Please select a category.';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 20),
               // Purchase Rate Field
