@@ -22,31 +22,6 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
 
   File? _imageFile;
 
-  d.FormData _buildFormData(Map<String, dynamic> fields) {
-    return d.FormData.fromMap({
-      "productName": fields['name'],
-      "salesRate": fields['salesRate'],
-      "purchaseRate": fields['purchaseRate'],
-      "quantity": fields['quantity'],
-      "unit": fields['unit'],
-      "duration": fields['duration'],
-      "fromDate": DateFormat('yyyy-MM-dd').format(fields['fromDate']),
-      "toDate": DateFormat('yyyy-MM-dd').format(fields['toDate']),
-      "productImage": _imageFile != null ? d.MultipartFile.fromFileSync(_imageFile!.path) : null,
-    });
-  }
-
-  Future<void> _pickImage(BuildContext context, ImageSource source) async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: source);
-    if (pickedFile != null) {
-      _imageFile = File(pickedFile.path);
-      BlocProvider.of<CreateProductBloc>(context).add(
-        CreateProductRequested(formData: _buildFormData(_formKeyProduct.currentState?.fields.map((key, value) => MapEntry(key, value.value)) ?? {})),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +37,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
               const SizedBox(height: 20),
 
               FormBuilderTextField(
-                name: 'name',
+                name: 'productName',
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 initialValue: 'Product Alpha',
                 validator: (value) {
@@ -167,27 +142,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                 ),
                 keyboardType: TextInputType.text,
               ),
-              const SizedBox(height: 20),
-
-              // Duration Field
-              FormBuilderTextField(
-                name: 'duration',
-                initialValue: 'monthly',
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter duration.';
-                  }
-                  return null;
-                },
-                decoration: InputDecoration(
-                  labelText: 'Duration **',
-                  contentPadding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(6.0)),
-                ),
-                keyboardType: TextInputType.text,
-              ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
 
               // From Date Picker
               FormBuilderDateTimePicker(
@@ -264,7 +219,6 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
               ),
               const SizedBox(height: 20),
 
-              // Submit Button
               BlocConsumer<CreateProductBloc, CreateProductState>(
                 listener: (context, state) {
                   if (state is CreateProductSuccess) {
@@ -279,9 +233,11 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                   }
                   return ElevatedButton(
                     onPressed: () {
+                      if (controller.multiPartPhoto != null) {
+                        controller.formKeyProduct.currentState!.fields['productImage']!.didChange(controller.multiPartPhoto);
+                      }
                       if (_formKeyProduct.currentState?.saveAndValidate() ?? false) {
-                        final formData = _buildFormData(_formKeyProduct.currentState!.value);
-                        context.read<CreateProductBloc>().add(CreateProductRequested(formData: formData));
+                        context.read<CreateProductBloc>().add(CreateProductRequested(formData: _formKeyProduct.currentState!.value,));
                       }
                     },
                     child: const Text('Create Product'),
