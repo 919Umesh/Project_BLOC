@@ -14,12 +14,11 @@ class CreateProductScreen extends StatefulWidget {
   const CreateProductScreen({super.key});
 
   @override
-  State<CreateProductScreen> createState() => _CreateProductScreenState();
+  State createState() => _CreateProductScreenState();
 }
 
 class _CreateProductScreenState extends State<CreateProductScreen> {
   final _formKeyProduct = GlobalKey<FormBuilderState>();
-
   File? _imageFile;
 
   @override
@@ -35,7 +34,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
           child: ListView(
             children: [
               const SizedBox(height: 20),
-
+              // Product Name Field
               FormBuilderTextField(
                 name: 'productName',
                 autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -54,7 +53,6 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                 keyboardType: TextInputType.text,
               ),
               const SizedBox(height: 20),
-
               // Sales Rate Field
               FormBuilderTextField(
                 name: 'salesRate',
@@ -77,7 +75,6 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                 keyboardType: TextInputType.number,
               ),
               const SizedBox(height: 20),
-
               // Purchase Rate Field
               FormBuilderTextField(
                 name: 'purchaseRate',
@@ -100,7 +97,6 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                 keyboardType: TextInputType.number,
               ),
               const SizedBox(height: 20),
-
               // Quantity Field
               FormBuilderTextField(
                 name: 'quantity',
@@ -123,7 +119,6 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                 keyboardType: TextInputType.number,
               ),
               const SizedBox(height: 20),
-
               // Unit Field
               FormBuilderTextField(
                 name: 'unit',
@@ -142,8 +137,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                 ),
                 keyboardType: TextInputType.text,
               ),
-              const SizedBox(height: 10),
-
+              const SizedBox(height: 20),
               // From Date Picker
               FormBuilderDateTimePicker(
                 name: 'fromDate',
@@ -162,7 +156,6 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-
               // To Date Picker
               FormBuilderDateTimePicker(
                 name: 'toDate',
@@ -181,7 +174,6 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-
               // Product Image Picker
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -211,14 +203,14 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                     ),
                   ),
                   const SizedBox(height: 10),
-               const   Text(
+                  const Text(
                     'Tap to change image',
                     style: TextStyle(color: Colors.blue),
                   ),
                 ],
               ),
               const SizedBox(height: 20),
-
+              // Submit Button
               BlocConsumer<CreateProductBloc, CreateProductState>(
                 listener: (context, state) {
                   if (state is CreateProductSuccess) {
@@ -232,12 +224,13 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                     return const Center(child: CircularProgressIndicator());
                   }
                   return ElevatedButton(
-                    onPressed: () {
-                      if (controller.multiPartPhoto != null) {
-                        controller.formKeyProduct.currentState!.fields['productImage']!.didChange(controller.multiPartPhoto);
-                      }
+                    onPressed: () async {
                       if (_formKeyProduct.currentState?.saveAndValidate() ?? false) {
-                        context.read<CreateProductBloc>().add(CreateProductRequested(formData: _formKeyProduct.currentState!.value,));
+                        final formData = d.FormData.fromMap({
+                          ..._formKeyProduct.currentState!.value,
+                          if (_imageFile != null) 'productImage': await d.MultipartFile.fromFile(_imageFile!.path),
+                        });
+                        context.read<CreateProductBloc>().add(CreateProductRequested(formData: formData));
                       }
                     },
                     child: const Text('Create Product'),
@@ -291,5 +284,14 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _pickImage(BuildContext context, ImageSource source) async {
+    final pickedFile = await ImagePicker().pickImage(source: source);
+    if (pickedFile != null) {
+      setState(() {
+        _imageFile = File(pickedFile.path);
+      });
+    }
   }
 }
