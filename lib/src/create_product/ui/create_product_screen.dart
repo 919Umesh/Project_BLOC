@@ -137,7 +137,6 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
               //   },
               // ),
               // const SizedBox(height: 20),
-              // Purchase Rate Field
               FormBuilderTextField(
                 name: 'purchaseRate',
                 initialValue: '400',

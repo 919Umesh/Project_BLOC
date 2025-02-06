@@ -28,7 +28,7 @@ class RouteGenerator {
       case AppRoute.accountGroupScreenPath:
         return _pageTransition(child: const AccountGroupScreen());
       case AppRoute.createProductScreenPath:
-        return _pageTransition(child:  CreateProductScreen());
+        return _pageTransition(child:  const CreateProductScreen());
 
       default:
         return _pageTransition(
