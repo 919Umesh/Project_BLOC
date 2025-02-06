@@ -28,30 +28,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
     'Food',
     'Other',
     'Furniture',
-    'Toys',
-    'Sports',
-    'Health & Beauty',
-    'Home Appliances',
-    'Automotive',
-    'Garden Tools',
-    'Pet Supplies',
-    'Office Supplies',
-    'Jewelry',
-    'Watches',
-    'Shoes',
-    'Bags',
-    'Accessories',
-    'Music Instruments',
-    'Art Supplies',
-    'Crafts',
-    'Baby Products',
-    'Groceries',
-    'Kitchenware',
-    'Fitness Equipment',
-    'Outdoor Gear',
-    'Travel Accessories',
-    'Stationery',
-    'DIY Tools'
+    'Toys'
   ];
   @override
   Widget build(BuildContext context) {
@@ -127,39 +104,39 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                     .toList(),
               ),
               const SizedBox(height: 20),
-              SearchChoices.single(
-                displayClearIcon: true,
-                hint: const Text('Select a category'),
-                value: _categories[0],
-                menuBackgroundColor: Colors.white,
-                icon: const Icon(Icons.arrow_drop_down),
-                underline: Container(
-                  height: 1,
-                  color: Colors.grey,
-                ),
-                isExpanded: true,
-                items: _categories
-                    .map((category) => DropdownMenuItem(
-                  value: category,
-                  child: Text(category),
-                )).toList(),
-                onChanged: (value) {
-                  _formKeyProduct.currentState?.fields['category']?.didChange(value);
-                },
-                selectedValueWidgetFn: (item) {
-                  return Text(item.toString());
-                },
-                dialogBox: true,
-                keyboardType: TextInputType.text,
-                searchHint: const Text('Search categories...'),
-                validator: (value) {
-                  if (value == null) {
-                    return 'Please select a category.';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 20),
+              // SearchChoices.single(
+              //   displayClearIcon: true,
+              //   hint: const Text('Select a category'),
+              //   value: _categories[0],
+              //   menuBackgroundColor: Colors.white,
+              //   icon: const Icon(Icons.arrow_drop_down),
+              //   underline: Container(
+              //     height: 1,
+              //     color: Colors.grey,
+              //   ),
+              //   isExpanded: true,
+              //   items: _categories
+              //       .map((category) => DropdownMenuItem(
+              //     value: category,
+              //     child: Text(category),
+              //   )).toList(),
+              //   onChanged: (value) {
+              //     _formKeyProduct.currentState?.fields['category']?.didChange(value);
+              //   },
+              //   selectedValueWidgetFn: (item) {
+              //     return Text(item.toString());
+              //   },
+              //   dialogBox: true,
+              //   keyboardType: TextInputType.text,
+              //   searchHint: const Text('Search categories...'),
+              //   validator: (value) {
+              //     if (value == null) {
+              //       return 'Please select a category.';
+              //     }
+              //     return null;
+              //   },
+              // ),
+              // const SizedBox(height: 20),
               // Purchase Rate Field
               FormBuilderTextField(
                 name: 'purchaseRate',
