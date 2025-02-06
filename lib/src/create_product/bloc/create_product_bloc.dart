@@ -1,5 +1,3 @@
-
-
 import 'package:bloc/bloc.dart';
 import 'package:project_bloc/src/create_product/bloc/create_product_event.dart';
 import 'package:project_bloc/src/create_product/bloc/create_product_state.dart';
