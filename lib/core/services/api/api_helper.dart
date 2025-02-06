@@ -121,7 +121,7 @@ class APIProvider {
     required String endPoint,
     required FormData formData,
   }) async {
-    try {
+
       String api = await locator<PrefHelper>().getBaseUrl() + endPoint;
 
       Dio dio = Dio(BaseOptions(
@@ -129,32 +129,26 @@ class APIProvider {
         receiveTimeout: const Duration(seconds: 30),
         sendTimeout: const Duration(seconds: 30),
       ));
+      Response? result;
+      try{
+        result = await dio.post(
+          api,
+          data: formData,
+        );
+        CustomLog.successLog(value: "RESPONSE=> ${result}");
+        debugPrint('----------result-----------');
+        debugPrint(result.data);
+      } on DioException catch (e) {
+        debugPrint('\n postDataToServer error message : ${e.message}');
+        debugPrint('\n postDataToServer error : ${e.error}');
+        debugPrint('-------------gdf-------');
+        Fluttertoast.showToast(msg: 'dfd');
+        debugPrint('\n postDataToServer error response : ${e.response}');
 
-      Response response = await dio.post(
-        api,
-        data: formData,
-      );
-      Fluttertoast.showToast(msg: 'API');
-      CustomLog.successLog(value: "API=> $api\nRESPONSE=> ${response.data}");
-      if (response.statusCode == 201 || response.statusCode == 200) {
-        return jsonEncode(response.data);
-      } else {
-        return jsonEncode(response.data);
       }
-    } on DioException catch (e) {
-      if (e.error is SocketException) {
-        return jsonEncode(APIConstants.errorNetworkMap);
-      } else if (e.type == DioExceptionType.connectionTimeout ||
-          e.type == DioExceptionType.receiveTimeout ||
-          e.type == DioExceptionType.sendTimeout) {
-        return jsonEncode(APIConstants.errorTimeoutMap);
-      } else {
-        debugPrint("Dio ERROR ${e.message}");
-        return jsonEncode(APIConstants.errorMap);
+      on SocketException catch (e) {
+        return Fluttertoast.showToast(msg: e.toString());
       }
-    } catch (e) {
-      debugPrint("API ERROR $e");
-      return jsonEncode(APIConstants.errorMap);
+      return result!;
     }
   }
-}

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/create_product_bloc.dart';
 import '../bloc/create_product_event.dart';
@@ -34,7 +33,6 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
           child: ListView(
             children: [
               const SizedBox(height: 20),
-              // Product Name Field
               FormBuilderTextField(
                 name: 'name',
                 autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -138,7 +136,24 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                 keyboardType: TextInputType.text,
               ),
               const SizedBox(height: 20),
+              FormBuilderTextField(
+                name: 'duration',
+                initialValue: 'Monthly',
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter quantity.';
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(
+                  labelText: 'Duration **',
+                  contentPadding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(6.0)),
+                ),
+              ),
               // From Date Picker
+              const SizedBox(height: 20),
               FormBuilderDateTimePicker(
                 name: 'fromDate',
                 initialValue: DateTime.now(),
