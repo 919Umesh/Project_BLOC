@@ -19,11 +19,10 @@ class CreateProductBloc extends Bloc<CreateProductEvent, CreateProductState> {
     try {
       final response = await _createProductRepository.createProduct(form: event.formData);
       if (response.statusCode == 200 || response.statusCode == 201) {
-        Fluttertoast.showToast(msg: 'Success');
-        emit( CreateProductSuccess(message: response.statusMessage!.toString()));
+        emit( CreateProductSuccess(message: response.statusCode!.toString()));
       } else {
         Fluttertoast.showToast(msg: 'Failure');
-        emit( CreateProductError(message: response.statusMessage!.toString()));
+        emit( CreateProductError(message: response.statusCode!.toString()));
       }
     } catch (e) {
       emit(CreateProductError(message: e.toString()));
