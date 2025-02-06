@@ -8,4 +8,5 @@ class AppRoute {
   static const String projectListScreenPath = "/ProjectListScreenPath";
   static const String searchProjectListScreenPath = "/SearchProjectListScreenPath";
   static const String accountGroupScreenPath = "/AccountGroupScreenPath";
+  static const String createProductScreenPath = "/CreateProductScreenPath";
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:project_bloc/src/create_project/ui/create_project_screen.dart';
+import '../../src/create_product/ui/create_product_screen.dart';
 import '../../src/login/ui/login_screen.dart';
 import '../../src/project_list/ui/project_list_screen.dart';
 import '../../src/search_project/ui/search_project_screen.dart';
@@ -26,6 +27,8 @@ class RouteGenerator {
         return _pageTransition(child: const ProjectSearchView());
       case AppRoute.accountGroupScreenPath:
         return _pageTransition(child: const AccountGroupScreen());
+      case AppRoute.createProductScreenPath:
+        return _pageTransition(child:  CreateProductScreen());
 
       default:
         return _pageTransition(
