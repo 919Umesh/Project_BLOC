@@ -82,27 +82,27 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                 keyboardType: TextInputType.number,
               ),
               const SizedBox(height: 20),
-              FormBuilderDropdown(
-                name: 'category',
-                decoration: InputDecoration(
-                  labelText: 'Category **',
-                  contentPadding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(6.0)),
-                ),
-                validator: (value) {
-                  if (value == null) {
-                    return 'Please select a category.';
-                  }
-                  return null;
-                },
-                items: _categories
-                    .map((category) => DropdownMenuItem(
-                  value: category,
-                  child: Text(category),
-                ))
-                    .toList(),
-              ),
-              const SizedBox(height: 20),
+              // FormBuilderDropdown(
+              //   name: 'category',
+              //   decoration: InputDecoration(
+              //     labelText: 'Category **',
+              //     contentPadding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8),
+              //     border: OutlineInputBorder(borderRadius: BorderRadius.circular(6.0)),
+              //   ),
+              //   validator: (value) {
+              //     if (value == null) {
+              //       return 'Please select a category.';
+              //     }
+              //     return null;
+              //   },
+              //   items: _categories
+              //       .map((category) => DropdownMenuItem(
+              //     value: category,
+              //     child: Text(category),
+              //   ))
+              //       .toList(),
+              // ),
+              // const SizedBox(height: 20),
               // SearchChoices.single(
               //   displayClearIcon: true,
               //   hint: const Text('Select a category'),

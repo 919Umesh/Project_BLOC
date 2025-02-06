@@ -33,7 +33,6 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
         return;
       }
 
-      // Finally, fetch from API
       final users = await UserListRepository.getUserList();
       await _saveUsers(users);
       _cachedUsers = users;
