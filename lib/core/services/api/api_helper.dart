@@ -135,7 +135,7 @@ class APIProvider {
           api,
           data: formData,
         );
-        CustomLog.successLog(value: "RESPONSE=> ${result}");
+        CustomLog.successLog(value: "RESPONSE=> $result");
         debugPrint('----------result-----------');
         debugPrint(result.data);
       } on DioException catch (e) {
