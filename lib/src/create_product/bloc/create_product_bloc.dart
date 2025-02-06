@@ -18,9 +18,9 @@ class CreateProductBloc extends Bloc<CreateProductEvent, CreateProductState> {
     try {
       final response = await _createProductRepository.createProduct(form: event.formData);
       if (response.statusCode == 200 || response.statusCode == 201) {
-        emit(const CreateProductSuccess(message: "Product created successfully"));
+        emit( CreateProductSuccess(message: response.statusMessage!.toString()));
       } else {
-        emit(const CreateProductError(message: "Failed to create product"));
+        emit( CreateProductError(message: response.statusMessage!.toString()));
       }
     } catch (e) {
       emit(CreateProductError(message: e.toString()));

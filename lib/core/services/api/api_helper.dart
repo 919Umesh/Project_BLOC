@@ -21,7 +21,6 @@ class APIProvider {
 
   APIProvider._internal();
 
-
   /// [ getAPI ] used to handle all [ GET ] api call
   Future getAPI({required String endPoint, String? authToken}) async {
     try {
@@ -47,7 +46,8 @@ class APIProvider {
         return response.data;
       } else {
         CustomLog.errorLog(value: response.data);
-        throw Exception("Failed to fetch data. Status Code: ${response.statusCode}");
+        throw Exception(
+            "Failed to fetch data. Status Code: ${response.statusCode}");
       }
     }
     //
@@ -134,7 +134,7 @@ class APIProvider {
         api,
         data: formData,
       );
-
+      Fluttertoast.showToast(msg: 'API');
       CustomLog.successLog(value: "API=> $api\nRESPONSE=> ${response.data}");
       if (response.statusCode == 201 || response.statusCode == 200) {
         return jsonEncode(response.data);
