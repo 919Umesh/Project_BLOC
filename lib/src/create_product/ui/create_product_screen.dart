@@ -18,11 +18,10 @@ class CreateProductScreen extends StatefulWidget {
 }
 
 class _CreateProductScreenState extends State<CreateProductScreen> {
-  final _formKey = GlobalKey<FormBuilderState>();
+  final _formKeyProduct = GlobalKey<FormBuilderState>();
 
   File? _imageFile;
 
-  // Build FormData for the API request
   d.FormData _buildFormData(Map<String, dynamic> fields) {
     return d.FormData.fromMap({
       "productName": fields['name'],
@@ -37,14 +36,13 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
     });
   }
 
-  // Pick an image from the gallery or camera
   Future<void> _pickImage(BuildContext context, ImageSource source) async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: source);
     if (pickedFile != null) {
       _imageFile = File(pickedFile.path);
       BlocProvider.of<CreateProductBloc>(context).add(
-        CreateProductRequested(formData: _buildFormData(_formKey.currentState?.fields.map((key, value) => MapEntry(key, value.value)) ?? {})),
+        CreateProductRequested(formData: _buildFormData(_formKeyProduct.currentState?.fields.map((key, value) => MapEntry(key, value.value)) ?? {})),
       );
     }
   }
@@ -58,12 +56,11 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: FormBuilder(
-          key: _formKey,
+          key: _formKeyProduct,
           child: ListView(
             children: [
               const SizedBox(height: 20),
 
-              // Product Name Field
               FormBuilderTextField(
                 name: 'name',
                 autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -282,8 +279,8 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                   }
                   return ElevatedButton(
                     onPressed: () {
-                      if (_formKey.currentState?.saveAndValidate() ?? false) {
-                        final formData = _buildFormData(_formKey.currentState!.value);
+                      if (_formKeyProduct.currentState?.saveAndValidate() ?? false) {
+                        final formData = _buildFormData(_formKeyProduct.currentState!.value);
                         context.read<CreateProductBloc>().add(CreateProductRequested(formData: formData));
                       }
                     },
