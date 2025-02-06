@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:project_bloc/src/create_product/bloc/create_product_event.dart';
 import 'package:project_bloc/src/create_product/bloc/create_product_state.dart';
 import '../repository/create_product_repo.dart';
@@ -18,8 +19,10 @@ class CreateProductBloc extends Bloc<CreateProductEvent, CreateProductState> {
     try {
       final response = await _createProductRepository.createProduct(form: event.formData);
       if (response.statusCode == 200 || response.statusCode == 201) {
+        Fluttertoast.showToast(msg: 'Success');
         emit( CreateProductSuccess(message: response.statusMessage!.toString()));
       } else {
+        Fluttertoast.showToast(msg: 'Failure');
         emit( CreateProductError(message: response.statusMessage!.toString()));
       }
     } catch (e) {
