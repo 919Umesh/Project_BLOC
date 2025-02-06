@@ -36,7 +36,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
               const SizedBox(height: 20),
               // Product Name Field
               FormBuilderTextField(
-                name: 'productName',
+                name: 'name',
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 initialValue: 'Product Alpha',
                 validator: (value) {
