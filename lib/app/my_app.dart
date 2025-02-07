@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
             ),
             useMaterial3: true,
           ),
-          initialRoute: AppRoute.createProductScreenPath,
+          initialRoute: AppRoute.loginScreenPath,
           onGenerateRoute: RouteGenerator.generateRoute,
         ),
       ),
