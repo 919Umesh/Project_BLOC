@@ -28,3 +28,4 @@ class CreateProductError extends CreateProductState {
   @override
   List<Object> get props => [message];
 }
+
