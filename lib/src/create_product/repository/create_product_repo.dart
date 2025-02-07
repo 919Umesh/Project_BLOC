@@ -9,3 +9,5 @@ class CreateProductRepository {
     return response;
   }
 }
+
+final CreateProductRepository createProductRepository = CreateProductRepository();

@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => LoginBloc(loginRepository: LoginRepository()),),
         BlocProvider(create: (context) => ProjectListBloc()),
         BlocProvider(create: (context) => SearchBloc()),
-        BlocProvider(create: (context) => CreateProductBloc(createProductRepository:CreateProductRepository())),
+        BlocProvider(create: (context) => CreateProductBloc()),
       ],
       child: OKToast(
         child: MaterialApp(

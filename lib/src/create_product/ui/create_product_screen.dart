@@ -5,6 +5,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../core/extensions/image_picker.dart';
 import '../bloc/create_product_bloc.dart';
 import '../bloc/create_product_event.dart';
 import '../bloc/create_product_state.dart';
@@ -260,24 +261,12 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10),
-                  GestureDetector(
-                    onTap: () {
-                      showModalBottomSheet(
-                        context: context,
-                        builder: (context) => _buildImagePickerBottomSheet(context),
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(top: Radius.circular(50.0)),
-                        ),
-                      );
+                  ImagePickerWidget(
+                    onImageSelected: (file) {
+                      setState(() {
+                        _imageFile = file;
+                      });
                     },
-                    child: CircleAvatar(
-                      radius: 50.0,
-                      backgroundColor: Colors.grey.shade300,
-                      backgroundImage: _imageFile != null ? FileImage(_imageFile!) : null,
-                      child: _imageFile == null
-                          ? const Icon(Icons.camera_alt, size: 40, color: Colors.white)
-                          : null,
-                    ),
                   ),
                   const SizedBox(height: 10),
                   const Text(
