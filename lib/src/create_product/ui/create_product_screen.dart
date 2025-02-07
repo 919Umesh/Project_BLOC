@@ -3,7 +3,6 @@ import 'package:dio/dio.dart' as d;
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/extensions/image_picker.dart';
 import '../bloc/create_product_bloc.dart';
@@ -21,15 +20,15 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
   final _formKeyProduct = GlobalKey<FormBuilderState>();
 
   File? _imageFile;
-  final List<String> _categories = [
-    'Electronics',
-    'Clothing',
-    'Books',
-    'Food',
-    'Other',
-    'Furniture',
-    'Toys'
-  ];
+  // final List<String> _categories = [
+  //   'Electronics',
+  //   'Clothing',
+  //   'Books',
+  //   'Food',
+  //   'Other',
+  //   'Furniture',
+  //   'Toys'
+  // ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
