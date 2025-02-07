@@ -40,7 +40,6 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
     }
   }
 
-  //Save on the local db
   Future<void> _saveUsers(List<UserModel> users) async {
     await UserListDatabase.instance.deleteData();
     for (var user in users) {
@@ -48,7 +47,6 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
     }
   }
 
-  //Fetch user name from the local database
   Future<void> _onUserNameList(UserNameRequested event, Emitter<UserListState> emit) async {
     try {
       emit(UserListLoading());
