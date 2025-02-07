@@ -296,7 +296,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                           ..._formKeyProduct.currentState!.value,
                           if (_imageFile != null) 'productImage': await d.MultipartFile.fromFile(_imageFile!.path),
                         });
-                        context.read<CreateProductBloc>().add(CreateProductRequested(formData: formData));
+                        BlocProvider.of<CreateProductBloc>(context,listen: false).add(CreateProductRequested(formData: formData));
                       }
                     },
                     child: const Text('Create Product'),
