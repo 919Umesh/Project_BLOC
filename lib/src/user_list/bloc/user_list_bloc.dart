@@ -20,19 +20,16 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
   Future<void> _onLoadUsers(LoadUsersRequested event, Emitter<UserListState> emit) async {
     try {
       emit(UserListLoading());
-
       if (_cachedUsers.isNotEmpty) {
         emit(UserListLoadSuccess(users: _cachedUsers));
         return;
       }
-
       final localUsers = await UserListDatabase.instance.getDataList();
       if (localUsers.isNotEmpty) {
         _cachedUsers = localUsers;
         emit(UserListLoadSuccess(users: localUsers));
         return;
       }
-
       final users = await UserListRepository.getUserList();
       await _saveUsers(users);
       _cachedUsers = users;
