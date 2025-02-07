@@ -154,12 +154,6 @@ class _UserListScreenState extends State<UserListScreen> {
           }
         },
         child: BlocBuilder<UserListBloc, UserListState>(
-          buildWhen: (previous, current) {
-            // Rebuild only when the state changes to relevant states
-            return current is UserListLoading ||
-                current is UserListLoadSuccess ||
-                current is UserListLoadError;
-          },
           builder: (context, state) {
             if (state is UserListLoading) {
               // Show a loading indicator while data is being fetched

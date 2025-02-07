@@ -1,70 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:icons_plus/icons_plus.dart';
-import 'package:project_bloc/core/core.dart';
-import 'package:project_bloc/src/user_list/model/user_list_model.dart';
-import '../bloc/user_list_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:meta/meta.dart';
+import 'package:project_bloc/src/user_list/bloc/user_list_bloc.dart';
 
-class AccountGroupScreen extends StatefulWidget {
-  const AccountGroupScreen({super.key});
+class ProductScreen extends StatefulWidget {
+  const ProductScreen({super.key});
 
   @override
-  State<AccountGroupScreen> createState() => _AccountGroupScreenState();
+  State<ProductScreen> createState() => _ProductScreenState();
 }
 
-class _AccountGroupScreenState extends State<AccountGroupScreen> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<UserListBloc>().add(UserNameRequested());
-    });
-  }
-
+class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<UserListBloc, UserListState>(
-        listener: (BuildContext context, state) {
-      if (state is UserNameLoadSuccess) {}
-      if (state is UserListLoadError) {
-      } else {}
-    }, builder: (BuildContext context, state) {
-      return Scaffold(
-        appBar: AppBar(
-          title: const Text('User Name'),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(Bootstrap.indent))
-          ],
-        ),
-        body: BlocBuilder<UserListBloc, UserListState>(
-          buildWhen: (previous, current) {
-            return previous != current;
-          },
-          builder: (BuildContext context, state) {
-            if (state is UserListLoading) {
-              return LoadingScreen().show();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Product List'),
+      ),
+      body: BlocListener<UserListBloc,UserListState>(
+        listener: (context,state){
+          if(state is UserListLoadError){
+            Fluttertoast.showToast(msg: state.errorMessage);
+          }
+        },
+        child: BlocBuilder<UserListBloc,UserListState>(
+          builder: (context,state){
+            if(state is UserListLoading){
+              const Center(child: CircularProgressIndicator(),);
             }
-            if (state is UserNameLoadSuccess) {
-              return ListView.builder(
-                itemCount: state.userList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  UserModel users = state.userList[index];
-                  return ListTile(
-                    title: Text(users.name),
-                  );
-                },
+            if(state is UserListLoadSuccess){
+              if(state.users.isEmpty){
+                Center(child: Text('No Product found'),);
+              }
+              return Card(
+                elevation: 3.0,
+                color: Colors.red,
+                child: ListTile(
+                  title: Text(''),
+                  subtitle: Text(''),
+                  leading: Icon(Icons.add),
+                ),
               );
             }
-            return const Center(
-              child: Text('No Data found'),
-            );
           },
         ),
-      );
-    });
+      ),
+    );
   }
 }
