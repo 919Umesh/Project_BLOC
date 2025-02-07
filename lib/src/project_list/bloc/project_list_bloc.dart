@@ -19,7 +19,6 @@ class ProjectListBloc extends Bloc<ProjectListEvent, ProjectListState> {
       final projects = await ProjectListRepository.getProjectList(status: event.status);
       emit(ProjectListLoadSuccess(projects: projects));
     } catch (e) {
-      debugPrint("$e");
       emit(ProjectListLoadError(errorMessage: e.toString()));
     }
   }
