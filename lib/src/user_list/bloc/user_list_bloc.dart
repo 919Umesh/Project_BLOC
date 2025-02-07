@@ -51,6 +51,7 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
     }
   }
 
+  //Fetch user name from the local database
   Future<void> _onUserNameList(UserNameRequested event, Emitter<UserListState> emit) async {
     try {
       emit(UserListLoading());
