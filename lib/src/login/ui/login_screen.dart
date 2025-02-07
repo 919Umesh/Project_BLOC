@@ -35,6 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
             SnackBar(content: Text(state.message)),
           );
           locator<PrefHelper>().setIsLogin(true);
+          locator<SecureStorageHelper>().setIsLogin(true);
           Navigator.of(context).pushNamedAndRemoveUntil(
             AppRoute.projectListScreenPath,
             (route) => false,
