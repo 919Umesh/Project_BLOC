@@ -39,9 +39,6 @@ class _LoginScreenState extends State<LoginScreen> {
           Navigator.of(context).pushNamedAndRemoveUntil(
             AppRoute.projectListScreenPath,
             (route) => false,
-            arguments: {
-              "code":state.token
-            }
           );
         }
         if (state is LoginError) {
