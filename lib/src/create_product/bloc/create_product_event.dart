@@ -17,23 +17,3 @@ class CreateProductRequested extends CreateProductEvent {
   List<Object> get props => [formData];
 }
 
-
-//
-// import 'package:equatable/equatable.dart';
-//
-// abstract class CreateProductEvent extends Equatable {
-//   const CreateProductEvent();
-//
-//   @override
-//   List<Object> get props => [];
-// }
-//
-// class CreateProductRequested extends CreateProductEvent {
-//   final String email;
-//   final String password;
-//
-//   const CreateProductRequested({required this.email, required this.password});
-//
-//   @override
-//   List<Object> get props => [email, password];
-// }
