@@ -2,16 +2,15 @@ import '../../../../core/core.dart';
 import '../model/product_list_model.dart';
 
 class ProductListRepository {
-  static Future<List<ProductModel>> getProjectList(
-      {required String status}) async {
+  static Future<List<ProductModel>> getProductList() async {
     try {
-      String api = "/project/get?status=$status";
+      String api = "/product/get";
       var response = await apiProvider.getAPI(endPoint: api);
-      ProductResponseModel projectResponse = ProductResponseModel.fromJson(response);
-      if (projectResponse.status == 200) {
-        return projectResponse.projects;
+      ProductResponseModel productResponse = ProductResponseModel.fromJson(response);
+      if (productResponse.status == 200) {
+        return productResponse.products;
       } else {
-        throw Exception(projectResponse.message);
+        throw Exception(productResponse.message);
       }
     } catch (e) {
       throw Exception(e.toString());
