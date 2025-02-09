@@ -24,31 +24,111 @@ class _ProductListScreenState extends State<ProductListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
+      backgroundColor: Colors.grey[100],
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
           Navigator.pushNamed(context, AppRoute.createProductScreenPath);
         },
-        child: const Icon(Icons.add),
+        icon: const Icon(Icons.add),
+        label: const Text('Add Product'),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       appBar: AppBar(
-        title: const Text('Product List'),
+        title: const Text(
+          'Product Catalog',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
         elevation: 0,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black87,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              // Search functionality can be added here
+            },
+          ),
+        ],
       ),
       body: BlocBuilder<ProductListBloc, ProductListState>(
         builder: (context, state) {
           if (state is ProductListLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const CircularProgressIndicator(),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Loading Products...',
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
             );
           } else if (state is ProductListFailure) {
             return Center(
-              child: Text(state.errorMessage),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.error_outline,
+                    color: Colors.red,
+                    size: 60,
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    state.errorMessage,
+                    style: const TextStyle(
+                      color: Colors.red,
+                      fontSize: 16,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () {
+                      context.read<ProductListBloc>().add(const ProductListRequested());
+                    },
+                    child: const Text('Retry'),
+                  ),
+                ],
+              ),
             );
           } else if (state is ProductListSuccess) {
             if (state.products.isEmpty) {
-              return const Center(
-                child: Text("No products available."),
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.inventory_2_outlined,
+                      size: 80,
+                      color: Colors.grey[400],
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'No products available',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.grey[600],
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Add your first product using the button below',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[500],
+                      ),
+                    ),
+                  ],
+                ),
               );
             }
             return ListView.builder(
@@ -56,66 +136,152 @@ class _ProductListScreenState extends State<ProductListScreen> {
               itemCount: state.products.length,
               itemBuilder: (context, index) {
                 final product = state.products[index];
-                return InkWell(
-                  onTap: (){
-                    Fluttertoast.showToast(msg: product.name);
-                  },
-                  child: Card(
-                    elevation: 4,
-                    margin: const EdgeInsets.symmetric(vertical: 8.0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: CachedNetworkImage(
-                              imageUrl: product.productImage,
-                              placeholder: (context, url) =>
-                              const CircularProgressIndicator(),
-                              errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
-                              width: 80,
-                              height: 80,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          // Product Details
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  product.name,
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
+                return Container(
+                  margin: const EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.1),
+                        spreadRadius: 1,
+                        blurRadius: 10,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(16),
+                      onTap: () {
+                        Fluttertoast.showToast(
+                          msg: product.name,
+                          backgroundColor: Colors.black87,
+                          textColor: Colors.white,
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Hero(
+                              tag: 'product-${product.productImage}',
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: CachedNetworkImage(
+                                  imageUrl: product.productImage,
+                                  placeholder: (context, url) => Container(
+                                    width: 100,
+                                    height: 100,
+                                    color: Colors.grey[200],
+                                    child: const Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
                                   ),
+                                  errorWidget: (context, url, error) => Container(
+                                    width: 100,
+                                    height: 100,
+                                    color: Colors.grey[200],
+                                    child: const Icon(
+                                      Icons.error_outline,
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                  width: 100,
+                                  height: 100,
+                                  fit: BoxFit.cover,
                                 ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  'Quantity: ${product.quantity} ${product.unit}',
-                                  style: const TextStyle(fontSize: 14),
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  'Sales Rate: \$${product.salesRate}',
-                                  style: const TextStyle(fontSize: 14),
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  'Duration: ${product.duration}',
-                                  style: const TextStyle(fontSize: 14),
-                                ),
-                              ],
+                              ),
                             ),
-                          ),
-                        ],
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    product.name,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black87,
+                                      fontFamily: 'inter',
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.inventory_2_outlined,
+                                        size: 16,
+                                        color: Colors.grey,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        '${product.quantity} ${product.unit}',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.grey[600],
+                                          fontFamily: 'inter',
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.attach_money,
+                                        size: 16,
+                                        color: Colors.grey,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        '\$${product.salesRate}',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                          color: Theme.of(context).primaryColor,
+                                          fontFamily: 'inter',
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.timer_outlined,
+                                        size: 16,
+                                        color: Colors.grey,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        product.duration,
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.grey[600],
+                                          fontFamily: 'inter',
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            IconButton(
+                              icon: const Icon(
+                                Icons.arrow_forward_ios,
+                                size: 16,
+                                color: Colors.grey,
+                              ),
+                              onPressed: () {
+                                Fluttertoast.showToast(msg: product.name);
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -123,8 +289,25 @@ class _ProductListScreenState extends State<ProductListScreen> {
               },
             );
           }
-          return const Center(
-            child: Text("Some error occurred"),
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.error_outline,
+                  size: 60,
+                  color: Colors.grey[400],
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'Something went wrong',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.grey[600],
+                  ),
+                ),
+              ],
+            ),
           );
         },
       ),

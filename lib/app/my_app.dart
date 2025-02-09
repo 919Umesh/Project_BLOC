@@ -4,7 +4,6 @@ import 'package:oktoast/oktoast.dart';
 import 'package:project_bloc/src/login/repository/login_repository.dart';
 import 'package:project_bloc/src/user_list/bloc/user_list_bloc.dart';
 import '../src/create_product/bloc/create_product_bloc.dart';
-import '../src/create_product/repository/create_product_repo.dart';
 import '../src/create_project/bloc/create_project_bloc.dart';
 import '../src/create_project/repository/create_project_repo.dart';
 import '../src/login/bloc/login_bloc.dart';
