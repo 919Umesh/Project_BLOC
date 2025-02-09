@@ -1,6 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-//This for storing the secure data types like the username and password
+
 class SecureStorageHelper {
   static final SecureStorageHelper instance = SecureStorageHelper._internal();
   final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
