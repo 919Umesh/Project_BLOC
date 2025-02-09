@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
             ),
             useMaterial3: true,
           ),
-          initialRoute: AppRoute.loginScreenPath,
+          initialRoute: AppRoute.productListScreenPath,
           onGenerateRoute: RouteGenerator.generateRoute,
         ),
       ),
