@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:project_bloc/src/product_list/bloc/product_list_bloc.dart';
 import 'package:project_bloc/src/product_list/bloc/product_list_state.dart';
+import '../../../app/routes/route_name.dart';
 import '../bloc/product_list_event.dart';
 
 class ProductListScreen extends StatefulWidget {
@@ -23,6 +24,12 @@ class _ProductListScreenState extends State<ProductListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          Navigator.pushNamed(context, AppRoute.createProductScreenPath);
+        },
+        child: const Icon(Icons.add),
+      ),
       appBar: AppBar(
         title: const Text('Product List'),
         centerTitle: true,
@@ -117,7 +124,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
               },
             );
           }
-
           return const Center(
             child: Text("Some error occurred"),
           );
