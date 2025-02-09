@@ -1,12 +1,10 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-
 class SecureStorageHelper {
   static final SecureStorageHelper instance = SecureStorageHelper._internal();
   final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
 
   SecureStorageHelper._internal();
-
 
   Future<void> clearAll() async {
     await _secureStorage.deleteAll();
