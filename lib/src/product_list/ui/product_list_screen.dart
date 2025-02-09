@@ -5,7 +5,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:project_bloc/src/product_list/bloc/product_list_bloc.dart';
 import 'package:project_bloc/src/product_list/bloc/product_list_state.dart';
 import '../bloc/product_list_event.dart';
-import '../model/product_list_model.dart';
 
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({super.key});
@@ -118,9 +117,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
               },
             );
           }
-          // Default case (initial state).
+
           return const Center(
-            child: Text("Loading..."),
+            child: Text("Some error occurred"),
           );
         },
       ),
