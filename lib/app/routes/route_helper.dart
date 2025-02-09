@@ -3,6 +3,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:project_bloc/src/create_project/ui/create_project_screen.dart';
 import '../../src/create_product/ui/create_product_screen.dart';
 import '../../src/login/ui/login_screen.dart';
+import '../../src/product_list/ui/product_list_screen.dart';
 import '../../src/project_list/ui/project_list_screen.dart';
 import '../../src/search_project/ui/search_project_screen.dart';
 import '../../src/splash/splash.dart';
@@ -25,7 +26,9 @@ class RouteGenerator {
       case AppRoute.searchProjectListScreenPath:
         return _pageTransition(child: const ProjectSearchView());
       case AppRoute.createProductScreenPath:
-        return _pageTransition(child:  const CreateProductScreen());
+        return _pageTransition(child: const CreateProductScreen());
+      case AppRoute.productListScreenPath:
+        return _pageTransition(child:  ProductListScreen());
 
       default:
         return _pageTransition(

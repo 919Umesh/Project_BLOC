@@ -8,6 +8,7 @@ import '../src/create_product/repository/create_product_repo.dart';
 import '../src/create_project/bloc/create_project_bloc.dart';
 import '../src/create_project/repository/create_project_repo.dart';
 import '../src/login/bloc/login_bloc.dart';
+import '../src/product_list/bloc/product_list_bloc.dart';
 import '../src/project_list/bloc/project_list_bloc.dart';
 import '../src/search_project/bloc/search_project_bloc.dart';
 import '../src/splash/splash.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ProjectListBloc()),
         BlocProvider(create: (context) => SearchBloc()),
         BlocProvider(create: (context) => CreateProductBloc()),
+        BlocProvider(create: (context) => ProductListBloc()),
       ],
       child: OKToast(
         child: MaterialApp(

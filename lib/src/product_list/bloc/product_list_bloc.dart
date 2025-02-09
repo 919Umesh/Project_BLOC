@@ -9,8 +9,7 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
     on<ProductListRequested>(_fetchProductList);
   }
 
-  Future<void> _fetchProductList(
-      ProductListRequested event, Emitter emit) async {
+  Future<void> _fetchProductList(ProductListRequested event, Emitter emit) async {
     emit(ProductListLoading());
     try {
       final products = await ProductListRepository.getProductList();
