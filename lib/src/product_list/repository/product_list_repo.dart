@@ -7,11 +7,7 @@ class ProductListRepository {
       String api = "/product/get";
       var response = await apiProvider.getAPI(endPoint: api);
       ProductResponseModel productResponse = ProductResponseModel.fromJson(response);
-      if (productResponse.status == 200) {
-        return productResponse.products;
-      } else {
-        throw Exception(productResponse.message);
-      }
+      return productResponse.products;
     } catch (e) {
       throw Exception(e.toString());
     }
