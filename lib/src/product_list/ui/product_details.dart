@@ -1,23 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:icons_plus/icons_plus.dart';
+import 'package:project_bloc/app/app.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   final String name;
   final String salesRate;
   final String productImage;
-  const ProductDetailScreen({super.key,required this.name,required this.salesRate,required this.productImage});
+
+  const ProductDetailScreen(
+      {super.key,
+      required this.name,
+      required this.salesRate,
+      required this.productImage});
 
   @override
   State<ProductDetailScreen> createState() => _ProductDetailScreenState();
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
-
   @override
   Widget build(BuildContext context) {
     Fluttertoast.showToast(msg: widget.name);
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Fluttertoast.showToast(msg: 'Product Added');
+        },
+        icon: const Icon(Bootstrap.person_add,color: Colors.white,),
+        label: const Text('Add Product',style: TextStyle(fontFamily: 'inter',color: Colors.white),),
+        backgroundColor: kPrimaryColor,
+      ),
       appBar: AppBar(
         title: Text(widget.name),
       ),

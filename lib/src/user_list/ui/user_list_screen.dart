@@ -128,6 +128,7 @@ class _UserListScreenState extends State<UserListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(onPressed: (){},icon: Icon(Bootstrap.house_add), label: Text('Add Product')),
       appBar: AppBar(
         title: const Text("Users"),
         actions: [

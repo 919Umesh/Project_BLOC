@@ -14,11 +14,13 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
   Future<void> _fetchProductList(ProductListRequested event, Emitter emit) async {
     emit(ProductListLoading());
     try {
-
       final products = await ProductListRepository.getProductList();
       emit(ProductListSuccess(products: products));
     } catch (e) {
-
+      Fluttertoast.showToast(
+        msg: "Failed to load products. Please try again.",
+        toastLength: Toast.LENGTH_SHORT,
+      );
       emit(ProductListFailure(errorMessage: e.toString()));
     }
   }

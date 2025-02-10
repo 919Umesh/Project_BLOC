@@ -8,8 +8,6 @@ import 'package:project_bloc/src/product_list/bloc/product_list_state.dart';
 import 'package:project_bloc/src/product_list/ui/product_details.dart';
 import '../../../app/routes/route_name.dart';
 import '../bloc/product_list_event.dart';
-import 'conifei.dart';
-import 'curve_animation.dart';
 
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({super.key});
@@ -25,7 +23,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
     context.read<ProductListBloc>().add(const ProductListRequested());
   }
 
-  bool _isExpanded = false;
+  final bool _isExpanded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -333,3 +331,4 @@ class _ProductListScreenState extends State<ProductListScreen> {
     );
   }
 }
+
