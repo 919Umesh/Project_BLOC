@@ -21,6 +21,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
   int _currentPage = 1;
   static const int _itemsPerPage = 10;
 
+  bool get wantKeepAlive => true; // Keep the state alive
+
   @override
   void initState() {
     super.initState();
@@ -173,7 +175,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
           borderRadius: BorderRadius.circular(4),
           child: CachedNetworkImage(
             imageUrl: product.productImage,
-            placeholder: (context, url) => const SizedBox(
+              memCacheWidth: 200,
+              memCacheHeight: 200,
+              maxWidthDiskCache: 400,
+              maxHeightDiskCache: 400,
+              placeholder: (context, url) => const SizedBox(
               width: 50,
               height: 50,
               child: Center(child: CircularProgressIndicator()),
