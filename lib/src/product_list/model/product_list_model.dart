@@ -3,11 +3,13 @@ class ProductResponseModel {
     required this.status,
     required this.message,
     required this.products,
+    required this.pagination,
   });
 
   final int status;
   final String message;
   final List<ProductModel> products;
+  Pagination pagination;
 
   factory ProductResponseModel.fromJson(Map<String, dynamic> json) {
     return ProductResponseModel(
@@ -18,6 +20,7 @@ class ProductResponseModel {
           : List<ProductModel>.from(
         json["products"]!.map((x) => ProductModel.fromJson(x)),
       ),
+      pagination: Pagination.fromJson(json['pagination']),
     );
   }
 
@@ -26,6 +29,28 @@ class ProductResponseModel {
     "message": message,
     "products": products.map((x) => x.toJson()).toList(),
   };
+}
+class Pagination {
+  int currentPage;
+  int totalPages;
+  int totalItems;
+  int itemsPerPage;
+
+  Pagination({
+    required this.currentPage,
+    required this.totalPages,
+    required this.totalItems,
+    required this.itemsPerPage,
+  });
+
+  factory Pagination.fromJson(Map<String, dynamic> json) {
+    return Pagination(
+      currentPage: json['currentPage'],
+      totalPages: json['totalPages'],
+      totalItems: json['totalItems'],
+      itemsPerPage: json['itemsPerPage'],
+    );
+  }
 }
 
 class ProductModel {

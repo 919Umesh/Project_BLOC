@@ -55,7 +55,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Fluttertoast.showToast(msg: 'dfgbfd');
+    Fluttertoast.showToast(msg: 'Rebuild');
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(

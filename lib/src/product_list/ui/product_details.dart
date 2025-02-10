@@ -22,14 +22,19 @@ class ProductDetailScreen extends StatefulWidget {
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   @override
   Widget build(BuildContext context) {
-    Fluttertoast.showToast(msg: widget.name);
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           Fluttertoast.showToast(msg: 'Product Added');
         },
-        icon: const Icon(Bootstrap.person_add,color: Colors.white,),
-        label: const Text('Add Product',style: TextStyle(fontFamily: 'inter',color: Colors.white),),
+        icon: const Icon(
+          Bootstrap.person_add,
+          color: Colors.white,
+        ),
+        label: const Text(
+          'Add Product',
+          style: TextStyle(fontFamily: 'inter', color: Colors.white),
+        ),
         backgroundColor: kPrimaryColor,
       ),
       appBar: AppBar(
