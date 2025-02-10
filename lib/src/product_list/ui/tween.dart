@@ -17,32 +17,31 @@ class _TweenAnimationExampleState extends State<TweenAnimationExample>
   void initState() {
     super.initState();
 
-    // Step 1: Create an AnimationController
+
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 2),
     );
 
-    // Step 2: Define a Tween to interpolate between 50.0 and 200.0
+
     _animation = Tween<double>(begin: 50.0, end: 200.0).animate(_controller)
       ..addListener(() {
-        setState(() {}); // Rebuild the widget when the animation value changes
+        setState(() {});
       })
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
-          _controller.reverse(); // Reverse the animation when it completes
+          _controller.reverse();
         } else if (status == AnimationStatus.dismissed) {
-          _controller.forward(); // Restart the animation when it finishes reversing
+          _controller.forward();
         }
       });
 
-    // Step 3: Start the animation
     _controller.forward();
   }
 
   @override
   void dispose() {
-    _controller.dispose(); // Dispose the controller to free resources
+    _controller.dispose();
     super.dispose();
   }
 
@@ -54,8 +53,8 @@ class _TweenAnimationExampleState extends State<TweenAnimationExample>
       ),
       body: Center(
         child: Container(
-          width: _animation.value, // Use the animated value for the width
-          height: _animation.value, // Use the animated value for the height
+          width: _animation.value,
+          height: _animation.value,
           decoration: BoxDecoration(
             color: Colors.blue,
             borderRadius: BorderRadius.circular(16),
