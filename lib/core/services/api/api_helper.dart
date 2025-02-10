@@ -21,7 +21,7 @@ class APIProvider {
   APIProvider._internal();
 
   /// [ getAPI ] used to handle all [ GET ] api call
-  Future getAPI({required String endPoint, String? authToken}) async {
+  Future getAPI({required String endPoint,Map<String, dynamic>? queryParams, String? authToken}) async {
     try {
       String api = await locator<PrefHelper>().getBaseUrl() + endPoint;
       var headers = {
@@ -36,7 +36,7 @@ class APIProvider {
         sendTimeout: const Duration(seconds: 20),
       ));
 
-      Response response = await dio.get(api);
+      Response response = await dio.get(api, queryParameters: queryParams,);
 
       CustomLog.successLog(value: "API=> $api\nRESPONSE=> ${response.data}");
 
