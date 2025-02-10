@@ -11,7 +11,6 @@ import 'package:project_bloc/core/services/sharepref/share_pref.dart';
 
 final apiProvider = locator<APIProvider>();
 
-//Using the standard dio methods as base repository
 class APIProvider {
   static final APIProvider _instance = APIProvider._internal();
 
