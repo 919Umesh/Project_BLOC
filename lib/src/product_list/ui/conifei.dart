@@ -32,7 +32,7 @@ class _ConfettiScreenState extends State<ConfettiScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Confetti Animation Example'),
+        title: const Text('Confetti Animation'),
       ),
       body: Stack(
         children: [

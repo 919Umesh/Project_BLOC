@@ -28,7 +28,7 @@ class _CurvedAnimationExampleState extends State<CurvedAnimationExample>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('CurvedAnimation Example'),
+        title: const Text('CurvedAnimation'),
       ),
       body: Center(
         child: AnimatedBuilder(
