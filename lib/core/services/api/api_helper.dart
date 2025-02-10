@@ -42,7 +42,8 @@ class APIProvider {
       CustomLog.successLog(value: "API=> $api\nRESPONSE=> ${response.data}");
 
       if (response.statusCode == 200) {
-        Fluttertoast.showToast(msg:response.statusCode.toString());
+        Fluttertoast.showToast(msg:response.statusMessage.toString());
+        CustomLog.successLog(value: "RESPONSE=> ${response.data}");
         return response.data;
       } else {
         CustomLog.errorLog(value: response.data);
@@ -122,7 +123,6 @@ class APIProvider {
   }) async {
 
       String api = await locator<PrefHelper>().getBaseUrl() + endPoint;
-
       Dio dio = Dio(BaseOptions(
         connectTimeout: const Duration(seconds: 30),
         receiveTimeout: const Duration(seconds: 30),
@@ -136,7 +136,7 @@ class APIProvider {
         );
         CustomLog.successLog(value: "RESPONSE=> $result");
         debugPrint('----------result-----------');
-        debugPrint(result.data);
+        CustomLog.successLog(value: "RESPONSE=> ${result.data}");
       } on DioException catch (e) {
         debugPrint('\n postDataToServer error message : ${e.message}');
         debugPrint('\n postDataToServer error : ${e.error}');
