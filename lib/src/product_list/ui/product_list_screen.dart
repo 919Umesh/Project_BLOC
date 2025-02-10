@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:project_bloc/src/product_list/bloc/product_list_bloc.dart';
 import 'package:project_bloc/src/product_list/bloc/product_list_state.dart';
 import 'package:project_bloc/src/product_list/ui/product_details.dart';
@@ -49,31 +50,14 @@ class _ProductListScreenState extends State<ProductListScreen> {
           'Product Catalog',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        centerTitle: true,
+        centerTitle: false,
         elevation: 0,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black87,
         actions: [
-          IconButton(
-            icon: Icon(_isExpanded ? Icons.close : Icons.search),
-            onPressed: () => setState(() => _isExpanded = !_isExpanded),
-          ),
-          IconButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                      builder: (context) => const CurvedAnimationExample()),
-                );
-              },
-              icon:const Icon(Icons.add)),
-          IconButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                      builder: (context) => const ConfettiScreen()),
-                );
-              },
-              icon:const Icon(Icons.explore)),
+          IconButton(onPressed: (){}, icon: const Icon(Bootstrap.person_add)),
+          IconButton(onPressed: (){}, icon: const Icon(Bootstrap.house_add)),
+          const SizedBox(width: 5,),
         ],
       ),
       body: BlocBuilder<ProductListBloc, ProductListState>(
@@ -159,7 +143,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
               );
             }
             return ListView.builder(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(5.0),
               itemCount: state.products.length,
               itemBuilder: (context, index) {
                 final product = state.products[index];
@@ -167,10 +151,10 @@ class _ProductListScreenState extends State<ProductListScreen> {
                   height: _isExpanded ? 200 : 150,
                   width: _isExpanded ? 200 : 150,
                   duration: const Duration(milliseconds: 500),
-                  margin: const EdgeInsets.only(bottom: 16),
+                  margin: const EdgeInsets.only(bottom: 5),
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(10),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.1),
@@ -187,22 +171,23 @@ class _ProductListScreenState extends State<ProductListScreen> {
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                              builder: (context) => ProductDetailScreen(
-                                    name: product.name,
-                                    salesRate: product.salesRate.toString(),
-                                    productImage: product.productImage,
-                                  )),
+                            builder: (context) => ProductDetailScreen(
+                              name: product.name,
+                              salesRate: product.salesRate.toString(),
+                              productImage: product.productImage,
+                            ),
+                          ),
                         );
                       },
                       child: Padding(
-                        padding: const EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(12.0),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Hero(
                               tag: 'product-${product.productImage}',
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(12),
+                                borderRadius: BorderRadius.circular(8),
                                 child: CachedNetworkImage(
                                   imageUrl: product.productImage,
                                   placeholder: (context, url) => Container(
