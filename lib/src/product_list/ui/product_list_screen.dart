@@ -327,11 +327,11 @@
 //   }
 // }
 //
-// lib/src/product_list/ui/product_list_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:project_bloc/app/app.dart';
 import 'package:project_bloc/src/product_list/ui/product_details.dart';
 
 import '../bloc/product_list_bloc.dart';
@@ -400,8 +400,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          // Navigate to create product screen
-          Navigator.pushNamed(context, '/create-product');
+          //createProductScreenPath
+          Navigator.pushNamed(context,AppRoute.createProductScreenPath);
         },
         icon: const Icon(Icons.add, color: Colors.white),
         label: const Text(
