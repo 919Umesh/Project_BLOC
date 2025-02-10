@@ -52,11 +52,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
         elevation: 0,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black87,
-        actions: [
-          IconButton(onPressed: (){}, icon: const Icon(Bootstrap.person_add)),
-          IconButton(onPressed: (){}, icon: const Icon(Bootstrap.house_add)),
-          const SizedBox(width: 5,),
-        ],
       ),
       body: BlocBuilder<ProductListBloc, ProductListState>(
         builder: (context, state) {

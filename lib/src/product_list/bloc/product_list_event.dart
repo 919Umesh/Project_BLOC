@@ -9,9 +9,10 @@ abstract class ProductListEvent extends Equatable {
 }
 
 class ProductListRequested extends ProductListEvent {
-
-  const ProductListRequested();
+  final String page;
+  final String limit;
+  const ProductListRequested({required this.page,required this.limit});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [page,limit];
 }
