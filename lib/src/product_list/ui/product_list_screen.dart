@@ -21,8 +21,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
   int _currentPage = 1;
   static const int _itemsPerPage = 10;
 
-  bool get wantKeepAlive => true; // Keep the state alive
-
   @override
   void initState() {
     super.initState();
@@ -177,8 +175,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
             imageUrl: product.productImage,
               memCacheWidth: 200,
               memCacheHeight: 200,
-              maxWidthDiskCache: 400,
-              maxHeightDiskCache: 400,
+              maxWidthDiskCache: 800,
+              maxHeightDiskCache: 800,
               placeholder: (context, url) => const SizedBox(
               width: 50,
               height: 50,

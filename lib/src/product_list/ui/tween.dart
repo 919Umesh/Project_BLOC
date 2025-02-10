@@ -17,12 +17,10 @@ class _TweenAnimationExampleState extends State<TweenAnimationExample>
   void initState() {
     super.initState();
 
-
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 2),
     );
-
 
     _animation = Tween<double>(begin: 50.0, end: 200.0).animate(_controller)
       ..addListener(() {
