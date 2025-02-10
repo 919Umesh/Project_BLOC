@@ -588,8 +588,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                                   if (_imageFile != null)
                                     'productImage': await d.MultipartFile.fromFile(_imageFile!.path),
                                 });
-                                BlocProvider.of<CreateProductBloc>(context, listen: false)
-                                    .add(CreateProductRequested(formData: formData));
+                                BlocProvider.of<CreateProductBloc>(context, listen: false).add(CreateProductRequested(formData: formData));
                               }
                             },
                             style: ElevatedButton.styleFrom(
