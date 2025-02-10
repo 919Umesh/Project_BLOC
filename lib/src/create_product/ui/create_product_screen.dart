@@ -436,8 +436,6 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                   ],
                 ),
               ),
-
-              // Form Fields
               Padding(
                 padding: const EdgeInsets.all(24),
                 child: Column(
@@ -506,7 +504,6 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                         ),
                       ],
                     ),
-
                     _buildFormField(
                       name: 'duration',
                       label: 'Duration',
@@ -561,7 +558,6 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                         ],
                       ),
                     ),
-
                     const SizedBox(height: 32),
                     BlocConsumer<CreateProductBloc, CreateProductState>(
                       listener: (context, state) {

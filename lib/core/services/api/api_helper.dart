@@ -46,8 +46,7 @@ class APIProvider {
         return response.data;
       } else {
         CustomLog.errorLog(value: response.data);
-        throw Exception(
-            "Failed to fetch data. Status Code: ${response.statusCode}");
+        throw Exception("Failed to fetch data. Status Code: ${response.statusCode}");
       }
     }
     //

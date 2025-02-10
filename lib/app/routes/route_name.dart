@@ -10,4 +10,5 @@ class AppRoute {
   static const String accountGroupScreenPath = "/AccountGroupScreenPath";
   static const String createProductScreenPath = "/CreateProductScreenPath";
   static const String productListScreenPath = "/ProductListScreenPath";
+  static const String productDetailsScreenPath = "/ProductDetailsScreenPath";
 }

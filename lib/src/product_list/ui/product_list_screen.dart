@@ -4,8 +4,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:project_bloc/src/product_list/bloc/product_list_bloc.dart';
 import 'package:project_bloc/src/product_list/bloc/product_list_state.dart';
+import 'package:project_bloc/src/product_list/ui/product_details.dart';
 import '../../../app/routes/route_name.dart';
 import '../bloc/product_list_event.dart';
+import 'conifei.dart';
+import 'curve_animation.dart';
 
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({super.key});
@@ -21,6 +24,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
     context.read<ProductListBloc>().add(const ProductListRequested());
   }
 
+  bool _isExpanded = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,8 +34,14 @@ class _ProductListScreenState extends State<ProductListScreen> {
         onPressed: () {
           Navigator.pushNamed(context, AppRoute.createProductScreenPath);
         },
-        icon: const Icon(Icons.add),
-        label: const Text('Add Product'),
+        icon: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+        label: const Text(
+          'Add Product',
+          style: TextStyle(color: Colors.white, fontFamily: 'inter'),
+        ),
         backgroundColor: Theme.of(context).primaryColor,
       ),
       appBar: AppBar(
@@ -44,11 +55,25 @@ class _ProductListScreenState extends State<ProductListScreen> {
         foregroundColor: Colors.black87,
         actions: [
           IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              // Search functionality can be added here
-            },
+            icon: Icon(_isExpanded ? Icons.close : Icons.search),
+            onPressed: () => setState(() => _isExpanded = !_isExpanded),
           ),
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context) => const CurvedAnimationExample()),
+                );
+              },
+              icon:const Icon(Icons.add)),
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context) => const ConfettiScreen()),
+                );
+              },
+              icon:const Icon(Icons.explore)),
         ],
       ),
       body: BlocBuilder<ProductListBloc, ProductListState>(
@@ -92,7 +117,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
                   const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {
-                      context.read<ProductListBloc>().add(const ProductListRequested());
+                      context
+                          .read<ProductListBloc>()
+                          .add(const ProductListRequested());
                     },
                     child: const Text('Retry'),
                   ),
@@ -136,7 +163,10 @@ class _ProductListScreenState extends State<ProductListScreen> {
               itemCount: state.products.length,
               itemBuilder: (context, index) {
                 final product = state.products[index];
-                return Container(
+                return AnimatedContainer(
+                  height: _isExpanded ? 200 : 150,
+                  width: _isExpanded ? 200 : 150,
+                  duration: const Duration(milliseconds: 500),
                   margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -155,10 +185,13 @@ class _ProductListScreenState extends State<ProductListScreen> {
                     child: InkWell(
                       borderRadius: BorderRadius.circular(16),
                       onTap: () {
-                        Fluttertoast.showToast(
-                          msg: product.name,
-                          backgroundColor: Colors.black87,
-                          textColor: Colors.white,
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => ProductDetailScreen(
+                                    name: product.name,
+                                    salesRate: product.salesRate.toString(),
+                                    productImage: product.productImage,
+                                  )),
                         );
                       },
                       child: Padding(
@@ -180,7 +213,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                       child: CircularProgressIndicator(),
                                     ),
                                   ),
-                                  errorWidget: (context, url, error) => Container(
+                                  errorWidget: (context, url, error) =>
+                                      Container(
                                     width: 100,
                                     height: 100,
                                     color: Colors.grey[200],
