@@ -48,11 +48,12 @@ class ProductListLoading extends ProductListState {}
 
 class ProductListSuccess extends ProductListState {
   final List<ProductModel> products;
+  final bool hasReachedEnd;
 
-  const ProductListSuccess({required this.products});
+  const ProductListSuccess({required this.products,  this.hasReachedEnd = false,});
 
   @override
-  List<Object> get props => [products];
+  List<Object> get props => [products,hasReachedEnd];
 }
 
 class ProductListFailure extends ProductListState {
