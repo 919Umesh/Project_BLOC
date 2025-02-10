@@ -1,3 +1,4 @@
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:project_bloc/app/constant/api_endpoints.dart';
 
 import '../../../../core/core.dart';
@@ -13,8 +14,7 @@ class ProductListRepository {
             'page': page,
             'limit': limit,
          });
-      ProductResponseModel productResponse =
-          ProductResponseModel.fromJson(response);
+      ProductResponseModel productResponse = ProductResponseModel.fromJson(response);
       return productResponse.products;
     } catch (e) {
       throw Exception(e.toString());
