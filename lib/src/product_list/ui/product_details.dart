@@ -84,9 +84,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               ),
             ),
             const SizedBox(height: 8),
-            // Product Quantity and Unit
-            const SizedBox(height: 8),
-            // Product Price
             Row(
               children: [
                 const Icon(
@@ -106,9 +103,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               ],
             ),
             const SizedBox(height: 8),
-            // Product Duration
-            const SizedBox(height: 16),
-            // Additional Details (Optional)
             Text(
               'Additional details about the product...',
               style: TextStyle(
