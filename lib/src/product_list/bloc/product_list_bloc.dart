@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:project_bloc/src/product_list/bloc/product_list_event.dart';
 import 'package:project_bloc/src/product_list/bloc/product_list_state.dart';
 
@@ -15,7 +16,6 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
     try {
 
       final products = await ProductListRepository.getProductList();
-
       emit(ProductListSuccess(products: products));
     } catch (e) {
 
