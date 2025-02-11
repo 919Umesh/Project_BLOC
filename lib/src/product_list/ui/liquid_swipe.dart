@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 
+//Swipe the screen
 class LiquidSwipeExample extends StatelessWidget {
    LiquidSwipeExample({super.key});
 
-  // Define the pages for the liquid swipe
   final pages = [
     Container(
       color: Colors.red,
