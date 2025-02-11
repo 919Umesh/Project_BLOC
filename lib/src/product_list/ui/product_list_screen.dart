@@ -42,14 +42,13 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Fluttertoast.showToast(msg: 'Rebuild');
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
         title:BlocBuilder<ProductListBloc, ProductListState>(
           builder: (context, state) {
             if (state is ProductListSuccess) {
-              return Text(state.products.isNotEmpty ? "No Products" : "Products Loaded");
+              return Text(state.products.isNotEmpty ? "Products Loaded" : "No Products");
             }
             return const SizedBox.shrink(); // Instead of `null`
           },
@@ -63,10 +62,18 @@ class _ProductListScreenState extends State<ProductListScreen> {
         onPressed: () {
           Navigator.pushNamed(context, AppRoute.createProductScreenPath);
         },
+
         icon: const Icon(Icons.add, color: Colors.white),
-        label: const Text(
-          'Add Product',
-          style: TextStyle(color: Colors.white, fontFamily: 'inter'),
+        label: BlocBuilder<ProductListBloc,ProductListState>(
+          builder: (context,state){
+            if(state is ProductListSuccess){
+              return const Text('Add Products',style: TextStyle(color: Colors.white,fontFamily: 'inter'),);
+            }
+            if(state is ProductListFailure){
+              return const Text('Failure',style: TextStyle(color: Colors.white,fontFamily: 'inter'),);
+            }
+            return const SizedBox.shrink();
+          },
         ),
         backgroundColor: Theme.of(context).primaryColor,
       ),
@@ -112,7 +119,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      'No products available',
+                      'No products',
                       style: TextStyle(
                         fontSize: 18,
                         color: Colors.grey[600],
