@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:project_bloc/app/constant/api_endpoints.dart';
-
 import '../../../../core/core.dart';
 import '../model/product_list_model.dart';
 
