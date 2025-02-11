@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//Curved Animation
 class CurvedAnimationExample extends StatefulWidget {
   const CurvedAnimationExample({super.key});
 
