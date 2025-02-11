@@ -142,7 +142,7 @@ class _UserListScreenState extends State<UserListScreen> {
       ),
       body: BlocListener<UserListBloc, UserListState>(
         listener: (context, state) {
-          // Handle side effects here
+
           if (state is UserListLoadError) {
             // Show an error message using FlutterToast
             Fluttertoast.showToast(
