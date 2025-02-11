@@ -10,7 +10,7 @@ import '../bloc/product_list_state.dart';
 import '../model/product_list_model.dart';
 
 
-//Pagination Screen
+
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({super.key});
 
