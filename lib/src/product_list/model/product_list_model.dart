@@ -30,6 +30,7 @@ class ProductResponseModel {
     "products": products.map((x) => x.toJson()).toList(),
   };
 }
+
 class Pagination {
   int currentPage;
   int totalPages;
