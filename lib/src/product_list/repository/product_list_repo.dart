@@ -16,7 +16,6 @@ class ProductListRepository {
             'limit': limit,
          });
       ProductResponseModel productResponse = ProductResponseModel.fromJson(response);
-      debugPrint(productResponse.products.toString());
       return productResponse.products;
     } catch (e) {
       throw Exception(e.toString());
