@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:project_bloc/app/app.dart';
 import 'package:project_bloc/src/product_list/ui/product_details.dart';
+import 'package:shimmer/shimmer.dart';
 import '../bloc/product_list_bloc.dart';
 import '../bloc/product_list_event.dart';
 import '../bloc/product_list_state.dart';
@@ -45,9 +46,13 @@ class _ProductListScreenState extends State<ProductListScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        title: const Text(
-          'Product Catalog',
-          style: TextStyle(fontWeight: FontWeight.bold),
+        title:BlocBuilder<ProductListBloc, ProductListState>(
+          builder: (context, state) {
+            if (state is ProductListSuccess) {
+              return Text(state.products.isNotEmpty ? "No Products" : "Products Loaded");
+            }
+            return const SizedBox.shrink(); // Instead of `null`
+          },
         ),
         centerTitle: false,
         elevation: 0,
@@ -145,7 +150,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
               },
             );
           }
-
           return const SizedBox.shrink();
         },
       ),
@@ -160,15 +164,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
           borderRadius: BorderRadius.circular(4),
           child: CachedNetworkImage(
             imageUrl: product.productImage,
-            memCacheWidth: 200,
-            memCacheHeight: 200,
-            maxWidthDiskCache: 800,
-            maxHeightDiskCache: 800,
-            placeholder: (context, url) => const SizedBox(
-              width: 50,
-              height: 50,
-              child: Center(child: CircularProgressIndicator()),
-            ),
+            memCacheWidth: 100,
+            memCacheHeight: 100,
+            maxWidthDiskCache: 400,
+            maxHeightDiskCache: 400,
+            placeholder: (context, url) => buildShimmerEffect(),
             errorWidget: (context, url, error) => const Icon(Icons.error_outline),
             width: 50,
             height: 50,
@@ -198,6 +198,21 @@ class _ProductListScreenState extends State<ProductListScreen> {
             ),
           );
         },
+      ),
+    );
+  }
+
+  Widget buildShimmerEffect() {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Container(
+        width: 50,
+        height: 50,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(4),
+        ),
       ),
     );
   }

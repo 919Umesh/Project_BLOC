@@ -51,10 +51,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 borderRadius: BorderRadius.circular(12),
                 child: CachedNetworkImage(
                   imageUrl: widget.productImage,
-                  memCacheWidth: 300,
-                  memCacheHeight: 300,
-                  maxWidthDiskCache: 800,
-                  maxHeightDiskCache: 800,
+                  memCacheWidth: 100,
+                  memCacheHeight: 100,
+                  maxWidthDiskCache: 400,
+                  maxHeightDiskCache: 400,
                   placeholder: (context, url) => Container(
                     width: double.infinity,
                     height: 300,
