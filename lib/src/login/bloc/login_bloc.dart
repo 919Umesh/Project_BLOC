@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import '../../../core/injection/injection_helper.dart';
 import '../../../core/services/sharepref/flutter_secure_storage.dart';
 import '../model/login_model.dart';
@@ -28,6 +29,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       locator<SecureStorageHelper>().setIsLogin(true);
       locator<SecureStorageHelper>().setUserCode(response.email);
       await _loginRepository.loginUser(user: response);
+      debugPrint(response.password);
       emit(LoginSuccess(message: 'Login Successfully',token:response.email));
     } catch (e) {
       emit(LoginError(message: e.toString()));
