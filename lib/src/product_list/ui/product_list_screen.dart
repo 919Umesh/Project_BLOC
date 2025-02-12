@@ -152,7 +152,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
                     ),
                   );
                 }
-
                 final product = state.products[index];
                 return _buildProductItem(product);
               },
