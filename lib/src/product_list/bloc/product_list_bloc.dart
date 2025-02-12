@@ -36,7 +36,6 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
     }
   }
 
-  //Load more data
   Future<void> _onProductListLoadMoreRequested(
       ProductListLoadMoreRequested event,
       Emitter<ProductListState> emit,
