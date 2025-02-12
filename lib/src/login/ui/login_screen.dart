@@ -204,8 +204,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       context.read<LoginBloc>().add(
                                             LoginRequested(
                                               email: _emailController.text,
-                                              password:
-                                                  _passwordController.text,
+                                              password: _passwordController.text,
                                             ),
                                           );
                                     }
