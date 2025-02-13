@@ -1,3 +1,4 @@
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:project_bloc/app/constant/api_endpoints.dart';
 import 'package:project_bloc/src/project_list/model/project_list_model.dart';
 import '../../../../core/core.dart';
@@ -11,14 +12,14 @@ class ProjectListRepository {
           queryParams: {
             'status': status
           });
-      ProjectResponseModel projectResponse = ProjectResponseModel.fromJson(
-          response);
+      ProjectResponseModel projectResponse = ProjectResponseModel.fromJson(response);
       if (projectResponse.status == 200) {
         return projectResponse.projects;
       } else {
         throw Exception(projectResponse.message);
       }
     } catch (e) {
+      Fluttertoast.showToast(msg: e.toString());
       throw Exception(e.toString());
     }
   }
