@@ -7,6 +7,7 @@ import '../../../app/routes/route_name.dart';
 import '../bloc/project_list_bloc.dart';
 import '../model/project_list_model.dart';
 import 'drawer_section.dart';
+import 'project_details.dart';
 
 class ProjectListScreen extends StatefulWidget {
   const ProjectListScreen({super.key});
@@ -218,9 +219,12 @@ class _ProjectListView extends StatelessWidget {
           child: InkWell(
             borderRadius: BorderRadius.circular(12),
             onTap: () {
-              Fluttertoast.showToast(
-                msg: "Selected: ${project.name}",
-                backgroundColor: Colors.blue,
+              // Fluttertoast.showToast(
+              //   msg: "Selected: ${project.name}",
+              //   backgroundColor: Colors.blue,
+              // );
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) =>  ProjectDetailsPage(name: project.name,address: project.location,)),
               );
             },
             child: Padding(
