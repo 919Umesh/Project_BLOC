@@ -12,9 +12,9 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
   }
 
   Future<void> _onProductListRequested(
-      ProductListRequested event,
-      Emitter<ProductListState> emit,
-      ) async {
+    ProductListRequested event,
+    Emitter<ProductListState> emit,
+  ) async {
     try {
       emit(ProductListLoading());
       _currentPage = 1;
@@ -37,9 +37,9 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
   }
 
   Future<void> _onProductListLoadMoreRequested(
-      ProductListLoadMoreRequested event,
-      Emitter<ProductListState> emit,
-      ) async {
+    ProductListLoadMoreRequested event,
+    Emitter<ProductListState> emit,
+  ) async {
     try {
       final state = this.state;
       if (state is ProductListSuccess && !state.hasReachedEnd) {
