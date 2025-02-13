@@ -24,7 +24,7 @@ class APIProvider {
   /// [ getAPI ] used to handle all [ GET ] api call
   Future getAPI({required String endPoint,Map<String, dynamic>? queryParams, String? authToken}) async {
     try {
-      String api =ApiEndpoints.baseURL+ endPoint;
+      String api = ApiEndpoints.baseURL+ endPoint;
       var headers = {
         'Content-Type': 'application/json',
         if (authToken != null) 'Authorization': 'Bearer $authToken',
