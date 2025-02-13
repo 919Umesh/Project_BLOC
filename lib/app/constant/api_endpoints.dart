@@ -1,5 +1,6 @@
 class ApiEndpoints {
   static const String baseURL = 'http://192.168.1.76:3000';
+  static const String getUserLogin = '/users/loginUser';
   static const String getProductList = '/product/get';
   static const String getProjectList = '/project/get';
   static const String getSearchList = '/project/search';
