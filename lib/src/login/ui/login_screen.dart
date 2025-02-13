@@ -72,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           const SizedBox(width: 20),
                           Image.asset(
-                            'assets/images/google.png',
+                            'assets/images/home.png',
                             height: 80,
                           ),
                         ],
