@@ -38,12 +38,9 @@ class APIProvider {
 
       Response response = await dio.get(api, queryParameters: queryParams,);
 
-      CustomLog.successLog(value: "API=> $api\n Query=> $queryParams \nRESPONSE=> ${response.data}");
        _logRequest( api, response.data,queryParams);
 
       if (response.statusCode == 200) {
-        Fluttertoast.showToast(msg:response.statusMessage.toString());
-        CustomLog.successLog(value: "RESPONSE=> ${response.data}");
         return response.data;
       } else {
         CustomLog.errorLog(value: response.data);
