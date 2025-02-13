@@ -8,7 +8,6 @@ class ProductListRepository {
     try {
       var response = await apiProvider.getAPI(
           endPoint: ApiEndpoints.getProductList,
-          //Parameters of the api
           queryParams: {
             'page': page,
             'limit': limit,
