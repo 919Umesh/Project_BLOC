@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../project_list/model/project_list_model.dart';
+import '../../project_list/ui/project_details.dart';
 import '../bloc/search_project_bloc.dart';
 
 class ProjectSearchView extends StatefulWidget {
@@ -108,7 +109,13 @@ class _ProjectSearchViewState extends State<ProjectSearchView> {
                     separatorBuilder: (_, __) => const SizedBox(height: 12),
                     itemBuilder: (context, index) {
                       final project = state.projects[index];
-                      return _ProjectCard(project: project);
+                      return InkWell(
+                        onTap: (){
+                          Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) =>  ProjectDetailsPage(name: project.name,address: project.location,)),
+                          );
+                        },
+                          child: _ProjectCard(project: project));
                     },
                   );
                 }

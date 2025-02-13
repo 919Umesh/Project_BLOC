@@ -26,7 +26,7 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
             Fluttertoast.showToast(msg: "Button Pressed");
           },
           icon:const Icon(Bootstrap.house_add),
-          label:const Text('Add')),
+          label:const Text('Add Project')),
     );
   }
 }
