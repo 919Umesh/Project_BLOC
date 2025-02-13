@@ -39,7 +39,7 @@ class APIProvider {
 
       Response response = await dio.get(api, queryParameters: queryParams,);
 
-       _logRequest( api, response.data,queryParams);
+       _logRequest(api, response.data,queryParams);
 
       if (response.statusCode == 200) {
         return response.data;
