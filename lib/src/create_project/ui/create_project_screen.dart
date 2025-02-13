@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project_bloc/core/core.dart';
+import '../../../app/themes/colors.dart';
 import '../bloc/create_project_bloc.dart';
 
 class CreateProjectScreen extends StatefulWidget {
@@ -50,12 +52,13 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
               appBar: AppBar(
                 elevation: 0,
                 backgroundColor: Colors.white,
-                title: const Text(
+                title:  Text(
                   "Create Project",
-                  style: TextStyle(
-                    color: Colors.black87,
+                  style:GoogleFonts.poppins(
+                    fontSize: 18,
                     fontWeight: FontWeight.w600,
                   ),
+
                 ),
                 centerTitle: true,
               ),
@@ -160,21 +163,21 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
           color: Theme.of(context).primaryColor,
         ),
         const SizedBox(height: 16),
-        const Text(
+         Text(
           "Project Details",
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.black87,
-          ),
+           style: GoogleFonts.aBeeZee(
+             fontSize: 18,
+             color: kPrimaryColor,
+             fontWeight: FontWeight.w800,
+           ),
         ),
         const SizedBox(height: 8),
-        const Text(
+         Text(
           "Fill in the information below to create a new project",
-          style: TextStyle(
-            color: Colors.grey,
-            fontSize: 14,
-          ),
+           style: GoogleFonts.aBeeZee(
+             fontSize: 18,
+             fontWeight: FontWeight.w600,
+           ),
           textAlign: TextAlign.center,
         ),
       ],
@@ -191,6 +194,10 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
     return TextFormField(
       decoration: InputDecoration(
         labelText: label,
+        labelStyle: GoogleFonts.poppins(
+        fontSize: 14,
+        fontWeight: FontWeight.w600,
+      ),
         hintText: hint,
         prefixIcon: Icon(icon, color: Colors.grey),
         border: OutlineInputBorder(
@@ -254,9 +261,9 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
         ),
         elevation: 2,
       ),
-      child: const Text(
+      child:  Text(
         "Create New Project",
-        style: TextStyle(
+        style: GoogleFonts.poppins(
           fontSize: 16,
           fontWeight: FontWeight.w600,
         ),

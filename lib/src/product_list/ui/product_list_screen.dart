@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project_bloc/app/app.dart';
 import 'package:project_bloc/src/product_list/ui/product_details.dart';
 import 'package:shimmer/shimmer.dart';
@@ -49,7 +50,12 @@ class _ProductListScreenState extends State<ProductListScreen> {
         title:BlocBuilder<ProductListBloc, ProductListState>(
           builder: (context, state) {
             if (state is ProductListSuccess) {
-              return Text(state.products.isNotEmpty ? "Product" : "No Products");
+              return Text(state.products.isNotEmpty ? "Product" : "No Products",style: GoogleFonts.aBeeZee(
+                fontSize: 18,
+                color: kPrimaryColor,
+                fontWeight: FontWeight.w800,
+              ),
+              );
             }
             return const SizedBox.shrink();
           },
@@ -184,13 +190,17 @@ class _ProductListScreenState extends State<ProductListScreen> {
         ),
         title: Text(
           product.name,
-          style: const TextStyle(fontWeight: FontWeight.w500),
+          style:  GoogleFonts.poppins(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
         ),
         subtitle: Text(
           '\$${product.salesRate.toStringAsFixed(2)}',
-          style: TextStyle(
-            color: Theme.of(context).primaryColor,
-            fontWeight: FontWeight.w500,
+          style:  GoogleFonts.poppins(
+            fontSize: 16,
+            color: kPrimaryColor,
+            fontWeight: FontWeight.w600,
           ),
         ),
         onTap: () {

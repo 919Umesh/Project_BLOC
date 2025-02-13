@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:icons_plus/icons_plus.dart';
 import '../../../app/routes/route_name.dart';
 import '../../../core/services/sharepref/flutter_secure_storage.dart';
 
@@ -42,9 +43,9 @@ class DrawerSection extends StatelessWidget {
                   ),
                   _buildMenuItem(
                     context: context,
-                    title: "Change Password",
-                    icon: Icons.lock_rounded,
-                    onTap: () => Fluttertoast.showToast(msg: 'Change Password'),
+                    title: "Product List",
+                    icon: Bootstrap.list,
+                    onTap: () => Navigator.pushNamed(context, AppRoute.productListScreenPath),
                   ),
                   _buildMenuItem(
                     context: context,
