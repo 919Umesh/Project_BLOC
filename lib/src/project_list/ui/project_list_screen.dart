@@ -208,17 +208,13 @@ class _ProjectListView extends StatelessWidget {
       );
     }
 
-    return ListView.separated(
-      padding: const EdgeInsets.all(16),
+    return ListView.builder(
+      padding: const EdgeInsets.only(left: 10,right: 10,bottom: 3,top: 3),
       itemCount: projectList.length,
-      separatorBuilder: (context, index) => const SizedBox(height: 12),
       itemBuilder: (context, index) {
         final project = projectList[index];
         return Card(
           elevation: 2,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
           child: InkWell(
             borderRadius: BorderRadius.circular(12),
             onTap: () {
@@ -228,7 +224,7 @@ class _ProjectListView extends StatelessWidget {
               );
             },
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

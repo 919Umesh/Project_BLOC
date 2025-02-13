@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../../app/routes/route_name.dart';
+import '../../../core/services/sharepref/flutter_secure_storage.dart';
 
 class DrawerSection extends StatelessWidget {
   const DrawerSection({super.key});
@@ -191,10 +192,8 @@ class DrawerSection extends StatelessWidget {
     );
   }
 
-  void _handleLogout(BuildContext context) {
-         Navigator.of(context).pushNamedAndRemoveUntil(
-       AppRoute.splashScreenPath,
-           (route) => false,
-   );
+  Future<void> _handleLogout(BuildContext context) async {
+   await SecureStorageHelper.instance.clearAll();
+   Navigator.of(context).pushNamedAndRemoveUntil(AppRoute.splashScreenPath, (route) => false,);
   }
 }

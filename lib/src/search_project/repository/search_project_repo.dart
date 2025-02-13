@@ -1,13 +1,16 @@
+import 'package:project_bloc/app/constant/api_endpoints.dart';
+
 import '../../../core/services/api/api_helper.dart';
 import '../../project_list/model/project_list_model.dart';
 
 class ProjectSearchRepository {
-
-  static Future<List<ProjectModel>> searchProjects({required String query}) async {
+  static Future<List<ProjectModel>> searchProjects(
+      {required String query}) async {
     try {
-      String api = "/project/search?name=$query";
-      var response = await apiProvider.getAPI(endPoint: api);
-      ProjectResponseModel projectResponse = ProjectResponseModel.fromJson(response);
+      var response = await apiProvider.getAPI(
+          endPoint: ApiEndpoints.getSearchList, queryParams: {'name': query});
+      ProjectResponseModel projectResponse =
+      ProjectResponseModel.fromJson(response);
       if (projectResponse.status == 200) {
         return projectResponse.projects;
       } else {
