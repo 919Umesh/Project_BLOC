@@ -47,10 +47,6 @@ class PrefHelper {
     pref.setString(_kBaseUrl, value);
   }
 
-  //Local Host URL
-  Future<String> getBaseUrl() async {
-    return 'http://192.168.1.76:3000';
-  }
 
   /// Login status preference
   final String _kIsLogin = "IsLogin";

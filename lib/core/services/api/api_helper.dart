@@ -4,10 +4,11 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:project_bloc/app/constant/api_endpoints.dart';
 import 'package:project_bloc/app/temp/custom_log.dart';
 import 'package:project_bloc/core/injection/injection_helper.dart';
 import 'package:project_bloc/core/services/api/api_constants.dart';
-import 'package:project_bloc/core/services/sharepref/share_pref.dart';
+
 
 final apiProvider = locator<APIProvider>();
 
@@ -23,7 +24,7 @@ class APIProvider {
   /// [ getAPI ] used to handle all [ GET ] api call
   Future getAPI({required String endPoint,Map<String, dynamic>? queryParams, String? authToken}) async {
     try {
-      String api = await locator<PrefHelper>().getBaseUrl() + endPoint;
+      String api =ApiEndpoints.baseURL+ endPoint;
       var headers = {
         'Content-Type': 'application/json',
         if (authToken != null) 'Authorization': 'Bearer $authToken',
@@ -70,7 +71,7 @@ class APIProvider {
   /// [ postAPI ] used to handle all [ POST ]  api call
   Future postAPI({required String endPoint, required String body}) async {
     try {
-      String api = await locator<PrefHelper>().getBaseUrl() + endPoint;
+      String api = ApiEndpoints.baseURL + endPoint;
       var headers = {'Content-Type': 'application/json'};
 
       Dio dio = Dio(BaseOptions(
@@ -119,7 +120,7 @@ class APIProvider {
     required FormData formData,
   }) async {
 
-      String api = await locator<PrefHelper>().getBaseUrl() + endPoint;
+      String api = ApiEndpoints.baseURL + endPoint;
       Dio dio = Dio(BaseOptions(
         connectTimeout: const Duration(seconds: 30),
         receiveTimeout: const Duration(seconds: 30),
