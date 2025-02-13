@@ -9,11 +9,13 @@ class LoginRepository {
     required LoginModel user,
   }) async {
     try {
-      var body = jsonEncode({
-        "email": user.email,
-        "password": user.password
-      });
-      var response = await apiProvider.postAPI(endPoint: ApiEndpoints.getUserLogin, body: body);
+      var body = jsonEncode({"email": user.email, "password": user.password});
+
+      var response = await apiProvider.postAPIUnified(
+          endPoint: ApiEndpoints.getUserLogin,
+          needsAuthorization: false,
+          iSJsonDataHeaderType: true,
+          body: body);
       final result = jsonDecode(response);
       return BasicModel.fromJson(result);
     } catch (e) {
