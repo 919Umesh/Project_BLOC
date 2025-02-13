@@ -11,7 +11,6 @@ import '../bloc/product_list_event.dart';
 import '../bloc/product_list_state.dart';
 import '../model/product_list_model.dart';
 
-
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({super.key});
 

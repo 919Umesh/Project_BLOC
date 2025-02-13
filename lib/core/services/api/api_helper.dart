@@ -39,6 +39,7 @@ class APIProvider {
       Response response = await dio.get(api, queryParameters: queryParams,);
 
       CustomLog.successLog(value: "API=> $api\n Query=> $queryParams \nRESPONSE=> ${response.data}");
+       _logRequest( api, response.data,queryParams);
 
       if (response.statusCode == 200) {
         Fluttertoast.showToast(msg:response.statusMessage.toString());
@@ -149,4 +150,16 @@ class APIProvider {
       }
       return result!;
     }
+
+  static void _logRequest(
+      String api,
+      dynamic response,
+      dynamic queryParams,
+      ) {
+    CustomLog.actionLog(value: "\n");
+    CustomLog.warningLog(value: "API      : [$api]");
+    CustomLog.successLog(value: "RESPONSE : $response");
+    CustomLog.warningLog(value: "Query : $queryParams");
+    CustomLog.actionLog(value: "\n");
+  }
   }
