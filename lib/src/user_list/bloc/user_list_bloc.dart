@@ -25,12 +25,10 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
       CustomLog.successLog(value: localUsers);
       if (localUsers.isNotEmpty) {
         emit(UserListLoadSuccess(users: localUsers));
-        // Fluttertoast.showToast(msg: 'Db');
         return;
       }
       final users = await UserListRepository.getUserList();
       await _saveUsers(users);
-      // Fluttertoast.showToast(msg: 'Remote');
       emit(UserListLoadSuccess(users: users));
     } catch (e) {
       debugPrint("Error loading users: $e");
@@ -48,6 +46,7 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
   Future<void> _onUserNameList(UserNameRequested event, Emitter<UserListState> emit) async {
     try {
       emit(UserNameLoading());
+      Fluttertoast.showToast(msg: "Db");
       final dataList = await _userListRepository.getUserNameList();
       emit(UserNameLoadSuccess(userList: dataList));
     } catch (e) {

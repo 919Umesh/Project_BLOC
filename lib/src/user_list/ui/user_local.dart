@@ -15,7 +15,7 @@ class _UserListLocalState extends State<UserListLocal> {
   @override
   void initState() {
     super.initState();
-    context.read<UserListBloc>().add(UserNameRequested());
+   context.read<UserListBloc>().add(UserNameRequested());
   }
 
   @override
