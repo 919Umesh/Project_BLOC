@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:project_bloc/src/user_list/bloc/user_list_bloc.dart';
 import 'package:project_bloc/src/user_list/model/user_list_model.dart';
+import '../../../app/routes/route_name.dart';
 
 class UserListScreen extends StatefulWidget {
   const UserListScreen({super.key});
@@ -13,7 +15,6 @@ class UserListScreen extends StatefulWidget {
 }
 
 class _UserListScreenState extends State<UserListScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -22,6 +23,7 @@ class _UserListScreenState extends State<UserListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Fluttertoast.showToast(msg: "Rebuild");
     return Scaffold(
       backgroundColor: Colors.grey[50],
       floatingActionButton: FloatingActionButton.extended(
@@ -47,6 +49,13 @@ class _UserListScreenState extends State<UserListScreen> {
             ),
           ],
         ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, AppRoute.userListLocal);
+              },
+              icon: const Icon(Bootstrap.house_add)),
+        ],
       ),
       body: BlocListener<UserListBloc, UserListState>(
         listener: (context, state) {
@@ -84,7 +93,9 @@ class _UserListScreenState extends State<UserListScreen> {
                       const SizedBox(height: 16),
                       ElevatedButton(
                         onPressed: () {
-                          context.read<UserListBloc>().add(LoadUsersRequested());
+                          context
+                              .read<UserListBloc>()
+                              .add(LoadUsersRequested());
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blue[600],
@@ -149,19 +160,21 @@ class _UserListView extends StatelessWidget {
               ),
               title: Text(
                 user.name,
-                style:  GoogleFonts.poppins(
+                style: GoogleFonts.poppins(
                   fontWeight: FontWeight.w500,
                 ),
               ),
               subtitle: Text(
-                'user@example.com', // Add email field to your UserModel if needed
+                'user@example.com',
+                // Add email field to your UserModel if needed
                 style: GoogleFonts.poppins(
                   color: Colors.grey[600],
                   fontSize: 14,
                 ),
               ),
               trailing: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: Colors.blue[50],
                   borderRadius: BorderRadius.circular(20),

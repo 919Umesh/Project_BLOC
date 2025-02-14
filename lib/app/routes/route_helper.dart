@@ -8,6 +8,7 @@ import '../../src/project_list/ui/project_list_screen.dart';
 import '../../src/search_project/ui/search_project_screen.dart';
 import '../../src/splash/splash.dart';
 import '../../src/user_list/ui/user_list_screen.dart';
+import '../../src/user_list/ui/user_local.dart';
 import 'route_name.dart';
 
 class RouteGenerator {
@@ -29,7 +30,8 @@ class RouteGenerator {
         return _pageTransition(child: const CreateProductScreen());
       case AppRoute.productListScreenPath:
         return _pageTransition(child: const ProductListScreen());
-      // ProductDetailScreen
+      case AppRoute.userListLocal:
+        return _pageTransition(child: const UserListLocal());
 
       default:
         return _pageTransition(

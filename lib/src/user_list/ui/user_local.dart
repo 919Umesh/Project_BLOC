@@ -13,27 +13,37 @@ class UserListLocal extends StatefulWidget {
 
 class _UserListLocalState extends State<UserListLocal> {
   @override
+  void initState() {
+    super.initState();
+    context.read<UserListBloc>().add(UserNameRequested());
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('User'),
       ),
-      body: BlocListener<UserListBloc,UserListState>(
-        listener: (context,state){
-          if(state is UserNameLoadError){
+      body: BlocListener<UserListBloc, UserListState>(
+        listener: (context, state) {
+          if (state is UserNameLoadError) {
             Fluttertoast.showToast(msg: state.nameErrorMessage);
           }
         },
-        child: BlocBuilder<UserListBloc,UserListState>(
-          builder: (context,state){
-            if(state is UserNameLoading){
-              const Center(child: CircularProgressIndicator(),);
+        child: BlocBuilder<UserListBloc, UserListState>(
+          builder: (context, state) {
+            if (state is UserNameLoading) {
+              const Center(
+                child: CircularProgressIndicator(),
+              );
             }
-            if(state is UserNameLoadSuccess){
-              if(state.userList.isEmpty){
-                const Center(child: Text('No User Found'),);
+            if (state is UserNameLoadSuccess) {
+              if (state.userList.isEmpty) {
+                const Center(
+                  child: Text('No User Found'),
+                );
               }
-              return UserListTile(userList: state.userList);
+              return _UserListTile(userList: state.userList);
             }
             return const Text('Some error occurred');
           },
@@ -43,21 +53,21 @@ class _UserListLocalState extends State<UserListLocal> {
   }
 }
 
-class UserListTile extends StatelessWidget {
+class _UserListTile extends StatelessWidget {
   final List<UserModel> userList;
-  const UserListTile({super.key,required this.userList});
+
+  const _UserListTile({super.key, required this.userList});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: ListView.builder(
         itemCount: userList.length,
-        itemBuilder: (context,index){
+        itemBuilder: (context, index) {
           final user = userList[index];
           return ListTile(
             title: Text(user.name),
             subtitle: Text(user.email),
-            leading: Text(user.id),
           );
         },
       ),
