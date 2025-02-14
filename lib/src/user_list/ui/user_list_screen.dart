@@ -34,14 +34,6 @@ class _UserListScreenState extends State<UserListScreen> {
       floatingActionButton: FloatingActionButton.extended(onPressed: (){},icon: Icon(Bootstrap.house_add), label: Text('Add Product')),
       appBar: AppBar(
         title: const Text("Users"),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, AppRoute.accountGroupScreenPath);
-            },
-            icon: const Icon(Bootstrap.list),
-          ),
-        ],
       ),
       body: BlocListener<UserListBloc, UserListState>(
         listener: (context, state) {
