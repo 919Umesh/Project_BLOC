@@ -13,7 +13,6 @@ class UserListScreen extends StatefulWidget {
 }
 
 class _UserListScreenState extends State<UserListScreen> {
-  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
