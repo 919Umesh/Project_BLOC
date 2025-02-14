@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project_bloc/src/user_list/bloc/user_list_bloc.dart';
 import 'package:project_bloc/src/user_list/model/user_list_model.dart';
 
@@ -149,15 +150,15 @@ class _UserListView extends StatelessWidget {
               ),
               title: Text(
                 user.name,
-                style: const TextStyle(
+                style:  GoogleFonts.poppins(
                   fontWeight: FontWeight.w500,
                 ),
               ),
               subtitle: Text(
                 'user@example.com', // Add email field to your UserModel if needed
-                style: TextStyle(
+                style: GoogleFonts.poppins(
                   color: Colors.grey[600],
-                  fontSize: 13,
+                  fontSize: 14,
                 ),
               ),
               trailing: Container(
@@ -168,7 +169,7 @@ class _UserListView extends StatelessWidget {
                 ),
                 child: Text(
                   'User', // Add role field to your UserModel if needed
-                  style: TextStyle(
+                  style: GoogleFonts.poppins(
                     color: Colors.blue[600],
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
