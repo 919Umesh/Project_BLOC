@@ -34,7 +34,6 @@ class UserListDatabase {
 
   Future<List<UserModel>> getDataList() async {
     db = await DatabaseHelper.instance.database;
-    Fluttertoast.showToast(msg: "All List");
     String myQuery = '''  SELECT * FROM ${DatabaseDetails.userListTable} ''';
     final List<Map<String, dynamic>> mapData = await db!.rawQuery(myQuery);
     CustomLog.successLog(value: "MapData => $mapData");
