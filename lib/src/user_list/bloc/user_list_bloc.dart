@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:project_bloc/src/user_list/db/user_list_db.dart';
 import 'package:project_bloc/src/user_list/model/user_list_model.dart';
 import '../repository/user_list_repository.dart';
@@ -9,7 +8,7 @@ part 'user_list_state.dart';
 
 class UserListBloc extends Bloc<UserListEvent, UserListState> {
   final UserListRepository _userListRepository;
-  List<UserModel> _cachedUsers = [];
+  List<UserModel> _userList = [];
 
   UserListBloc({required UserListRepository userListRepository})
       : _userListRepository = userListRepository,
@@ -21,17 +20,16 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
   Future<void> _onLoadUsers(LoadUsersRequested event, Emitter<UserListState> emit) async {
     try {
       emit(UserListLoading());
+
       final localUsers = await UserListDatabase.instance.getDataList();
       if (localUsers.isNotEmpty) {
-        _cachedUsers = localUsers;
+        _userList = localUsers;
         emit(UserListLoadSuccess(users: localUsers));
-        Fluttertoast.showToast(msg: "All");
         return;
       }
       final users = await UserListRepository.getUserList();
       await _saveUsers(users);
-      _cachedUsers = users;
-      Fluttertoast.showToast(msg: "List");
+      _userList = users;
       emit(UserListLoadSuccess(users: users));
     } catch (e) {
       debugPrint("Error loading users: $e");
