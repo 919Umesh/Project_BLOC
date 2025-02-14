@@ -54,7 +54,6 @@ class APIProvider {
             "Failed to fetch data. Status Code: ${response.statusCode}");
       }
     }
-    //
     on DioException catch (e) {
       if (e.type == DioExceptionType.connectionTimeout ||
           e.type == DioExceptionType.receiveTimeout ||
