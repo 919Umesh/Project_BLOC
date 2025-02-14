@@ -134,9 +134,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
                     const SizedBox(height: 8),
                     Text(
                       'Add your first product using the button below',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey[500],
+                      style: GoogleFonts.poppins(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ],
