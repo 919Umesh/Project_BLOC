@@ -6,6 +6,8 @@ class UserListInitial extends UserListState {}
 
 class UserListLoading extends UserListState {}
 
+class UserNameLoading extends UserListState {}
+
 class UserListLoadSuccess extends UserListState {
   final List<UserModel> users;
 
