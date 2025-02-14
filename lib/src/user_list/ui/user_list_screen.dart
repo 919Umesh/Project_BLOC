@@ -23,15 +23,8 @@ class _UserListScreenState extends State<UserListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Fluttertoast.showToast(msg: "Rebuild");
     return Scaffold(
       backgroundColor: Colors.grey[50],
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
-        backgroundColor: Colors.blue[600],
-        icon: const Icon(Icons.person_add_rounded, color: Colors.white),
-        label: const Text('Add User', style: TextStyle(color: Colors.white)),
-      ),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 1,
@@ -49,13 +42,6 @@ class _UserListScreenState extends State<UserListScreen> {
             ),
           ],
         ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, AppRoute.userListLocal);
-              },
-              icon: const Icon(Bootstrap.house_add)),
-        ],
       ),
       body: BlocListener<UserListBloc, UserListState>(
         listener: (context, state) {
@@ -113,7 +99,7 @@ class _UserListScreenState extends State<UserListScreen> {
               }
               return _UserListView(userList: state.users);
             }
-            return const Center(child: Text("No data found"));
+            return const Center(child: Text("No data"));
           },
         ),
       ),
