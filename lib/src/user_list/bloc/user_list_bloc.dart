@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:project_bloc/app/temp/custom_log.dart';
 import 'package:project_bloc/src/user_list/db/user_list_db.dart';
 import 'package:project_bloc/src/user_list/model/user_list_model.dart';
@@ -20,15 +21,16 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
   Future<void> _onLoadUsers(LoadUsersRequested event, Emitter<UserListState> emit) async {
     try {
       emit(UserListLoading());
-
       final localUsers = await UserListDatabase.instance.getDataList();
       CustomLog.successLog(value: localUsers);
       if (localUsers.isNotEmpty) {
         emit(UserListLoadSuccess(users: localUsers));
+        Fluttertoast.showToast(msg: 'Db');
         return;
       }
       final users = await UserListRepository.getUserList();
       await _saveUsers(users);
+      Fluttertoast.showToast(msg: 'Remote');
       emit(UserListLoadSuccess(users: users));
     } catch (e) {
       debugPrint("Error loading users: $e");
