@@ -8,7 +8,6 @@ part 'user_list_state.dart';
 
 class UserListBloc extends Bloc<UserListEvent, UserListState> {
   final UserListRepository _userListRepository;
-  List<UserModel> _userList = [];
 
   UserListBloc({required UserListRepository userListRepository})
       : _userListRepository = userListRepository,
@@ -23,13 +22,11 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
 
       final localUsers = await UserListDatabase.instance.getDataList();
       if (localUsers.isNotEmpty) {
-        _userList = localUsers;
         emit(UserListLoadSuccess(users: localUsers));
         return;
       }
       final users = await UserListRepository.getUserList();
       await _saveUsers(users);
-      _userList = users;
       emit(UserListLoadSuccess(users: users));
     } catch (e) {
       debugPrint("Error loading users: $e");
