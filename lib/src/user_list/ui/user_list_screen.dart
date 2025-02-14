@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:icons_plus/icons_plus.dart';
+import 'package:project_bloc/app/routes/route_name.dart';
 import 'package:project_bloc/src/user_list/bloc/user_list_bloc.dart';
 import 'package:project_bloc/src/user_list/model/user_list_model.dart';
 
@@ -40,6 +42,13 @@ class _UserListScreenState extends State<UserListScreen> {
             ),
           ],
         ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, AppRoute.userListLocal);
+              },
+              icon: const Icon(Bootstrap.house))
+        ],
       ),
       body: BlocListener<UserListBloc, UserListState>(
         listener: (context, state) {
