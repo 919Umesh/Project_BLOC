@@ -22,3 +22,4 @@ class UserListRepository {
   }
 }
 
+UserListRepository userListRepository = UserListRepository();
