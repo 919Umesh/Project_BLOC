@@ -17,6 +17,7 @@ class UserListRepository {
       throw Exception(e.toString());
     }
   }
+
   Future<List<UserModel>> getUserNameList() async {
     return await UserListDatabase.instance.getDataList();
   }

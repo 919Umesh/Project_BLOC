@@ -1,4 +1,3 @@
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:project_bloc/src/user_list/model/user_list_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
@@ -15,7 +14,6 @@ class UserListDatabase {
   static final UserListDatabase instance =
   UserListDatabase._privateConstructor();
 
-  //Insert data to local database
   Future<int> insertData(UserModel data) async {
     db = await DatabaseHelper.instance.database;
     return await db!.insert(
@@ -25,7 +23,6 @@ class UserListDatabase {
     );
   }
 
-  //Delete all the table data
   Future deleteData() async {
     String myQuery = '''  DELETE FROM ${DatabaseDetails.userListTable}  ''';
     db = await DatabaseHelper.instance.database;

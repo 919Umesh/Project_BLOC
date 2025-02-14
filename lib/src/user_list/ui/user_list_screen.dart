@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:project_bloc/app/routes/route_name.dart';
 import 'package:project_bloc/app/themes/colors.dart';
 import 'package:project_bloc/core/core.dart';
 import 'package:project_bloc/src/user_list/bloc/user_list_bloc.dart';
@@ -19,13 +18,7 @@ class _UserListScreenState extends State<UserListScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _fetchAndLoadData();
-    });
-  }
-
-  Future<void> _fetchAndLoadData() async {
-    context.read<UserListBloc>().add(LoadUsersRequested());
+   context.read<UserListBloc>().add(LoadUsersRequested());
   }
 
   @override
@@ -39,7 +32,6 @@ class _UserListScreenState extends State<UserListScreen> {
         listener: (context, state) {
 
           if (state is UserListLoadError) {
-            // Show an error message using FlutterToast
             Fluttertoast.showToast(
               msg: state.errorMessage,
               toastLength: Toast.LENGTH_SHORT,
@@ -52,11 +44,9 @@ class _UserListScreenState extends State<UserListScreen> {
         child: BlocBuilder<UserListBloc, UserListState>(
           builder: (context, state) {
             if (state is UserListLoading) {
-              // Show a loading indicator while data is being fetched
               return LoadingScreen().show();
             }
             if (state is UserListLoadSuccess) {
-              // Display the list of users
               if (state.users.isEmpty) {
                 return Center(
                   child: Column(
@@ -102,7 +92,6 @@ class _ProductGroupView extends StatelessWidget {
         final user = userList[index];
         return InkWell(
           onTap: () {
-            // Show a toast message with the user's name
             Fluttertoast.showToast(
               msg: user.name,
               toastLength: Toast.LENGTH_SHORT,
