@@ -51,7 +51,7 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
       final dataList = await _userListRepository.getUserNameList();
       emit(UserNameLoadSuccess(userList: dataList));
     } catch (e) {
-      emit(UserListLoadError(errorMessage: e.toString()));
+      emit(UserNameLoadError(nameErrorMessage: e.toString()));
     }
   }
 }

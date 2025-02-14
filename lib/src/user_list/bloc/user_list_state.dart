@@ -25,3 +25,11 @@ class UserListLoadError extends UserListState {
 
   UserListLoadError({required this.errorMessage});
 }
+
+
+class UserNameLoadError extends UserListState {
+  final String nameErrorMessage;
+
+  UserNameLoadError({required this.nameErrorMessage});
+}
+
