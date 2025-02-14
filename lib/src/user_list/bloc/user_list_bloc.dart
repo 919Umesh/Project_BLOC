@@ -22,12 +22,12 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
     try {
       emit(UserListLoading());
       final localUsers = await UserListDatabase.instance.getDataList();
-      // if (localUsers.isNotEmpty) {
-      //   _cachedUsers = localUsers;
-      //   emit(UserListLoadSuccess(users: localUsers));
-      //   Fluttertoast.showToast(msg: "All");
-      //   return;
-      // }
+      if (localUsers.isNotEmpty) {
+        _cachedUsers = localUsers;
+        emit(UserListLoadSuccess(users: localUsers));
+        Fluttertoast.showToast(msg: "All");
+        return;
+      }
       final users = await UserListRepository.getUserList();
       await _saveUsers(users);
       _cachedUsers = users;
