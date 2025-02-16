@@ -19,17 +19,18 @@ class CreateProductScreen extends StatefulWidget {
 class _CreateProductScreenState extends State<CreateProductScreen> {
   final _formKeyProduct = GlobalKey<FormBuilderState>();
   File? _imageFile;
-  bool _isEditing = false;
+  bool isEditing = false;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // Retrieve the arguments when the widget is first built
     final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
-    if (args != null) {
-      _isEditing = args['is_editing'] ?? false;
+
+    if (args != null && args.containsKey('is_editing')) {
+      isEditing = args['is_editing'];
     }
   }
+
 
   Widget _buildFormField({
     required String name,
@@ -86,7 +87,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Fluttertoast.showToast(msg: _isEditing.toString());
+    Fluttertoast.showToast(msg: isEditing.toString());
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
