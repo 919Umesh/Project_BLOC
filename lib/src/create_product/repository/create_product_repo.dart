@@ -16,7 +16,6 @@ class CreateProductRepository {
   }
   Future<Response> updateProduct({required FormData form,required String id}) async {
     String api ='/product/update/$id';
-    debugPrint(form.fields.toString());
     Fluttertoast.showToast(msg: api);
     var response = await apiProvider.putAPIUnified(
         endPoint: api,
