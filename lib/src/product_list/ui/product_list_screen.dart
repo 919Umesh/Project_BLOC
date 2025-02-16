@@ -184,10 +184,10 @@ class _ProductListScreenState extends State<ProductListScreen> {
           borderRadius: BorderRadius.circular(4),
           child: CachedNetworkImage(
             imageUrl: product.productImage,
-            memCacheWidth: 100,
-            memCacheHeight: 100,
-            maxWidthDiskCache: 400,
-            maxHeightDiskCache: 400,
+            memCacheWidth: 800,
+            memCacheHeight: 800,
+            maxWidthDiskCache: 1200,
+            maxHeightDiskCache: 1200,
             placeholder: (context, url) => buildShimmerEffect(),
             errorWidget: (context, url, error) =>
                 const Icon(Icons.error_outline),
@@ -213,9 +213,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
         ),
         trailing: IconButton(
           onPressed: () {
-            Navigator.pushNamed(context, AppRoute.createProductScreenPath,arguments: {
-              'is_editing':true,
-            });
+            Navigator.pushNamed(
+              context,
+              AppRoute.createProductScreenPath,
+              arguments: {'is_editing': true},
+            );
           },
           icon: const Icon(Bootstrap.arrow_bar_right),
         ),

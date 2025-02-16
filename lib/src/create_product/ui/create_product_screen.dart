@@ -19,17 +19,6 @@ class CreateProductScreen extends StatefulWidget {
 class _CreateProductScreenState extends State<CreateProductScreen> {
   final _formKeyProduct = GlobalKey<FormBuilderState>();
   File? _imageFile;
-  bool isEditing = false;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
-    if (args != null && args.containsKey('is_editing')) {
-      isEditing = args['is_editing'];
-    }
-  }
-
 
   Widget _buildFormField({
     required String name,
@@ -45,12 +34,13 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
         name: name,
         initialValue: initialValue,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        validator: validator ?? (value) {
-          if (value == null || value.isEmpty) {
-            return 'This field is required';
-          }
-          return null;
-        },
+        validator: validator ??
+            (value) {
+              if (value == null || value.isEmpty) {
+                return 'This field is required';
+              }
+              return null;
+            },
         decoration: InputDecoration(
           labelText: label,
           labelStyle: const TextStyle(
@@ -61,7 +51,8 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
           suffixIcon: suffix,
           filled: true,
           fillColor: Colors.grey[50],
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide(color: Colors.grey[300]!),
@@ -86,6 +77,8 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    final bool isEditing = args?["is_editing"] ?? false;
     Fluttertoast.showToast(msg: isEditing.toString());
     return Scaffold(
       backgroundColor: Colors.white,
@@ -93,9 +86,10 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
         elevation: 0,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black87,
-        title: const Text(
-          'Create Product',
-          style: TextStyle(fontWeight: FontWeight.bold,fontFamily: 'inter'),
+        title: Text(
+          isEditing ? 'Edit Product' : 'Create Product',
+          style:
+              const TextStyle(fontWeight: FontWeight.bold, fontFamily: 'inter'),
         ),
         centerTitle: true,
       ),
@@ -151,14 +145,12 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                       ),
                     ),
                     const SizedBox(height: 24),
-
                     _buildFormField(
                       name: 'name',
                       label: 'Product Name',
                       initialValue: 'Product Alpha',
                       suffix: const Icon(Icons.inventory_2_outlined),
                     ),
-
                     Row(
                       children: [
                         Expanded(
@@ -182,7 +174,6 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                         ),
                       ],
                     ),
-
                     Row(
                       children: [
                         Expanded(
@@ -211,7 +202,6 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                       initialValue: 'Monthly',
                       suffix: const Icon(Icons.timer_outlined),
                     ),
-
                     const Text(
                       'Validity Period',
                       style: TextStyle(
@@ -221,7 +211,6 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                       ),
                     ),
                     const SizedBox(height: 16),
-
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
@@ -283,15 +272,21 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                             onPressed: state is CreateProductLoading
                                 ? null
                                 : () async {
-                              if (_formKeyProduct.currentState?.saveAndValidate() ?? false) {
-                                final formData = d.FormData.fromMap({
-                                  ..._formKeyProduct.currentState!.value,
-                                  if (_imageFile != null)
-                                    'productImage': await d.MultipartFile.fromFile(_imageFile!.path),
-                                });
-                                context.read<CreateProductBloc>().add(CreateProductRequested(formData: formData));
-                              }
-                            },
+                                    if (_formKeyProduct.currentState
+                                            ?.saveAndValidate() ??
+                                        false) {
+                                      final formData = d.FormData.fromMap({
+                                        ..._formKeyProduct.currentState!.value,
+                                        if (_imageFile != null)
+                                          'productImage':
+                                              await d.MultipartFile.fromFile(
+                                                  _imageFile!.path),
+                                      });
+                                      context.read<CreateProductBloc>().add(
+                                          CreateProductRequested(
+                                              formData: formData));
+                                    }
+                                  },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Theme.of(context).primaryColor,
                               shape: RoundedRectangleBorder(
@@ -299,16 +294,17 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                               ),
                             ),
                             child: state is CreateProductLoading
-                                ? const CircularProgressIndicator(color: Colors.white)
+                                ? const CircularProgressIndicator(
+                                    color: Colors.white)
                                 : const Text(
-                              'Create Product',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.white,
-                                fontFamily: 'inter',
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                                    'Create Product',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                      fontFamily: 'inter',
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                           ),
                         );
                       },
