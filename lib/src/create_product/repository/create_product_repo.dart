@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:project_bloc/app/constant/api_endpoints.dart';
 import 'package:project_bloc/core/core.dart';
