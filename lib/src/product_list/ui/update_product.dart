@@ -9,9 +9,12 @@ import '../../../core/extensions/image_picker.dart';
 import '../../create_product/bloc/create_product_bloc.dart';
 import '../../create_product/bloc/create_product_event.dart';
 import '../../create_product/bloc/create_product_state.dart';
+import '../model/product_list_model.dart';
 
 class UpdateProductPage extends StatefulWidget {
-  const UpdateProductPage({super.key});
+  final bool isEditing;
+  final ProductModel productModel;
+  const UpdateProductPage({super.key,required this.isEditing,required this.productModel});
 
   @override
   State<UpdateProductPage> createState() => _UpdateProductPageState();
@@ -23,9 +26,10 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
 
   @override
   Widget build(BuildContext context) {
+    Fluttertoast.showToast(msg: widget.isEditing.toString());
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Update'),
+        title:  Text(widget.isEditing?'Edit':'Create'),
       ),
       body: SingleChildScrollView(
         child: FormBuilder(
@@ -33,7 +37,6 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Image Picker Section
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(24),
@@ -83,7 +86,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                     _buildFormField(
                       name: 'name',
                       label: 'Product Name',
-                      initialValue: 'Product Alpha',
+                      initialValue: widget.isEditing?widget.productModel.name:'Product Name',
                       suffix: const Icon(Icons.inventory_2_outlined),
                     ),
 
@@ -93,7 +96,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                           child: _buildFormField(
                             name: 'salesRate',
                             label: 'Sales Rate',
-                            initialValue: '500',
+                            initialValue: widget.isEditing?widget.productModel.salesRate.toString():"Sales Rate",
                             keyboardType: TextInputType.number,
                             suffix: const Icon(Icons.attach_money),
                           ),
@@ -103,7 +106,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                           child: _buildFormField(
                             name: 'purchaseRate',
                             label: 'Purchase Rate',
-                            initialValue: '400',
+                            initialValue: widget.isEditing?widget.productModel.purchaseRate.toString():"Purchase Rate",
                             keyboardType: TextInputType.number,
                             suffix: const Icon(Icons.shopping_cart_outlined),
                           ),
@@ -117,7 +120,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                           child: _buildFormField(
                             name: 'quantity',
                             label: 'Quantity',
-                            initialValue: '100',
+                            initialValue: widget.isEditing?widget.productModel.quantity.toString():"Quantity",
                             keyboardType: TextInputType.number,
                             suffix: const Icon(Icons.numbers),
                           ),
@@ -127,7 +130,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                           child: _buildFormField(
                             name: 'unit',
                             label: 'Unit',
-                            initialValue: 'kg',
+                            initialValue: widget.isEditing?widget.productModel.unit:'Unit',
                             suffix: const Icon(Icons.scale_outlined),
                           ),
                         ),
@@ -136,7 +139,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                     _buildFormField(
                       name: 'duration',
                       label: 'Duration',
-                      initialValue: 'Monthly',
+                      initialValue:  widget.isEditing?widget.productModel.duration:'Duration',
                       suffix: const Icon(Icons.timer_outlined),
                     ),
 
@@ -217,7 +220,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                                   if (_imageFile != null)
                                     'productImage': await d.MultipartFile.fromFile(_imageFile!.path),
                                 });
-                                context.read<CreateProductBloc>().add(CreateProductRequested(formData: formData));
+                                context.read<CreateProductBloc>().add(UpdateProductRequested(formData: formData, id: widget.productModel.id));
                               }
                             },
                             style: ElevatedButton.styleFrom(

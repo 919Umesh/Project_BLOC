@@ -17,3 +17,13 @@ class CreateProductRequested extends CreateProductEvent {
   List<Object> get props => [formData];
 }
 
+class UpdateProductRequested extends CreateProductEvent {
+  final FormData formData;
+  final String id;
+
+  const UpdateProductRequested({required this.formData,required this.id});
+
+  @override
+  List<Object> get props => [formData,id];
+}
+
