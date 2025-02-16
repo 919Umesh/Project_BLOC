@@ -25,7 +25,6 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
-
     if (args != null && args.containsKey('is_editing')) {
       isEditing = args['is_editing'];
     }
