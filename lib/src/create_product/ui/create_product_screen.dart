@@ -79,7 +79,10 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
     final bool isEditing = args?["is_editing"] ?? false;
-    Fluttertoast.showToast(msg: isEditing.toString());
+    debugPrint('--------------Arguments-------------');
+    debugPrint('Arguments: $args');
+    debugPrint('isEditing: $isEditing');
+    Fluttertoast.showToast(msg:isEditing.toString());
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -282,9 +285,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                                               await d.MultipartFile.fromFile(
                                                   _imageFile!.path),
                                       });
-                                      context.read<CreateProductBloc>().add(
-                                          CreateProductRequested(
-                                              formData: formData));
+                                      context.read<CreateProductBloc>().add(CreateProductRequested(formData: formData));
                                     }
                                   },
                             style: ElevatedButton.styleFrom(

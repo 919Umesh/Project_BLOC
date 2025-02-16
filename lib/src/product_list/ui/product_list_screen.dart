@@ -219,7 +219,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
               arguments: {'is_editing': true},
             );
           },
-          icon: const Icon(Bootstrap.arrow_bar_right),
+          icon: const Icon(Bootstrap.arrow_right),
         ),
       ),
     );
