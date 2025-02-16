@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -14,7 +13,9 @@ import '../model/product_list_model.dart';
 class UpdateProductPage extends StatefulWidget {
   final bool isEditing;
   final ProductModel productModel;
-  const UpdateProductPage({super.key,required this.isEditing,required this.productModel});
+
+  const UpdateProductPage(
+      {super.key, required this.isEditing, required this.productModel});
 
   @override
   State<UpdateProductPage> createState() => _UpdateProductPageState();
@@ -29,7 +30,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
     Fluttertoast.showToast(msg: widget.isEditing.toString());
     return Scaffold(
       appBar: AppBar(
-        title:  Text(widget.isEditing?'Edit':'Create'),
+        title: Text(widget.isEditing ? 'Edit' : 'Create'),
       ),
       body: SingleChildScrollView(
         child: FormBuilder(
@@ -82,21 +83,23 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                       ),
                     ),
                     const SizedBox(height: 24),
-
                     _buildFormField(
                       name: 'name',
                       label: 'Product Name',
-                      initialValue: widget.isEditing?widget.productModel.name:'Product Name',
+                      initialValue: widget.isEditing
+                          ? widget.productModel.name
+                          : 'Product Name',
                       suffix: const Icon(Icons.inventory_2_outlined),
                     ),
-
                     Row(
                       children: [
                         Expanded(
                           child: _buildFormField(
                             name: 'salesRate',
                             label: 'Sales Rate',
-                            initialValue: widget.isEditing?widget.productModel.salesRate.toString():"Sales Rate",
+                            initialValue: widget.isEditing
+                                ? widget.productModel.salesRate.toString()
+                                : "Sales Rate",
                             keyboardType: TextInputType.number,
                             suffix: const Icon(Icons.attach_money),
                           ),
@@ -106,21 +109,24 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                           child: _buildFormField(
                             name: 'purchaseRate',
                             label: 'Purchase Rate',
-                            initialValue: widget.isEditing?widget.productModel.purchaseRate.toString():"Purchase Rate",
+                            initialValue: widget.isEditing
+                                ? widget.productModel.purchaseRate.toString()
+                                : "Purchase Rate",
                             keyboardType: TextInputType.number,
                             suffix: const Icon(Icons.shopping_cart_outlined),
                           ),
                         ),
                       ],
                     ),
-
                     Row(
                       children: [
                         Expanded(
                           child: _buildFormField(
                             name: 'quantity',
                             label: 'Quantity',
-                            initialValue: widget.isEditing?widget.productModel.quantity.toString():"Quantity",
+                            initialValue: widget.isEditing
+                                ? widget.productModel.quantity.toString()
+                                : "Quantity",
                             keyboardType: TextInputType.number,
                             suffix: const Icon(Icons.numbers),
                           ),
@@ -130,7 +136,9 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                           child: _buildFormField(
                             name: 'unit',
                             label: 'Unit',
-                            initialValue: widget.isEditing?widget.productModel.unit:'Unit',
+                            initialValue: widget.isEditing
+                                ? widget.productModel.unit
+                                : 'Unit',
                             suffix: const Icon(Icons.scale_outlined),
                           ),
                         ),
@@ -139,10 +147,11 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                     _buildFormField(
                       name: 'duration',
                       label: 'Duration',
-                      initialValue:  widget.isEditing?widget.productModel.duration:'Duration',
+                      initialValue: widget.isEditing
+                          ? widget.productModel.duration
+                          : 'Duration',
                       suffix: const Icon(Icons.timer_outlined),
                     ),
-
                     const Text(
                       'Validity Period',
                       style: TextStyle(
@@ -152,7 +161,6 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                       ),
                     ),
                     const SizedBox(height: 16),
-
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
@@ -214,15 +222,22 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                             onPressed: state is CreateProductLoading
                                 ? null
                                 : () async {
-                              if (_formKeyProduct.currentState?.saveAndValidate() ?? false) {
-                                final formData = d.FormData.fromMap({
-                                  ..._formKeyProduct.currentState!.value,
-                                  if (_imageFile != null)
-                                    'productImage': await d.MultipartFile.fromFile(_imageFile!.path),
-                                });
-                                context.read<CreateProductBloc>().add(UpdateProductRequested(formData: formData, id: widget.productModel.id));
-                              }
-                            },
+                                    if (_formKeyProduct.currentState
+                                            ?.saveAndValidate() ??
+                                        false) {
+                                      final formData = d.FormData.fromMap({
+                                        ..._formKeyProduct.currentState!.value,
+                                        if (_imageFile != null)
+                                          'productImage':
+                                              await d.MultipartFile.fromFile(
+                                                  _imageFile!.path),
+                                      });
+                                      context.read<CreateProductBloc>().add(
+                                          UpdateProductRequested(
+                                              formData: formData,
+                                              id: widget.productModel.id));
+                                    }
+                                  },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Theme.of(context).primaryColor,
                               shape: RoundedRectangleBorder(
@@ -230,16 +245,17 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                               ),
                             ),
                             child: state is CreateProductLoading
-                                ? const CircularProgressIndicator(color: Colors.white)
+                                ? const CircularProgressIndicator(
+                                    color: Colors.white)
                                 : const Text(
-                              'Create Product',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.white,
-                                fontFamily: 'inter',
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                                    'Create Product',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                      fontFamily: 'inter',
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                           ),
                         );
                       },
@@ -268,12 +284,13 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
         name: name,
         initialValue: initialValue,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        validator: validator ?? (value) {
-          if (value == null || value.isEmpty) {
-            return 'This field is required';
-          }
-          return null;
-        },
+        validator: validator ??
+            (value) {
+              if (value == null || value.isEmpty) {
+                return 'This field is required';
+              }
+              return null;
+            },
         decoration: InputDecoration(
           labelText: label,
           labelStyle: const TextStyle(
@@ -284,7 +301,8 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
           suffixIcon: suffix,
           filled: true,
           fillColor: Colors.grey[50],
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide(color: Colors.grey[300]!),
@@ -306,5 +324,4 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
       ),
     );
   }
-
 }
