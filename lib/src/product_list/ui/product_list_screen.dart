@@ -1,6 +1,8 @@
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:project_bloc/app/app.dart';
@@ -198,12 +200,21 @@ class _ProductListScreenState extends State<ProductListScreen> {
             fit: BoxFit.cover,
           ),
         ),
-        title: Text(
-          product.name,
-          style: GoogleFonts.poppins(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-          ),
+        title: Row(
+          children: [
+            Text(
+              product.name,
+              style: GoogleFonts.poppins(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+        IconButton(onPressed: (){
+          FlutterClipboard.copy(product.name).then((value) {
+            Fluttertoast.showToast(msg: 'Copied: ${product.name}');
+          });
+        }, icon: const Icon(Bootstrap.copy))
+          ],
         ),
         subtitle: Text(
           '\$${product.salesRate.toStringAsFixed(2)}',
@@ -216,7 +227,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
         trailing: IconButton(
           onPressed: () {
             Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) =>   UpdateProductPage(isEditing: true, productModel: product,)),
+              MaterialPageRoute(builder: (context) => UpdateProductPage(isEditing: true, productModel: product,)),
             );
           },
           icon: const Icon(Bootstrap.arrow_right),
