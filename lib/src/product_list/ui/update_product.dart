@@ -232,10 +232,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                                               await d.MultipartFile.fromFile(
                                                   _imageFile!.path),
                                       });
-                                      context.read<CreateProductBloc>().add(
-                                          UpdateProductRequested(
-                                              formData: formData,
-                                              id: widget.productModel.id));
+                                      context.read<CreateProductBloc>().add(UpdateProductRequested(formData: formData, id: widget.productModel.id));
                                     }
                                   },
                             style: ElevatedButton.styleFrom(
