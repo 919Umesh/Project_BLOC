@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project_bloc/app/app.dart';
 import 'package:project_bloc/src/product_list/ui/product_details.dart';
+import 'package:project_bloc/src/product_list/ui/update_product.dart';
 import 'package:shimmer/shimmer.dart';
 import '../bloc/product_list_bloc.dart';
 import '../bloc/product_list_event.dart';
@@ -206,11 +207,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ProductDetailScreen(
-                name: product.name,
-                salesRate: product.salesRate.toString(),
-                productImage: product.productImage,
-              ),
+              builder: (context) => const UpdateProductPage(),
             ),
           );
         },
