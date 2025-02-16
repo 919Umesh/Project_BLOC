@@ -218,13 +218,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
             Navigator.of(context).push(
               MaterialPageRoute(builder: (context) =>   UpdateProductPage(isEditing: true, productModel: product,)),
             );
-            // Navigator.pushNamed(
-            //   context,
-            //   AppRoute.createProductScreenPath,
-            //   arguments: {
-            //     'is_edit':true,
-            //   }
-            // );
           },
           icon: const Icon(Bootstrap.arrow_right),
         ),
