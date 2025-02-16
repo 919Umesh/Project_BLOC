@@ -28,19 +28,12 @@ class _UserListScreenState extends State<UserListScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 1,
-        title: Row(
-          children: [
-            Icon(Icons.list_rounded, color: Colors.blue[600]),
-            const SizedBox(width: 12),
-            const Text(
-              "Users",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                color: Colors.black87,
-              ),
-            ),
-          ],
+        title:  Text(
+          "Users",
+          style: GoogleFonts.poppins(
+            fontWeight: FontWeight.w600,
+            fontSize: 20,
+          ),
         ),
         actions: [
           IconButton(
@@ -122,7 +115,7 @@ class _UserListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(10.0),
       child: Card(
         elevation: 1,
         shape: RoundedRectangleBorder(
@@ -145,9 +138,9 @@ class _UserListView extends StatelessWidget {
                 backgroundColor: Colors.blue[100],
                 child: Text(
                   user.name[0].toUpperCase(),
-                  style: TextStyle(
-                    color: Colors.blue[600],
+                  style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w600,
+                    fontSize: 14,
                   ),
                 ),
               ),
@@ -158,7 +151,7 @@ class _UserListView extends StatelessWidget {
                 ),
               ),
               subtitle: Text(
-                'user@example.com',
+                '${user.name.toLowerCase()}@example.com',
                 // Add email field to your UserModel if needed
                 style: GoogleFonts.poppins(
                   color: Colors.grey[600],
