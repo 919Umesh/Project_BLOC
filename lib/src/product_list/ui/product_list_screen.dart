@@ -216,7 +216,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
             Navigator.pushNamed(
               context,
               AppRoute.createProductScreenPath,
-              arguments: {'is_editing': true},
             );
           },
           icon: const Icon(Bootstrap.arrow_right),
