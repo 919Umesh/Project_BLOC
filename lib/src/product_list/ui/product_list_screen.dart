@@ -217,13 +217,13 @@ class _ProductListScreenState extends State<ProductListScreen> {
         ),
         trailing: IconButton(
           onPressed: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => const UpdateProductPage(),
-            //   ),
-            // );
-            Fluttertoast.showToast(msg: product.name);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const UpdateProductPage(),
+              ),
+            );
+          //  Fluttertoast.showToast(msg: product.name);
           },
           icon: Icon(Bootstrap.arrow_bar_right),
         ),
