@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:project_bloc/app/app.dart';
 import 'package:project_bloc/src/product_list/ui/product_details.dart';
 import 'package:project_bloc/src/product_list/ui/update_product.dart';
@@ -30,7 +31,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
   }
 
   void _onScroll() {
-    if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent * 0.8) {
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent * 0.8) {
       context.read<ProductListBloc>().add(ProductListLoadMoreRequested());
     }
   }
@@ -47,14 +49,16 @@ class _ProductListScreenState extends State<ProductListScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        title:BlocBuilder<ProductListBloc, ProductListState>(
+        title: BlocBuilder<ProductListBloc, ProductListState>(
           builder: (context, state) {
             if (state is ProductListSuccess) {
-              return Text(state.products.isNotEmpty ? "Product" : "No Products",style: GoogleFonts.aBeeZee(
-                fontSize: 18,
-                color: kPrimaryColor,
-                fontWeight: FontWeight.w800,
-              ),
+              return Text(
+                state.products.isNotEmpty ? "Product" : "No Products",
+                style: GoogleFonts.aBeeZee(
+                  fontSize: 18,
+                  color: kPrimaryColor,
+                  fontWeight: FontWeight.w800,
+                ),
               );
             }
             return const SizedBox.shrink();
@@ -69,15 +73,20 @@ class _ProductListScreenState extends State<ProductListScreen> {
         onPressed: () {
           Navigator.pushNamed(context, AppRoute.createProductScreenPath);
         },
-
         icon: const Icon(Icons.add, color: Colors.white),
-        label: BlocBuilder<ProductListBloc,ProductListState>(
-          builder: (context,state){
-            if(state is ProductListSuccess){
-              return const Text('Add Products',style: TextStyle(color: Colors.white,fontFamily: 'inter'),);
+        label: BlocBuilder<ProductListBloc, ProductListState>(
+          builder: (context, state) {
+            if (state is ProductListSuccess) {
+              return const Text(
+                'Add Products',
+                style: TextStyle(color: Colors.white, fontFamily: 'inter'),
+              );
             }
-            if(state is ProductListFailure){
-              return const Text('Failure',style: TextStyle(color: Colors.white,fontFamily: 'inter'),);
+            if (state is ProductListFailure) {
+              return const Text(
+                'Failure',
+                style: TextStyle(color: Colors.white, fontFamily: 'inter'),
+              );
             }
             return const SizedBox.shrink();
           },
@@ -104,7 +113,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
                   const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {
-                      context.read<ProductListBloc>().add(ProductListRequested());
+                      context
+                          .read<ProductListBloc>()
+                          .add(ProductListRequested());
                     },
                     child: const Text('Retry'),
                   ),
@@ -182,7 +193,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
             maxWidthDiskCache: 400,
             maxHeightDiskCache: 400,
             placeholder: (context, url) => buildShimmerEffect(),
-            errorWidget: (context, url, error) => const Icon(Icons.error_outline),
+            errorWidget: (context, url, error) =>
+                const Icon(Icons.error_outline),
             width: 50,
             height: 50,
             fit: BoxFit.cover,
@@ -190,27 +202,31 @@ class _ProductListScreenState extends State<ProductListScreen> {
         ),
         title: Text(
           product.name,
-          style:  GoogleFonts.poppins(
+          style: GoogleFonts.poppins(
             fontSize: 16,
             fontWeight: FontWeight.w500,
           ),
         ),
         subtitle: Text(
           '\$${product.salesRate.toStringAsFixed(2)}',
-          style:  GoogleFonts.poppins(
+          style: GoogleFonts.poppins(
             fontSize: 16,
             color: kPrimaryColor,
             fontWeight: FontWeight.w600,
           ),
         ),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const UpdateProductPage(),
-            ),
-          );
-        },
+        trailing: IconButton(
+          onPressed: () {
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => const UpdateProductPage(),
+            //   ),
+            // );
+            Fluttertoast.showToast(msg: product.name);
+          },
+          icon: Icon(Bootstrap.arrow_bar_right),
+        ),
       ),
     );
   }
