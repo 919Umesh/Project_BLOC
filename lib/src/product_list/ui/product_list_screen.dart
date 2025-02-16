@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:project_bloc/app/app.dart';
-import 'package:project_bloc/src/product_list/ui/product_details.dart';
-import 'package:project_bloc/src/product_list/ui/update_product.dart';
 import 'package:shimmer/shimmer.dart';
 import '../bloc/product_list_bloc.dart';
 import '../bloc/product_list_event.dart';
@@ -45,7 +42,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Fluttertoast.showToast(msg: 'Product Details');
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
@@ -217,15 +213,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
         ),
         trailing: IconButton(
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const UpdateProductPage(),
-              ),
-            );
-          //  Fluttertoast.showToast(msg: product.name);
+            Navigator.pushNamed(context, AppRoute.createProductScreenPath,arguments: {
+              'is_editing':true,
+            });
           },
-          icon: Icon(Bootstrap.arrow_bar_right),
+          icon: const Icon(Bootstrap.arrow_bar_right),
         ),
       ),
     );
