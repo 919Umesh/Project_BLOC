@@ -99,7 +99,6 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Image Picker Section
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(24),

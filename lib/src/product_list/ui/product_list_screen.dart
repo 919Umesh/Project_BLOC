@@ -217,7 +217,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
               context,
               AppRoute.createProductScreenPath,
               arguments: {
-                'is_edit':false,
+                'is_edit':true,
               }
             );
           },
