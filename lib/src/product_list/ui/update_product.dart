@@ -27,7 +27,6 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<CreateProductBloc>().state;
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.isEditing ? 'Edit' : 'Create'),
