@@ -211,8 +211,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
             ),
             IconButton(
                 onPressed: () {
-                  FlutterClipboard.copy(product.name).then((value) =>Fluttertoast.showToast(msg: 'Copied: ${product.name}')
-                  );
+                  FlutterClipboard.copy(product.name).then((value) =>
+                      Fluttertoast.showToast(msg: 'Copied: ${product.name}'));
                 },
                 icon: const Icon(Bootstrap.copy))
           ],
@@ -227,19 +227,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
         ),
         trailing: IconButton(
           onPressed: () {
-            // Navigator.of(context).push(
-            //   MaterialPageRoute(
-            //       builder: (context) => UpdateProductPage(
-            //             isEditing: true,
-            //             productModel: product,
-            //           )),
-            // );
-            Navigator.of(context).pushNamed(
-              AppRoute.createProductScreenPath,
-              arguments: {
-                'edit':true,
-              }, // Pass argument like this
-            );
+            Navigator.pushNamed(context, AppRoute.createProductScreenPath,arguments:<String,dynamic> {
+              "is_editing":true,
+            });
           },
           icon: const Icon(Bootstrap.arrow_right),
         ),
