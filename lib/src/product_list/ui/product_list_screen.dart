@@ -83,7 +83,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
             }
             if (state is ProductListFailure) {
               return const Text(
-                'Error while creating product',
+                'Failure',
                 style: TextStyle(color: Colors.white, fontFamily: 'inter'),
               );
             }

@@ -263,7 +263,7 @@ class APIProvider {
         // String token = await SharedPreferencesHelper.getString(
         //     key: SharedPreferenceKey.token);
         if (token.isNotEmpty) {
-          dio.options.headers["Authorization"] = "Token $token";
+          dio.options.headers["Authorization"] = "Bearer $token";
         }
       }
 
@@ -275,7 +275,7 @@ class APIProvider {
       if (formData != null) {
         response = await dio.put(api, data: formData);
       } else if (body != null) {
-        response = await dio.post(api, data: body);
+        response = await dio.put(api, data: body);
       } else {
         throw ArgumentError("Either 'body' or 'formData' must be provided.");
       }
