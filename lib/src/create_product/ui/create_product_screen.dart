@@ -126,10 +126,10 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                                 ? ClipRRect(
                                     borderRadius: BorderRadius.circular(50),
                                     child: CachedNetworkImage(
-                                      memCacheWidth: 2000,
-                                      memCacheHeight: 2000,
-                                      maxWidthDiskCache: 3000,
-                                      maxHeightDiskCache: 3000,
+                                      memCacheWidth: 1000,
+                                      memCacheHeight: 1000,
+                                      maxWidthDiskCache: 2000,
+                                      maxHeightDiskCache: 2000,
                                       imageUrl:
                                           widget.productModel!.productImage,
                                       placeholder: (context, url) =>

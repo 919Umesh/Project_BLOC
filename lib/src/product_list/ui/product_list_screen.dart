@@ -206,10 +206,10 @@ class _ProductListScreenState extends State<ProductListScreen> {
           borderRadius: BorderRadius.circular(4),
           child: CachedNetworkImage(
             imageUrl: product.productImage,
-            memCacheWidth: 2000,
-            memCacheHeight: 2000,
-            maxWidthDiskCache: 3000,
-            maxHeightDiskCache: 3000,
+            memCacheWidth: 1000,
+            memCacheHeight:1000,
+            maxWidthDiskCache: 2000,
+            maxHeightDiskCache: 2000,
             placeholder: (context, url) => buildShimmerEffect(),
             errorWidget: (context, url, error) =>
                 const Icon(Icons.error_outline),
