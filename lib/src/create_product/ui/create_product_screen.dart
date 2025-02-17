@@ -84,7 +84,6 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
   @override
   Widget build(BuildContext context) {
     final bool hasProfile = (widget.productModel!.productImage.isNotEmpty);
-    Fluttertoast.showToast(msg: hasProfile.toString());
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
