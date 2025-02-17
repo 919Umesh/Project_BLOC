@@ -22,7 +22,6 @@ class _ProjectListScreenState extends State<ProjectListScreen>
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
 
-  // Map to cache projects by status
   final Map<String, List<ProjectModel>> _projectCache = {};
 
   @override
@@ -30,9 +29,7 @@ class _ProjectListScreenState extends State<ProjectListScreen>
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
 
-    // Listen to both tab changes and animation
     _tabController.addListener(() {
-      // Only load when the animation is completed
       if (!_tabController.indexIsChanging &&
           _tabController.animation!.value == _tabController.index) {
         _loadProjectsForCurrentTab();
