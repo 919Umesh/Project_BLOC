@@ -1,4 +1,5 @@
 part of 'project_list_bloc.dart';
+
 abstract class ProjectListEvent {}
 
 class LoadProjectRequested extends ProjectListEvent {
