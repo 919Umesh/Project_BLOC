@@ -78,7 +78,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
-    final bool isEditing = args?['is_editing'] ?? false;
+    final bool isEditing = args?['edit'] ?? false;
     Fluttertoast.showToast(msg: 'Editing mode: $isEditing');
     return Scaffold(
       backgroundColor: Colors.white,
