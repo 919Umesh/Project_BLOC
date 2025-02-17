@@ -27,7 +27,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
 
   @override
   Widget build(BuildContext context) {
-    Fluttertoast.showToast(msg: widget.isEditing.toString());
+    final state = context.watch<CreateProductBloc>().state;
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.isEditing ? 'Edit' : 'Create'),
