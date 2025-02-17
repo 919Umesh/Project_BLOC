@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart' as d;
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -120,19 +121,30 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                         ? CircleAvatar(
                             radius: 40,
                             backgroundColor: Colors.grey.shade200,
-                            backgroundImage:
-                                widget.productModel!.productImage.isNotEmpty
-                                    ? NetworkImage(
-                                            widget.productModel!.productImage)
-                                        as ImageProvider
-                                    : const AssetImage(
-                                        'assets/images/default_profile.png'),
-                            // Fallback image
-                            onBackgroundImageError: (_, __) {
-                              debugPrint("Error loading image");
-                            },
-                            child: widget.productModel!.productImage.isNotEmpty
-                                ? null
+                            child: widget.productModel?.productImage != null &&
+                                    widget.productModel!.productImage.isNotEmpty
+                                ? ClipRRect(
+                                    borderRadius: BorderRadius.circular(50),
+                                    child: CachedNetworkImage(
+                                      memCacheWidth: 1000,
+                                      memCacheHeight: 1000,
+                                      maxWidthDiskCache: 2000,
+                                      maxHeightDiskCache: 2000,
+                                      imageUrl:
+                                          widget.productModel!.productImage,
+                                      placeholder: (context, url) =>
+                                          const CircularProgressIndicator(),
+                                      // Loading indicator
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(Icons.error,
+                                              size: 40, color: Colors.red),
+                                      // Error icon
+                                      width: 100,
+                                      // Ensuring correct size inside CircleAvatar
+                                      height: 100,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  )
                                 : const Icon(Icons.person,
                                     size: 40,
                                     color: Colors.grey), // Default icon
