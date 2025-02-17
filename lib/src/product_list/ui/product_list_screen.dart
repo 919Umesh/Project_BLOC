@@ -226,13 +226,16 @@ class _ProductListScreenState extends State<ProductListScreen> {
         ),
         trailing: IconButton(
           onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                  builder: (context) => UpdateProductPage(
-                        isEditing: true,
-                        productModel: product,
-                      )),
-            );
+            // Navigator.of(context).push(
+            //   MaterialPageRoute(
+            //       builder: (context) => UpdateProductPage(
+            //             isEditing: true,
+            //             productModel: product,
+            //           )),
+            // );
+            Navigator.pushNamed(context,AppRoute.createProductScreenPath,arguments:<String,dynamic> {
+              'is_editing':true,
+            });
           },
           icon: const Icon(Bootstrap.arrow_right),
         ),
