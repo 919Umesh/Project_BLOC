@@ -57,8 +57,8 @@ class _PageWrapperState extends State<PageWrapper> {
         animationDuration: const Duration(milliseconds: 300),
         items: const <Widget>[
           Icon(Bootstrap.house, size: 25, color: Colors.white),
-          Icon(Bootstrap.person, size: 25, color: Colors.white),
           Icon(Bootstrap.chat_right, size: 25, color: Colors.white),
+          Icon(Bootstrap.envelope, size: 25, color: Colors.white),
         ],
         onTap: _onItemTapped,
       ),

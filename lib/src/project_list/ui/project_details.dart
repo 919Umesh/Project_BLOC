@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sheet/sheet.dart';
 import '../model/project_list_model.dart';
 
 class ProjectDetailsPage extends StatefulWidget {
@@ -18,30 +19,244 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
     final project = widget.projectModel;
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      body: CustomScrollView(
-        slivers: [
-          _buildSliverAppBar(project),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
+      body: Stack(
+        children: [
+          CustomScrollView(
+            slivers: [
+              _buildSliverAppBar(project),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      _buildStatusCard(project),
+                      const SizedBox(height: 16),
+                      _buildDetailsCard(project),
+                      const SizedBox(height: 16),
+                      _buildTeamSection(project),
+                      const SizedBox(height: 16),
+                      _buildActionButtons(),
+                      const SizedBox(height: 24),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          _bottomSheet(project),
+        ],
+      ),
+    );
+  }
+
+
+  Widget _bottomSheet(ProjectModel projectModel) {
+    return Sheet(
+      initialExtent: 150,
+      minExtent: 100,
+      maxExtent: 400,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              offset: const Offset(0, -2),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Drag handle
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 12),
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+
+            // Quick Actions
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _buildStatusCard(project),
-                  const SizedBox(height: 16),
-                  _buildDetailsCard(project),
-                  const SizedBox(height: 16),
-                  _buildTeamSection(project),
-                  const SizedBox(height: 16),
-                  _buildActionButtons(),
-                  const SizedBox(height: 24),
+                  _buildQuickAction(
+                    icon: Bootstrap.calendar2_check,
+                    label: 'Schedule',
+                    color: Colors.blue[600]!,
+                  ),
+                  _buildQuickAction(
+                    icon: Bootstrap.file_earmark_text,
+                    label: 'Documents',
+                    color: Colors.orange[600]!,
+                  ),
+                  _buildQuickAction(
+                    icon: Bootstrap.people,
+                    label: 'Team',
+                    color: Colors.green[600]!,
+                  ),
+                  _buildQuickAction(
+                    icon: Bootstrap.chat_square_dots,
+                    label: 'Chat',
+                    color: Colors.purple[600]!,
+                  ),
                 ],
               ),
+            ),
+
+            const SizedBox(height: 20),
+
+            // Expanded Content (visible when sheet is expanded)
+            Flexible(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const Divider(height: 1),
+                    // Recent Activities
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Recent Activities',
+                            style: GoogleFonts.poppins(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          _buildActivityItem(
+                            icon: Bootstrap.file_earmark_plus,
+                            title: projectModel.name,
+                            subtitle: 'Project proposal.pdf',
+                            time: '2h ago',
+                            iconColor: Colors.blue[600]!,
+                          ),
+                          _buildActivityItem(
+                            icon: Bootstrap.person_plus,
+                            title: projectModel.location,
+                            subtitle: 'Sarah Johnson joined the project',
+                            time: '4h ago',
+                            iconColor: Colors.green[600]!,
+                          ),
+                          _buildActivityItem(
+                            icon: Bootstrap.check2_circle,
+                            title: projectModel.status,
+                            subtitle: 'Phase 1 development',
+                            time: '1d ago',
+                            iconColor: Colors.orange[600]!,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildQuickAction({
+    required IconData icon,
+    required String label,
+    required Color color,
+  }) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: color.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Icon(
+            icon,
+            color: color,
+            size: 20,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          label,
+          style: GoogleFonts.poppins(
+            fontSize: 12,
+            color: Colors.grey[700],
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildActivityItem({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required String time,
+    required Color iconColor,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: iconColor.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Icon(
+              icon,
+              color: iconColor,
+              size: 20,
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                Text(
+                  subtitle,
+                  style: GoogleFonts.poppins(
+                    fontSize: 12,
+                    color: Colors.grey[600],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Text(
+            time,
+            style: GoogleFonts.poppins(
+              fontSize: 12,
+              color: Colors.grey[500],
             ),
           ),
         ],
       ),
     );
   }
+
 
   Widget _buildSliverAppBar(ProjectModel project) {
     return SliverAppBar(
