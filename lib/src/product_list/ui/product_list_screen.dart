@@ -1,14 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:project_bloc/app/app.dart';
 import 'package:project_bloc/src/product_list/ui/update_product.dart';
 import 'package:shimmer/shimmer.dart';
-import '../../create_project/create_project.dart';
 import '../bloc/product_list_bloc.dart';
 import '../bloc/product_list_event.dart';
 import '../bloc/product_list_state.dart';
@@ -84,7 +83,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
             }
             if (state is ProductListFailure) {
               return const Text(
-                'Failure',
+                'Error while creating product',
                 style: TextStyle(color: Colors.white, fontFamily: 'inter'),
               );
             }
@@ -209,11 +208,12 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 fontWeight: FontWeight.w500,
               ),
             ),
-        IconButton(onPressed: (){
-          FlutterClipboard.copy(product.name).then((value) {
-            Fluttertoast.showToast(msg: 'Copied: ${product.name}');
-          });
-        }, icon: const Icon(Bootstrap.copy))
+            IconButton(
+                onPressed: () {
+                  FlutterClipboard.copy(product.name).then((value) =>Fluttertoast.showToast(msg: 'Copied: ${product.name}')
+                  );
+                },
+                icon: const Icon(Bootstrap.copy))
           ],
         ),
         subtitle: Text(
@@ -227,7 +227,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
         trailing: IconButton(
           onPressed: () {
             Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => UpdateProductPage(isEditing: true, productModel: product,)),
+              MaterialPageRoute(
+                  builder: (context) => UpdateProductPage(
+                        isEditing: true,
+                        productModel: product,
+                      )),
             );
           },
           icon: const Icon(Bootstrap.arrow_right),
