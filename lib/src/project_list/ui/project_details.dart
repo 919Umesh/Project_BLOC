@@ -79,8 +79,6 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
-
-            // Quick Actions
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
@@ -109,7 +107,6 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
                 ],
               ),
             ),
-
             const SizedBox(height: 20),
             Flexible(
               child: SingleChildScrollView(
