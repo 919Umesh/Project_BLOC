@@ -12,10 +12,10 @@ import '../model/product_list_model.dart';
 
 class UpdateProductPage extends StatefulWidget {
   final bool isEditing;
-  final ProductModel productModel;
+  final ProductModel? productModel;
 
   const UpdateProductPage(
-      {super.key, required this.isEditing, required this.productModel});
+      {super.key, required this.isEditing,  this.productModel});
 
   @override
   State<UpdateProductPage> createState() => _UpdateProductPageState();
@@ -27,6 +27,8 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
 
   @override
   Widget build(BuildContext context) {
+    final bool hasProfile = (widget.productModel!.productImage.isNotEmpty);
+    Fluttertoast.showToast(msg: hasProfile.toString());
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.isEditing ? 'Edit' : 'Create'),
@@ -49,13 +51,34 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                 ),
                 child: Column(
                   children: [
-                    ImagePickerWidget(
-                      onImageSelected: (file) {
-                        setState(() {
-                          _imageFile = file;
-                        });
-                      },
-                    ),
+                    hasProfile
+                        ? CircleAvatar(
+                            radius: 40,
+                            backgroundColor: Colors.grey.shade200,
+                            backgroundImage:
+                                widget.productModel!.productImage.isNotEmpty
+                                    ? NetworkImage(
+                                            widget.productModel!.productImage)
+                                        as ImageProvider
+                                    : const AssetImage(
+                                        'assets/images/default_profile.png'),
+                            // Fallback image
+                            onBackgroundImageError: (_, __) {
+                              debugPrint("Error loading image");
+                            },
+                            child: widget.productModel!.productImage.isNotEmpty
+                                ? null
+                                : const Icon(Icons.person,
+                                    size: 40,
+                                    color: Colors.grey), // Default icon
+                          )
+                        : ImagePickerWidget(
+                            onImageSelected: (file) {
+                              setState(() {
+                                _imageFile = file;
+                              });
+                            },
+                          ),
                     const SizedBox(height: 12),
                     Text(
                       'Tap to change product image',
@@ -86,7 +109,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                       name: 'name',
                       label: 'Product Name',
                       initialValue: widget.isEditing
-                          ? widget.productModel.name
+                          ? widget.productModel!.name
                           : 'Product Name',
                       suffix: const Icon(Icons.inventory_2_outlined),
                     ),
@@ -97,7 +120,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                             name: 'salesRate',
                             label: 'Sales Rate',
                             initialValue: widget.isEditing
-                                ? widget.productModel.salesRate.toString()
+                                ? widget.productModel!.salesRate.toString()
                                 : "Sales Rate",
                             keyboardType: TextInputType.number,
                             suffix: const Icon(Icons.attach_money),
@@ -109,7 +132,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                             name: 'purchaseRate',
                             label: 'Purchase Rate',
                             initialValue: widget.isEditing
-                                ? widget.productModel.purchaseRate.toString()
+                                ? widget.productModel!.purchaseRate.toString()
                                 : "Purchase Rate",
                             keyboardType: TextInputType.number,
                             suffix: const Icon(Icons.shopping_cart_outlined),
@@ -124,7 +147,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                             name: 'quantity',
                             label: 'Quantity',
                             initialValue: widget.isEditing
-                                ? widget.productModel.quantity.toString()
+                                ? widget.productModel!.quantity.toString()
                                 : "Quantity",
                             keyboardType: TextInputType.number,
                             suffix: const Icon(Icons.numbers),
@@ -136,7 +159,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                             name: 'unit',
                             label: 'Unit',
                             initialValue: widget.isEditing
-                                ? widget.productModel.unit
+                                ? widget.productModel!.unit
                                 : 'Unit',
                             suffix: const Icon(Icons.scale_outlined),
                           ),
@@ -147,7 +170,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                       name: 'duration',
                       label: 'Duration',
                       initialValue: widget.isEditing
-                          ? widget.productModel.duration
+                          ? widget.productModel!.duration
                           : 'Duration',
                       suffix: const Icon(Icons.timer_outlined),
                     ),
@@ -231,7 +254,10 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                                               await d.MultipartFile.fromFile(
                                                   _imageFile!.path),
                                       });
-                                      context.read<CreateProductBloc>().add(UpdateProductRequested(formData: formData, id: widget.productModel.id));
+                                      context.read<CreateProductBloc>().add(
+                                          UpdateProductRequested(
+                                              formData: formData,
+                                              id: widget.productModel!.id));
                                     }
                                   },
                             style: ElevatedButton.styleFrom(

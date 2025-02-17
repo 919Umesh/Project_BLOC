@@ -6,6 +6,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:project_bloc/app/app.dart';
 import 'package:project_bloc/src/product_list/ui/update_product.dart';
 import 'package:shimmer/shimmer.dart';
+import '../../create_product/create_product.dart';
 import '../bloc/product_list_bloc.dart';
 import '../bloc/product_list_event.dart';
 import '../bloc/product_list_state.dart';
@@ -68,7 +69,13 @@ class _ProductListScreenState extends State<ProductListScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Navigator.pushNamed(context, AppRoute.createProductScreenPath);
+          Navigator.of(context).push(
+            MaterialPageRoute(
+                builder: (context) =>  const CreateProductScreen(
+                  isEditing: false,
+                )),
+          );
+          // Navigator.pushNamed(context, AppRoute.createProductScreenPath);
         },
         icon: const Icon(Icons.add, color: Colors.white),
         label: BlocBuilder<ProductListBloc, ProductListState>(
@@ -226,7 +233,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                  builder: (context) => UpdateProductPage(
+                  builder: (context) => CreateProductScreen(
                         isEditing: true,
                         productModel: product,
                       )),

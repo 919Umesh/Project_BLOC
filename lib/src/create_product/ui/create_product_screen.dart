@@ -5,12 +5,15 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/extensions/image_picker.dart';
+import '../../product_list/model/product_list_model.dart';
 import '../bloc/create_product_bloc.dart';
 import '../bloc/create_product_event.dart';
 import '../bloc/create_product_state.dart';
 
 class CreateProductScreen extends StatefulWidget {
-  const CreateProductScreen({super.key});
+  final bool isEditing;
+  final ProductModel? productModel;
+  const CreateProductScreen({super.key,required this.isEditing, this.productModel});
 
   @override
   State createState() => _CreateProductScreenState();
@@ -77,21 +80,17 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
-    final bool isEditing = args?['is_editing'] ?? false;
-    Fluttertoast.showToast(msg: 'Editing mode: $isEditing');
-    debugPrint('---------edit---------');
-    debugPrint(isEditing.toString());
+    final bool hasProfile = (widget.productModel!.productImage.isNotEmpty);
+    Fluttertoast.showToast(msg: hasProfile.toString());
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black87,
-        title: const Text(
-           'Create Product',
-          style:
-              TextStyle(fontWeight: FontWeight.bold, fontFamily: 'inter'),
+        title:  Text(
+          widget.isEditing?'Edit Product': 'Create Product',
+          style: const TextStyle(fontWeight: FontWeight.bold, fontFamily: 'inter'),
         ),
         centerTitle: true,
       ),
@@ -114,7 +113,28 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                 ),
                 child: Column(
                   children: [
-                    ImagePickerWidget(
+                    hasProfile
+                        ? CircleAvatar(
+                      radius: 40,
+                      backgroundColor: Colors.grey.shade200,
+                      backgroundImage:
+                      widget.productModel!.productImage.isNotEmpty
+                          ? NetworkImage(
+                          widget.productModel!.productImage)
+                      as ImageProvider
+                          : const AssetImage(
+                          'assets/images/default_profile.png'),
+                      // Fallback image
+                      onBackgroundImageError: (_, __) {
+                        debugPrint("Error loading image");
+                      },
+                      child: widget.productModel!.productImage.isNotEmpty
+                          ? null
+                          : const Icon(Icons.person,
+                          size: 40,
+                          color: Colors.grey), // Default icon
+                    )
+                        : ImagePickerWidget(
                       onImageSelected: (file) {
                         setState(() {
                           _imageFile = file;
@@ -150,7 +170,9 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                     _buildFormField(
                       name: 'name',
                       label: 'Product Name',
-                      initialValue: 'Product Alpha',
+                      initialValue: widget.isEditing
+                          ? widget.productModel!.name
+                          : 'Product Name',
                       suffix: const Icon(Icons.inventory_2_outlined),
                     ),
                     Row(
@@ -159,7 +181,9 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                           child: _buildFormField(
                             name: 'salesRate',
                             label: 'Sales Rate',
-                            initialValue: '500',
+                            initialValue: widget.isEditing
+                                ? widget.productModel!.salesRate.toString()
+                                : "Sales Rate",
                             keyboardType: TextInputType.number,
                             suffix: const Icon(Icons.attach_money),
                           ),
@@ -169,7 +193,9 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                           child: _buildFormField(
                             name: 'purchaseRate',
                             label: 'Purchase Rate',
-                            initialValue: '400',
+                            initialValue: widget.isEditing
+                                ? widget.productModel!.purchaseRate.toString()
+                                : "Purchase Rate",
                             keyboardType: TextInputType.number,
                             suffix: const Icon(Icons.shopping_cart_outlined),
                           ),
@@ -182,7 +208,9 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                           child: _buildFormField(
                             name: 'quantity',
                             label: 'Quantity',
-                            initialValue: '100',
+                            initialValue: widget.isEditing
+                                ? widget.productModel!.quantity.toString()
+                                : "Quantity",
                             keyboardType: TextInputType.number,
                             suffix: const Icon(Icons.numbers),
                           ),
@@ -192,7 +220,9 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                           child: _buildFormField(
                             name: 'unit',
                             label: 'Unit',
-                            initialValue: 'kg',
+                            initialValue: widget.isEditing
+                                ? widget.productModel!.unit
+                                : 'Unit',
                             suffix: const Icon(Icons.scale_outlined),
                           ),
                         ),
@@ -201,7 +231,9 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                     _buildFormField(
                       name: 'duration',
                       label: 'Duration',
-                      initialValue: 'Monthly',
+                      initialValue: widget.isEditing
+                          ? widget.productModel!.duration
+                          : 'Duration',
                       suffix: const Icon(Icons.timer_outlined),
                     ),
                     const Text(
@@ -284,7 +316,10 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                                               await d.MultipartFile.fromFile(
                                                   _imageFile!.path),
                                       });
-                                      context.read<CreateProductBloc>().add(CreateProductRequested(formData: formData));
+                                    widget.isEditing?context.read<CreateProductBloc>().add(
+                                        UpdateProductRequested(
+                                            formData: formData,
+                                            id: widget.productModel!.id)):  context.read<CreateProductBloc>().add(CreateProductRequested(formData: formData));
                                     }
                                   },
                             style: ElevatedButton.styleFrom(
