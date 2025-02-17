@@ -1,8 +1,11 @@
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:project_bloc/app/themes/colors.dart';
 import '../../../app/routes/route_name.dart';
 import '../bloc/project_list_bloc.dart';
 import '../model/project_list_model.dart';
@@ -74,6 +77,17 @@ class _ProjectListScreenState extends State<ProjectListScreen>
       backgroundColor: Colors.grey[100],
       drawer: const DrawerSection(),
       appBar: _buildAppBar(),
+      bottomNavigationBar: CurvedNavigationBar(
+        backgroundColor: Colors.blue,
+        items: const <Widget>[
+          Icon(Bootstrap.house, size: 25),
+          Icon(Bootstrap.person, size: 25),
+          Icon(Bootstrap.chat_right, size: 25),
+        ],
+        onTap: (index) {
+          //Handle button tap
+        },
+      ),
       body: RefreshIndicator(
         key: _refreshIndicatorKey,
         onRefresh: () async {
@@ -223,10 +237,7 @@ class _ProjectListView extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => ProjectDetailsPage(
-                    name: project.name,
-                    address: project.location,
-                  ),
+                  builder: (context) => ProjectDetailsPage(projectModel: project),
                 ),
               );
             },
