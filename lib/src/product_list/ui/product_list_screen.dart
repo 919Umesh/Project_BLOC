@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:project_bloc/app/app.dart';
+import 'package:project_bloc/src/product_list/product_list.dart';
 import 'package:project_bloc/src/product_list/ui/update_product.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../create_product/create_product.dart';
@@ -71,9 +72,22 @@ class _ProductListScreenState extends State<ProductListScreen> {
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-                builder: (context) =>  const CreateProductScreen(
-                  isEditing: false,
-                )),
+                builder: (context) => CreateProductScreen(
+                      isEditing: false,
+                      productModel: ProductModel(
+                          id: '',
+                          name: '',
+                          salesRate: 0,
+                          purchaseRate: 0,
+                          quantity: 0,
+                          unit: '',
+                          duration: '',
+                          fromDate: DateTime.now(),
+                          toDate:  DateTime.now(),
+                          productImage: '',
+                          createdAt:  DateTime.now(),
+                          updatedAt:  DateTime.now()),
+                    )),
           );
           // Navigator.pushNamed(context, AppRoute.createProductScreenPath);
         },

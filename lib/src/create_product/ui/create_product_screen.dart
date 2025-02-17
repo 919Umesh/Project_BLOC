@@ -13,7 +13,9 @@ import '../bloc/create_product_state.dart';
 class CreateProductScreen extends StatefulWidget {
   final bool isEditing;
   final ProductModel? productModel;
-  const CreateProductScreen({super.key,required this.isEditing, this.productModel});
+
+  const CreateProductScreen(
+      {super.key, required this.isEditing, this.productModel});
 
   @override
   State createState() => _CreateProductScreenState();
@@ -88,9 +90,10 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
         elevation: 0,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black87,
-        title:  Text(
-          widget.isEditing?'Edit Product': 'Create Product',
-          style: const TextStyle(fontWeight: FontWeight.bold, fontFamily: 'inter'),
+        title: Text(
+          widget.isEditing ? 'Edit Product' : 'Create Product',
+          style:
+              const TextStyle(fontWeight: FontWeight.bold, fontFamily: 'inter'),
         ),
         centerTitle: true,
       ),
@@ -115,32 +118,32 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                   children: [
                     hasProfile
                         ? CircleAvatar(
-                      radius: 40,
-                      backgroundColor: Colors.grey.shade200,
-                      backgroundImage:
-                      widget.productModel!.productImage.isNotEmpty
-                          ? NetworkImage(
-                          widget.productModel!.productImage)
-                      as ImageProvider
-                          : const AssetImage(
-                          'assets/images/default_profile.png'),
-                      // Fallback image
-                      onBackgroundImageError: (_, __) {
-                        debugPrint("Error loading image");
-                      },
-                      child: widget.productModel!.productImage.isNotEmpty
-                          ? null
-                          : const Icon(Icons.person,
-                          size: 40,
-                          color: Colors.grey), // Default icon
-                    )
+                            radius: 40,
+                            backgroundColor: Colors.grey.shade200,
+                            backgroundImage:
+                                widget.productModel!.productImage.isNotEmpty
+                                    ? NetworkImage(
+                                            widget.productModel!.productImage)
+                                        as ImageProvider
+                                    : const AssetImage(
+                                        'assets/images/default_profile.png'),
+                            // Fallback image
+                            onBackgroundImageError: (_, __) {
+                              debugPrint("Error loading image");
+                            },
+                            child: widget.productModel!.productImage.isNotEmpty
+                                ? null
+                                : const Icon(Icons.person,
+                                    size: 40,
+                                    color: Colors.grey), // Default icon
+                          )
                         : ImagePickerWidget(
-                      onImageSelected: (file) {
-                        setState(() {
-                          _imageFile = file;
-                        });
-                      },
-                    ),
+                            onImageSelected: (file) {
+                              setState(() {
+                                _imageFile = file;
+                              });
+                            },
+                          ),
                     const SizedBox(height: 12),
                     Text(
                       'Tap to change product image',
@@ -170,9 +173,8 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                     _buildFormField(
                       name: 'name',
                       label: 'Product Name',
-                      initialValue: widget.isEditing
-                          ? widget.productModel!.name
-                          : 'Product Name',
+                      initialValue:
+                          widget.isEditing ? widget.productModel!.name : null,
                       suffix: const Icon(Icons.inventory_2_outlined),
                     ),
                     Row(
@@ -183,7 +185,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                             label: 'Sales Rate',
                             initialValue: widget.isEditing
                                 ? widget.productModel!.salesRate.toString()
-                                : "Sales Rate",
+                                : null,
                             keyboardType: TextInputType.number,
                             suffix: const Icon(Icons.attach_money),
                           ),
@@ -195,7 +197,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                             label: 'Purchase Rate',
                             initialValue: widget.isEditing
                                 ? widget.productModel!.purchaseRate.toString()
-                                : "Purchase Rate",
+                                : null,
                             keyboardType: TextInputType.number,
                             suffix: const Icon(Icons.shopping_cart_outlined),
                           ),
@@ -210,7 +212,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                             label: 'Quantity',
                             initialValue: widget.isEditing
                                 ? widget.productModel!.quantity.toString()
-                                : "Quantity",
+                                : null,
                             keyboardType: TextInputType.number,
                             suffix: const Icon(Icons.numbers),
                           ),
@@ -222,7 +224,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                             label: 'Unit',
                             initialValue: widget.isEditing
                                 ? widget.productModel!.unit
-                                : 'Unit',
+                                : null,
                             suffix: const Icon(Icons.scale_outlined),
                           ),
                         ),
@@ -233,7 +235,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                       label: 'Duration',
                       initialValue: widget.isEditing
                           ? widget.productModel!.duration
-                          : 'Duration',
+                          : null,
                       suffix: const Icon(Icons.timer_outlined),
                     ),
                     const Text(
@@ -316,10 +318,16 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                                               await d.MultipartFile.fromFile(
                                                   _imageFile!.path),
                                       });
-                                    widget.isEditing?context.read<CreateProductBloc>().add(
-                                        UpdateProductRequested(
-                                            formData: formData,
-                                            id: widget.productModel!.id)):  context.read<CreateProductBloc>().add(CreateProductRequested(formData: formData));
+                                      widget.isEditing
+                                          ? context
+                                              .read<CreateProductBloc>()
+                                              .add(UpdateProductRequested(
+                                                  formData: formData,
+                                                  id: widget.productModel!.id))
+                                          : context
+                                              .read<CreateProductBloc>()
+                                              .add(CreateProductRequested(
+                                                  formData: formData));
                                     }
                                   },
                             style: ElevatedButton.styleFrom(
@@ -331,9 +339,11 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                             child: state is CreateProductLoading
                                 ? const CircularProgressIndicator(
                                     color: Colors.white)
-                                : const Text(
-                                    'Create Product',
-                                    style: TextStyle(
+                                : Text(
+                                    widget.isEditing
+                                        ? 'Edit Product'
+                                        : 'Create Product',
+                                    style: const TextStyle(
                                       fontSize: 16,
                                       color: Colors.white,
                                       fontFamily: 'inter',
