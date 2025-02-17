@@ -20,45 +20,53 @@ class _ProjectListScreenState extends State<ProjectListScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-  GlobalKey<RefreshIndicatorState>();
+      GlobalKey<RefreshIndicatorState>();
+
+  // Map to cache projects by status
+  final Map<String, List<ProjectModel>> _projectCache = {};
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
-    _tabController.addListener(_handleTabChange);
+
+    // Listen to both tab changes and animation
+    _tabController.addListener(() {
+      // Only load when the animation is completed
+      if (!_tabController.indexIsChanging &&
+          _tabController.animation!.value == _tabController.index) {
+        _loadProjectsForCurrentTab();
+      }
+    });
+
+    // Initial load
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _loadProjectsForCurrentTab();
     });
   }
 
-  void _handleTabChange() {
-    if (_tabController.indexIsChanging) {
-      _loadProjectsForCurrentTab();
+  String _getStatusForIndex(int index) {
+    switch (index) {
+      case 0:
+        return 'pending';
+      case 1:
+        return 'in-progress';
+      case 2:
+        return 'complete';
+      default:
+        return 'pending';
     }
   }
 
   Future<void> _loadProjectsForCurrentTab() async {
-    String status;
-    switch (_tabController.index) {
-      case 0:
-        status = 'pending';
-        break;
-      case 1:
-        status = 'in-progress';
-        break;
-      case 2:
-        status = 'complete';
-        break;
-      default:
-        status = 'pending';
+    final status = _getStatusForIndex(_tabController.index);
+    if (!_projectCache.containsKey(status)) {
+      context.read<ProjectListBloc>().add(LoadProjectRequested(status: status));
     }
-    context.read<ProjectListBloc>().add(LoadProjectRequested(status: status));
   }
 
   @override
   void dispose() {
-    _tabController.removeListener(_handleTabChange);
     _tabController.dispose();
     super.dispose();
   }
@@ -68,49 +76,15 @@ class _ProjectListScreenState extends State<ProjectListScreen>
     return Scaffold(
       backgroundColor: Colors.grey[100],
       drawer: const DrawerSection(),
-      appBar: AppBar(
-        elevation: 0,
-        title: Text(
-          "Projects",
-          style: GoogleFonts.poppins(
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
-            color: Colors.black87,
-          ),
-        ),
-        actions: [
-          IconButton(onPressed: (){
-            Navigator.pushNamed(context, AppRoute.userListScreenPath);
-          }, icon: const Icon(Bootstrap.person)),
-          IconButton(onPressed: (){
-            Navigator.pushNamed(context, AppRoute.searchProjectListScreenPath);
-          }, icon: const Icon(Bootstrap.search)),
-        ],
-        backgroundColor: Colors.white,
-        bottom: TabBar(
-          controller: _tabController,
-          indicatorColor: Colors.blue,
-          indicatorWeight: 3,
-          labelStyle: GoogleFonts.poppins(
-            fontWeight: FontWeight.w600,
-            fontSize: 14,
-          ),
-          unselectedLabelStyle: GoogleFonts.poppins(
-            fontWeight: FontWeight.w500,
-            fontSize: 14,
-          ),
-          labelColor: Colors.blue,
-          unselectedLabelColor: Colors.grey,
-          tabs: const [
-            Tab(text: 'Pending'),
-            Tab(text: 'In Progress'),
-            Tab(text: 'Complete'),
-          ],
-        ),
-      ),
+      appBar: _buildAppBar(),
       body: RefreshIndicator(
         key: _refreshIndicatorKey,
-        onRefresh: _loadProjectsForCurrentTab,
+        onRefresh: () async {
+          // Clear cache for current status and reload
+          final status = _getStatusForIndex(_tabController.index);
+          _projectCache.remove(status);
+          return _loadProjectsForCurrentTab();
+        },
         child: BlocConsumer<ProjectListBloc, ProjectListState>(
           listener: (context, state) {
             if (state is ProjectListLoadError) {
@@ -119,6 +93,10 @@ class _ProjectListScreenState extends State<ProjectListScreen>
                 backgroundColor: Colors.red,
                 textColor: Colors.white,
               );
+            } else if (state is ProjectListLoadSuccess) {
+              // Update cache with new data
+              final status = _getStatusForIndex(_tabController.index);
+              _projectCache[status] = state.projects;
             }
           },
           builder: (context, state) {
@@ -130,25 +108,13 @@ class _ProjectListScreenState extends State<ProjectListScreen>
               );
             }
 
-            if (state is ProjectListLoadSuccess) {
+            if (state is ProjectListLoadSuccess || _projectCache.isNotEmpty) {
               return TabBarView(
                 controller: _tabController,
                 children: [
-                  _ProjectListView(
-                    projectList: state.projects
-                        .where((p) => p.status.toLowerCase() == 'pending')
-                        .toList(),
-                  ),
-                  _ProjectListView(
-                    projectList: state.projects
-                        .where((p) => p.status.toLowerCase() == 'in-progress')
-                        .toList(),
-                  ),
-                  _ProjectListView(
-                    projectList: state.projects
-                        .where((p) => p.status.toLowerCase() == 'complete')
-                        .toList(),
-                  ),
+                  _buildProjectListView('pending'),
+                  _buildProjectListView('in-progress'),
+                  _buildProjectListView('complete'),
                 ],
               );
             }
@@ -159,20 +125,77 @@ class _ProjectListScreenState extends State<ProjectListScreen>
                 onRetry: _loadProjectsForCurrentTab,
               );
             }
+
             return const Center(child: Text("No data found"));
           },
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.pushNamed(context, AppRoute.createProjectScreenPath);
-        },
-        backgroundColor: Colors.blue,
-        icon: const Icon(Icons.add),
-        label: Text(
-          'New Project',
-          style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
+      floatingActionButton: _buildFloatingActionButton(),
+    );
+  }
+
+  PreferredSizeWidget _buildAppBar() {
+    return AppBar(
+      elevation: 0,
+      title: Text(
+        "Projects",
+        style: GoogleFonts.poppins(
+          fontSize: 24,
+          fontWeight: FontWeight.w600,
+          color: Colors.black87,
         ),
+      ),
+      actions: [
+        IconButton(
+          onPressed: () =>
+              Navigator.pushNamed(context, AppRoute.userListScreenPath),
+          icon: const Icon(Bootstrap.person),
+        ),
+        IconButton(
+          onPressed: () => Navigator.pushNamed(
+              context, AppRoute.searchProjectListScreenPath),
+          icon: const Icon(Bootstrap.search),
+        ),
+      ],
+      backgroundColor: Colors.white,
+      bottom: TabBar(
+        controller: _tabController,
+        indicatorColor: Colors.blue,
+        indicatorWeight: 3,
+        labelStyle: GoogleFonts.poppins(
+          fontWeight: FontWeight.w600,
+          fontSize: 14,
+        ),
+        unselectedLabelStyle: GoogleFonts.poppins(
+          fontWeight: FontWeight.w500,
+          fontSize: 14,
+        ),
+        labelColor: Colors.blue,
+        unselectedLabelColor: Colors.grey,
+        tabs: const [
+          Tab(text: 'Pending'),
+          Tab(text: 'In Progress'),
+          Tab(text: 'Complete'),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProjectListView(String status) {
+    final projects = _projectCache[status] ?? [];
+    return _ProjectListView(projectList: projects);
+  }
+
+  Widget _buildFloatingActionButton() {
+    return FloatingActionButton.extended(
+      onPressed: () {
+        Navigator.pushNamed(context, AppRoute.createProjectScreenPath);
+      },
+      backgroundColor: Colors.blue,
+      icon: const Icon(Icons.add),
+      label: Text(
+        'New Project',
+        style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
       ),
     );
   }
@@ -186,31 +209,13 @@ class _ProjectListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (projectList.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/images/empty_state.png', // Add this image to your assets
-              height: 120,
-              width: 120,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'No projects found',
-              style: GoogleFonts.poppins(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-                color: Colors.grey[600],
-              ),
-            ),
-          ],
-        ),
+      return const Center(
+        child: CircularProgressIndicator(),
       );
     }
 
     return ListView.builder(
-      padding: const EdgeInsets.only(left: 10,right: 10,bottom: 3,top: 3),
+      padding: const EdgeInsets.only(left: 10, right: 10, bottom: 3, top: 3),
       itemCount: projectList.length,
       itemBuilder: (context, index) {
         final project = projectList[index];
@@ -219,12 +224,13 @@ class _ProjectListView extends StatelessWidget {
           child: InkWell(
             borderRadius: BorderRadius.circular(12),
             onTap: () {
-              // Fluttertoast.showToast(
-              //   msg: "Selected: ${project.name}",
-              //   backgroundColor: Colors.blue,
-              // );
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) =>  ProjectDetailsPage(name: project.name,address: project.location,)),
+                MaterialPageRoute(
+                  builder: (context) => ProjectDetailsPage(
+                    name: project.name,
+                    address: project.location,
+                  ),
+                ),
               );
             },
             child: Padding(
