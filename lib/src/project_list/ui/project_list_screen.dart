@@ -143,12 +143,12 @@ class _ProjectListScreenState extends State<ProjectListScreen>
       ),
       actions: [
         IconButton(
-          onPressed: () =>
-        Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => const PageWrapper()),
-        ),
+          onPressed: () => Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const PageWrapper()),
+          ),
           icon: const Icon(Bootstrap.house),
-        ), IconButton(
+        ),
+        IconButton(
           onPressed: () =>
               Navigator.pushNamed(context, AppRoute.userListScreenPath),
           icon: const Icon(Bootstrap.person),
@@ -228,9 +228,10 @@ class _ProjectListView extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => ProjectDetailsPage(projectModel: project),
+                  builder: (context) =>
+                      ProjectDetailsPage(projectModel: project),
                   settings: const RouteSettings(
-                    arguments: <String,dynamic>{
+                    arguments: <String, dynamic>{
                       'is_edit': true,
                     },
                   ),
