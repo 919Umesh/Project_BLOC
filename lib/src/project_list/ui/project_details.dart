@@ -16,6 +16,10 @@ class ProjectDetailsPage extends StatefulWidget {
 class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
   @override
   Widget build(BuildContext context) {
+    final arguments = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+
+    bool isEdit = arguments?['is_edit'] ?? false;
+    Fluttertoast.showToast(msg: isEdit.toString());
     final project = widget.projectModel;
     return Scaffold(
       backgroundColor: Colors.grey[100],

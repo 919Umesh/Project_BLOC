@@ -1,9 +1,13 @@
+import 'package:drop_down_list/model/selected_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project_bloc/core/core.dart';
+import 'package:project_bloc/src/user_list/bloc/user_list_bloc.dart';
 import '../../../app/themes/colors.dart';
+import '../../../core/widgets/custom_dropdown.dart';
+import '../../user_list/model/user_list_model.dart';
 import '../bloc/create_project_bloc.dart';
 
 class CreateProjectScreen extends StatefulWidget {
@@ -30,7 +34,7 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
       _name = _duration = _location = _members = _status = _amount = null;
     });
   }
-
+  String? _selectedUser;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<CreateProjectBloc, CreateProjectState>(
@@ -145,12 +149,70 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
               ),
               const SizedBox(height: 20),
               _buildStatusDropdown(),
+            // BlocBuilder<UserListBloc, UserListState>(
+            //   builder: (context, state) {
+            //     if (state is UserListLoadError) {
+            //       return const Center(child: Text('Some error occurred'));
+            //     }
+            //     if (state is UserListLoadSuccess) {
+            //       if (state.users.isEmpty) {
+            //         return const Center(child: Text('No Users'));
+            //       }
+            //       return Column(
+            //         children: [
+            //           Padding(
+            //             padding: const EdgeInsets.all(16.0),
+            //             child: TextField(
+            //               controller: TextEditingController(text: _selectedUser ?? ""),
+            //               readOnly: true,
+            //               decoration: const InputDecoration(
+            //                 labelText: "Selected User",
+            //                 border: OutlineInputBorder(),
+            //               ),
+            //             ),
+            //           ),
+            //           ElevatedButton(
+            //             onPressed: () {
+            //               _showDropDown(context, state.users);
+            //             },
+            //             child: const Text("Select User"),
+            //           ),
+            //         ],
+            //       );
+            //     }
+            //
+            //     // Default loading state
+            //     return const Center(child: CircularProgressIndicator());
+            //   },
+            // ),
               const SizedBox(height: 32),
               _buildSubmitButton(),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  void _showDropDown(BuildContext context, List<UserModel> userList) {
+    List<SelectedListItem<String>> dropdownItems = userList
+        .map((user) => SelectedListItem<String>(data: user.name))
+        .toList();
+
+    CustomDropDown.show(
+      context: context,
+      items: dropdownItems,
+      onSelected: (selectedItems) {
+        setState(() {
+          _selectedUser = selectedItems.join(", ");
+        });
+
+        Fluttertoast.showToast(
+          msg: "Selected: $_selectedUser",
+          backgroundColor: Colors.blue,
+          textColor: Colors.white,
+        );
+      },
     );
   }
 

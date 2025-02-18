@@ -1,4 +1,3 @@
-import 'package:drop_down_list/drop_down_list.dart';
 import 'package:drop_down_list/model/selected_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,9 +8,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:project_bloc/app/routes/route_name.dart';
 import 'package:project_bloc/src/user_list/bloc/user_list_bloc.dart';
 import 'package:project_bloc/src/user_list/model/user_list_model.dart';
-
 import '../../../core/widgets/custom_dropdown.dart';
-import '../../product_list/model/product_list_model.dart';
 import '../model/product_list.dart';
 
 class UserListScreen extends StatefulWidget {
@@ -123,7 +120,7 @@ class _UserListScreenState extends State<UserListScreen> {
               child: ListView(
                 children: [
                   ListTile(
-                    leading: Icon(Icons.location_city, color: Colors.blueAccent),
+                    leading: const Icon(Icons.location_city, color: Colors.blueAccent),
                     title: Text(
                       "Tokyo",
                       style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
@@ -135,7 +132,7 @@ class _UserListScreenState extends State<UserListScreen> {
                   ),
                   Divider(height: 1, color: Colors.grey[300]),
                   ListTile(
-                    leading: Icon(Icons.location_city, color: Colors.green),
+                    leading: const Icon(Icons.location_city, color: Colors.green),
                     title: Text(
                       "New York",
                       style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
@@ -147,7 +144,7 @@ class _UserListScreenState extends State<UserListScreen> {
                   ),
                   Divider(height: 1, color: Colors.grey[300]),
                   ListTile(
-                    leading: Icon(Icons.location_city, color: Colors.redAccent),
+                    leading: const Icon(Icons.location_city, color: Colors.redAccent),
                     title: Text(
                       "London",
                       style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
