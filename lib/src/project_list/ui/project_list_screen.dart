@@ -228,8 +228,7 @@ class _ProjectListView extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) =>
-                      ProjectDetailsPage(projectModel: project),
+                  builder: (context) => ProjectDetailsPage(projectModel: project),
                   settings: const RouteSettings(
                     arguments: <String, dynamic>{
                       'is_edit': true,
