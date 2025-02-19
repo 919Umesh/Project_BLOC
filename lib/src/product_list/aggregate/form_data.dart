@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project_bloc/src/user_list/bloc/user_list_bloc.dart';
 
 class LedgerFormPage extends StatefulWidget {
@@ -41,7 +42,10 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create Ledger Entry'),
+        title:  Text('Create Ledger Entry', style: GoogleFonts.poppins(
+          fontSize: 24,
+          fontWeight: FontWeight.w600,
+        ),),
         elevation: 0,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
@@ -54,11 +58,11 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+               Text(
                 'New Ledger Entry',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+                style: GoogleFonts.poppins(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               const SizedBox(height: 24),
@@ -73,6 +77,10 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
                       name: 'user_id',
                       decoration: InputDecoration(
                         labelText: 'Select User',
+                        labelStyle: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -87,7 +95,7 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
                           value: user.id,
                           child: Text(
                             user.name,
-                            style: const TextStyle(
+                            style: GoogleFonts.poppins(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),
@@ -121,6 +129,10 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
                 name: 'amount',
                 decoration: InputDecoration(
                   labelText: 'Amount',
+                  labelStyle: GoogleFonts.poppins(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
                   prefixText: '\$',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
@@ -145,6 +157,10 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
                 name: 'description',
                 decoration: InputDecoration(
                   labelText: 'Description',
+                  labelStyle: GoogleFonts.poppins(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -172,11 +188,12 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                  child: const Text(
+                  child:  Text(
                     'Create Ledger Entry',
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                       fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white
                     ),
                   ),
                 ),
