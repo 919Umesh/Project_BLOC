@@ -53,6 +53,7 @@ dependencies:
   drop_down_list: ^2.0.0
   modal_bottom_sheet: ^3.0.0
   flutter_cache_manager: ^3.4.1
+  form_builder_validators: ^11.0.0
 
 
 dev_dependencies:

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:project_bloc/src/user_list/bloc/user_list_bloc.dart';
 
 class LedgerFormPage extends StatefulWidget {
@@ -10,10 +12,8 @@ class LedgerFormPage extends StatefulWidget {
 }
 
 class _LedgerFormPageState extends State<LedgerFormPage> {
-  final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormBuilderState>();
   String? selectedUserId;
-  final TextEditingController _amountController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
 
   @override
   void initState() {
@@ -26,11 +26,15 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
     context.read<UserListBloc>().add(UserNameRequested());
   }
 
-  @override
-  void dispose() {
-    _amountController.dispose();
-    _descriptionController.dispose();
-    super.dispose();
+  void _onSubmit() {
+    if (_formKey.currentState?.saveAndValidate() ?? false) {
+      final formData = _formKey.currentState!.value;
+      debugPrint('--------- Form Fields ------');
+      _formKey.currentState!.fields.forEach((key, field) {
+        debugPrint('$key: ${field.value}');
+      });
+      debugPrint('Form Data: $formData');
+    }
   }
 
   @override
@@ -44,8 +48,9 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
-        child: Form(
+        child: FormBuilder(
           key: _formKey,
+          autovalidateMode: AutovalidateMode.disabled,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -57,8 +62,6 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
                 ),
               ),
               const SizedBox(height: 24),
-
-              // User Dropdown
               BlocBuilder<UserListBloc, UserListState>(
                 builder: (context, state) {
                   if (state is UserNameLoading) {
@@ -66,7 +69,8 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
                       child: CircularProgressIndicator(),
                     );
                   } else if (state is UserNameLoadSuccess) {
-                    return DropdownButtonFormField<String>(
+                    return FormBuilderDropdown<String>(
+                      name: 'user_id',
                       decoration: InputDecoration(
                         labelText: 'Select User',
                         border: OutlineInputBorder(
@@ -77,42 +81,28 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
                           vertical: 16,
                         ),
                       ),
-                      value: selectedUserId,
+                      initialValue: selectedUserId,
                       items: state.userList.map((user) {
                         return DropdownMenuItem<String>(
                           value: user.id,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                user.name,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              Text(
-                                user.email,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey[600],
-                                ),
-                              ),
-                            ],
+                          child: Text(
+                            user.name,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         );
                       }).toList(),
+                      validator: FormBuilderValidators.compose([
+                        FormBuilderValidators.required(
+                          errorText: 'Please select a user',
+                        ),
+                      ]),
                       onChanged: (value) {
                         setState(() {
                           selectedUserId = value;
                         });
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please select a user';
-                        }
-                        return null;
                       },
                     );
                   } else if (state is UserNameLoadError) {
@@ -126,12 +116,9 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
                   return const SizedBox();
                 },
               ),
-
               const SizedBox(height: 16),
-
-              // Amount Field
-              TextFormField(
-                controller: _amountController,
+              FormBuilderTextField(
+                name: 'amount',
                 decoration: InputDecoration(
                   labelText: 'Amount',
                   prefixText: '\$',
@@ -139,23 +126,23 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                keyboardType: TextInputType.number,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter an amount';
-                  }
-                  if (double.tryParse(value) == null) {
-                    return 'Please enter a valid number';
-                  }
-                  return null;
-                },
+                keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                validator: FormBuilderValidators.compose([
+                  FormBuilderValidators.required(
+                    errorText: 'Please enter an amount',
+                  ),
+                  FormBuilderValidators.numeric(
+                    errorText: 'Please enter a valid number',
+                  ),
+                  FormBuilderValidators.min(
+                    0.01,
+                    errorText: 'Amount must be greater than 0',
+                  ),
+                ]),
               ),
-
               const SizedBox(height: 16),
-
-              // Description Field
-              TextFormField(
-                controller: _descriptionController,
+              FormBuilderTextField(
+                name: 'description',
                 decoration: InputDecoration(
                   labelText: 'Description',
                   border: OutlineInputBorder(
@@ -163,30 +150,22 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
                   ),
                 ),
                 maxLines: 3,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a description';
-                  }
-                  return null;
-                },
+                validator: FormBuilderValidators.compose([
+                  FormBuilderValidators.required(
+                    errorText: 'Please enter a description',
+                  ),
+                  FormBuilderValidators.minLength(
+                    10,
+                    errorText: 'Description must be at least 10 characters',
+                  ),
+                ]),
               ),
-
               const SizedBox(height: 24),
-
-              // Submit Button
               SizedBox(
                 width: double.infinity,
                 height: 48,
                 child: ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      // TODO: Implement form submission
-                      // You can access the form data using:
-                      // selectedUserId
-                      // _amountController.text
-                      // _descriptionController.text
-                    }
-                  },
+                  onPressed: _onSubmit,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                     shape: RoundedRectangleBorder(
