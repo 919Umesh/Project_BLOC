@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:project_bloc/src/product_list/bloc/product_list_bloc.dart';
 import 'package:project_bloc/src/user_list/bloc/user_list_bloc.dart';
 import 'package:shimmer/shimmer.dart';
@@ -9,6 +10,7 @@ import 'package:shimmer/shimmer.dart';
 import '../bloc/product_list_event.dart';
 import '../bloc/product_list_state.dart';
 import 'cache_manager.dart';
+import 'form_data.dart';
 
 class OrderReportPage extends StatefulWidget {
   const OrderReportPage({super.key});
@@ -56,6 +58,11 @@ class _OrderReportPageState extends State<OrderReportPage> {
         elevation: 0,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
+        actions: [
+          IconButton(onPressed: (){
+            Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const LedgerFormPage()));
+          }, icon: const Icon(Bootstrap.person)),
+        ],
       ),
       body: RefreshIndicator(
         onRefresh: () async {
@@ -219,6 +226,10 @@ class _OrderReportPageState extends State<OrderReportPage> {
                                       Center(
                                         child: CachedNetworkImage(
                                           imageUrl: product.productImage,
+                                          memCacheWidth: 1000,
+                                          memCacheHeight: 1000,
+                                          maxWidthDiskCache: 2000,
+                                          maxHeightDiskCache: 2000,
                                           placeholder: (context, url) => buildShimmerEffect(),
                                           errorWidget: (context, url, error) => const Icon(Icons.error, size: 50, color: Colors.red),
                                           fit: BoxFit.cover,
