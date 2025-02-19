@@ -18,7 +18,7 @@ class ProductListScreen extends StatefulWidget {
 
 class _ProductListScreenState extends State<ProductListScreen> {
   final ScrollController _scrollController = ScrollController();
-  bool _showScrollToTop = false;
+  //bool _showScrollToTop = false;
 
   @override
   void initState() {
