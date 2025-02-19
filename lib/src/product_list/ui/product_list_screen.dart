@@ -5,13 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:project_bloc/app/app.dart';
 import 'package:project_bloc/src/product_list/product_list.dart';
-import 'package:project_bloc/src/product_list/ui/update_product.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../create_product/create_product.dart';
-import '../bloc/product_list_bloc.dart';
-import '../bloc/product_list_event.dart';
-import '../bloc/product_list_state.dart';
-import '../model/product_list_model.dart';
+import '../aggregate/dual_screen.dart';
 
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({super.key});
@@ -67,6 +63,14 @@ class _ProductListScreenState extends State<ProductListScreen> {
         elevation: 0,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black87,
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const OrderReportPage()));
+              },
+              icon: const Icon(Bootstrap.house_add)),
+        ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
@@ -83,14 +87,12 @@ class _ProductListScreenState extends State<ProductListScreen> {
                           unit: '',
                           duration: '',
                           fromDate: DateTime.now(),
-                          toDate:  DateTime.now(),
+                          toDate: DateTime.now(),
                           productImage: '',
-                          createdAt:  DateTime.now(),
-                          updatedAt:  DateTime.now()),
+                          createdAt: DateTime.now(),
+                          updatedAt: DateTime.now()),
                     )),
           );
-          // Navigator.of(context).push(MaterialPageRoute(builder: (context)=> ))
-
           // Navigator.pushNamed(
           //   context,
           //   AppRoute.createProductScreenPath,
@@ -102,7 +104,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
           //     },
           //   ),
           // );
-
         },
         icon: const Icon(Icons.add, color: Colors.white),
         label: BlocBuilder<ProductListBloc, ProductListState>(
@@ -220,7 +221,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
           child: CachedNetworkImage(
             imageUrl: product.productImage,
             memCacheWidth: 1000,
-            memCacheHeight:1000,
+            memCacheHeight: 1000,
             maxWidthDiskCache: 2000,
             maxHeightDiskCache: 2000,
             placeholder: (context, url) => buildShimmerEffect(),

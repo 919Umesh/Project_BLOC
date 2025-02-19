@@ -52,6 +52,7 @@ dependencies:
   sheet: ^1.0.0
   drop_down_list: ^2.0.0
   modal_bottom_sheet: ^3.0.0
+  flutter_cache_manager: ^3.4.1
 
 
 dev_dependencies:
