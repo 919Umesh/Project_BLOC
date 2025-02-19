@@ -38,7 +38,6 @@ class _ProjectListScreenState extends State<ProjectListScreen>
   }
 
   Future<void> _handleRefresh() async {
-    Fluttertoast.showToast(msg: 'Api');
     final status = _getStatusForIndex(_tabController.index);
     context.read<ProjectListBloc>().add(LoadProjectRequested(status: status));
     return Future.delayed(const Duration(seconds: 1));
