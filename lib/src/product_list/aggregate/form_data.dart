@@ -58,7 +58,7 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Text(
+              Text(
                 'New Ledger Entry',
                 style: GoogleFonts.poppins(
                   fontSize: 20,
@@ -78,9 +78,9 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
                       decoration: InputDecoration(
                         labelText: 'Select User',
                         labelStyle: GoogleFonts.poppins(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -191,9 +191,9 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
                   child:  Text(
                     'Create Ledger Entry',
                     style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white
                     ),
                   ),
                 ),

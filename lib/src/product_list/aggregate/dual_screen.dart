@@ -80,10 +80,6 @@ class _OrderReportPageState extends State<OrderReportPage> {
                   children: [
                      Text(
                       'Users',
-                      // style: TextStyle(
-                      //   fontSize: 24,
-                      //   fontWeight: FontWeight.bold,
-                      // ),
                       style: GoogleFonts.poppins(
                         fontSize: 24,
                         fontWeight: FontWeight.w600,

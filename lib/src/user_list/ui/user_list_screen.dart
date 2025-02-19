@@ -35,26 +35,6 @@ class _UserListScreenState extends State<UserListScreen> {
     ProductList(id: "6", name: "Speaker"),
   ];
 
-  // void _showDropDown(BuildContext context) {
-  //   DropDownState<String>(
-  //     dropDown: DropDown<String>(
-  //       data: <SelectedListItem<String>>[
-  //         SelectedListItem<String>(data: 'Tokyo'),
-  //         SelectedListItem<String>(data: 'New York'),
-  //         SelectedListItem<String>(data: 'London'),
-  //       ],
-  //       onSelected: (selectedItems) {
-  //         List<String> list = selectedItems.map((item) => item.data).toList();
-  //         ScaffoldMessenger.of(context).showSnackBar(
-  //           SnackBar(
-  //             content: Text("Selected: ${list.join(", ")}"),
-  //           ),
-  //         );
-  //       },
-  //     ),
-  //   ).showModal(context);
-  // }
-
   void _showDropDown(BuildContext context) {
     List<SelectedListItem<String>> dropdownItems = products
         .map((product) => SelectedListItem<String>(data: product.name))
