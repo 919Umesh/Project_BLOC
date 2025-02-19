@@ -7,6 +7,7 @@ import 'package:project_bloc/src/product_list/bloc/product_list_bloc.dart';
 import 'package:project_bloc/src/product_list/bloc/product_list_state.dart';
 import 'package:project_bloc/src/user_list/bloc/user_list_bloc.dart';
 
+import '../../../core/extensions/shimmer_effect.dart';
 import '../bloc/product_list_event.dart';
 
 class LedgerFormPage extends StatefulWidget {
@@ -45,7 +46,7 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
     return Scaffold(
       appBar: AppBar(
         title:  Text('Create Ledger Entry', style: GoogleFonts.poppins(
-          fontSize: 24,
+          fontSize: 18,
           fontWeight: FontWeight.w600,
         ),),
         elevation: 0,
@@ -60,14 +61,7 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'New Ledger Entry',
-                style: GoogleFonts.poppins(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 12),
               BlocBuilder<UserListBloc, UserListState>(
                 builder: (context, state) {
                   if (state is UserNameLoading) {
@@ -179,13 +173,11 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
                 ]),
               ),
               const SizedBox(height: 16),
-              // Product Dropdown
               BlocBuilder<ProductListBloc, ProductListState>(
                 builder: (context, state) {
                   if (state is ProductListLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return const ShimmerEffect(width: double.infinity, height: 50, borderRadius: 8);
+
                   } else if (state is ProductListSuccess) {
                     return FormBuilderDropdown<String>(
                       name: 'product_id',

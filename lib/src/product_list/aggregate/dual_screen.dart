@@ -310,6 +310,7 @@ class _OrderReportPageState extends State<OrderReportPage> {
       ),
     );
   }
+
   Widget buildShimmerEffect() {
     return Shimmer.fromColors(
       baseColor: Colors.grey[300]!,

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:project_bloc/src/page_tabs/profile_screen.dart';
+
+import 'chat_screen.dart';
+import 'home_screen.dart';
 
 
 class PageWrapper extends StatefulWidget {
@@ -61,102 +65,6 @@ class _PageWrapperState extends State<PageWrapper> {
           Icon(Bootstrap.envelope, size: 25, color: Colors.white),
         ],
         onTap: _onItemTapped,
-      ),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.blue.shade50,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Bootstrap.house_fill,
-              size: 50,
-              color: Colors.blue.shade700,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Home Screen',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.blue.shade700,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.blue.shade50,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Bootstrap.person_fill,
-              size: 50,
-              color: Colors.blue.shade700,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Profile Screen',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.blue.shade700,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class ChatScreen extends StatelessWidget {
-  const ChatScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.blue.shade50,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Bootstrap.chat_right_fill,
-              size: 50,
-              color: Colors.blue.shade700,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Chat Screen',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.blue.shade700,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
