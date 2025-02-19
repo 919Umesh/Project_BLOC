@@ -3,7 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:project_bloc/src/product_list/bloc/product_list_bloc.dart';
+import 'package:project_bloc/src/product_list/bloc/product_list_state.dart';
 import 'package:project_bloc/src/user_list/bloc/user_list_bloc.dart';
+
+import '../bloc/product_list_event.dart';
 
 class LedgerFormPage extends StatefulWidget {
   const LedgerFormPage({super.key});
@@ -15,16 +19,14 @@ class LedgerFormPage extends StatefulWidget {
 class _LedgerFormPageState extends State<LedgerFormPage> {
   final _formKey = GlobalKey<FormBuilderState>();
   String? selectedUserId;
+  String? selectedProductId;
 
   @override
   void initState() {
     super.initState();
-    _loadUsers();
-  }
-
-  void _loadUsers() {
     context.read<UserListBloc>().add(LoadUsersRequested());
     context.read<UserListBloc>().add(UserNameRequested());
+    context.read<ProductListBloc>().add(ProductListRequested());
   }
 
   void _onSubmit() {
@@ -176,7 +178,67 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
                   ),
                 ]),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 16),
+              // Product Dropdown
+              BlocBuilder<ProductListBloc, ProductListState>(
+                builder: (context, state) {
+                  if (state is ProductListLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (state is ProductListSuccess) {
+                    return FormBuilderDropdown<String>(
+                      name: 'product_id',
+                      decoration: InputDecoration(
+                        labelText: 'Select Product',
+                        labelStyle: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 16,
+                        ),
+                      ),
+                      initialValue: selectedProductId,
+                      items: state.products.map((product) {
+                        return DropdownMenuItem<String>(
+                          value: product.id,
+                          child: Text(
+                            product.name,
+                            style: GoogleFonts.poppins(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                      validator: FormBuilderValidators.compose([
+                        FormBuilderValidators.required(
+                          errorText: 'Please select a product',
+                        ),
+                      ]),
+                      onChanged: (value) {
+                        setState(() {
+                          selectedProductId = value;
+                        });
+                      },
+                    );
+                  } else if (state is ProductListFailure) {
+                    return Center(
+                      child: Text(
+                        'Error: ${state.errorMessage}',
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                    );
+                  }
+                  return const SizedBox();
+                },
+              ),
+              const SizedBox(height: 16),
               SizedBox(
                 width: double.infinity,
                 height: 48,
