@@ -18,6 +18,7 @@ class ProductListScreen extends StatefulWidget {
 
 class _ProductListScreenState extends State<ProductListScreen> {
   final ScrollController _scrollController = ScrollController();
+  bool _showScrollToTop = false;
 
   @override
   void initState() {
@@ -31,7 +32,18 @@ class _ProductListScreenState extends State<ProductListScreen> {
         _scrollController.position.maxScrollExtent * 0.8) {
       context.read<ProductListBloc>().add(ProductListLoadMoreRequested());
     }
+    // // Show/hide scroll to top button based on scroll position
+    // setState(() {
+    //   _showScrollToTop = _scrollController.offset > 200; // Show after 200 pixels of scroll
+    // });
   }
+  // void _scrollToTop() {
+  //   _scrollController.animateTo(
+  //     0,
+  //     duration: const Duration(milliseconds: 500),
+  //     curve: Curves.easeInOut,
+  //   );
+  // }
 
   @override
   void dispose() {
@@ -72,58 +84,75 @@ class _ProductListScreenState extends State<ProductListScreen> {
               icon: const Icon(Bootstrap.house_add)),
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-                builder: (context) => CreateProductScreen(
-                      isEditing: false,
-                      productModel: ProductModel(
-                          id: '',
-                          name: '',
-                          salesRate: 0,
-                          purchaseRate: 0,
-                          quantity: 0,
-                          unit: '',
-                          duration: '',
-                          fromDate: DateTime.now(),
-                          toDate: DateTime.now(),
-                          productImage: '',
-                          createdAt: DateTime.now(),
-                          updatedAt: DateTime.now()),
-                    )),
-          );
-          // Navigator.pushNamed(
-          //   context,
-          //   AppRoute.createProductScreenPath,
-          //   settings: RouteSettings(
-          //     arguments: {
-          //       'first': FirstPage().controller.text,  // Ensure controller is properly defined
-          //       'second': SecondPage().controller.text,
-          //       'third': ThirdPage().controller.text,
-          //     },
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          // // Scroll to top button
+          // if (_showScrollToTop)
+          //   Padding(
+          //     padding: const EdgeInsets.only(bottom: 10),
+          //     child: FloatingActionButton(
+          //       heroTag: 'scrollToTop',
+          //       mini: true,
+          //       onPressed: _scrollToTop,
+          //       backgroundColor: Colors.white,
+          //       child: const Icon(Icons.arrow_upward, color: Colors.black87),
+          //     ),
           //   ),
-          // );
-        },
-        icon: const Icon(Icons.add, color: Colors.white),
-        label: BlocBuilder<ProductListBloc, ProductListState>(
-          builder: (context, state) {
-            if (state is ProductListSuccess) {
-              return const Text(
-                'Add Products',
-                style: TextStyle(color: Colors.white, fontFamily: 'inter'),
+          FloatingActionButton.extended(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (context) => CreateProductScreen(
+                          isEditing: false,
+                          productModel: ProductModel(
+                              id: '',
+                              name: '',
+                              salesRate: 0,
+                              purchaseRate: 0,
+                              quantity: 0,
+                              unit: '',
+                              duration: '',
+                              fromDate: DateTime.now(),
+                              toDate: DateTime.now(),
+                              productImage: '',
+                              createdAt: DateTime.now(),
+                              updatedAt: DateTime.now()),
+                        )),
               );
-            }
-            if (state is ProductListFailure) {
-              return const Text(
-                'Failure',
-                style: TextStyle(color: Colors.white, fontFamily: 'inter'),
-              );
-            }
-            return const SizedBox.shrink();
-          },
-        ),
-        backgroundColor: Theme.of(context).primaryColor,
+              // Navigator.pushNamed(
+              //   context,
+              //   AppRoute.createProductScreenPath,
+              //   settings: RouteSettings(
+              //     arguments: {
+              //       'first': FirstPage().controller.text,  // Ensure controller is properly defined
+              //       'second': SecondPage().controller.text,
+              //       'third': ThirdPage().controller.text,
+              //     },
+              //   ),
+              // );
+            },
+            icon: const Icon(Icons.add, color: Colors.white),
+            label: BlocBuilder<ProductListBloc, ProductListState>(
+              builder: (context, state) {
+                if (state is ProductListSuccess) {
+                  return const Text(
+                    'Add Products',
+                    style: TextStyle(color: Colors.white, fontFamily: 'inter'),
+                  );
+                }
+                if (state is ProductListFailure) {
+                  return const Text(
+                    'Failure',
+                    style: TextStyle(color: Colors.white, fontFamily: 'inter'),
+                  );
+                }
+                return const SizedBox.shrink();
+              },
+            ),
+            backgroundColor: Theme.of(context).primaryColor,
+          ),
+        ],
       ),
       body: BlocBuilder<ProductListBloc, ProductListState>(
         builder: (context, state) {
