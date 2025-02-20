@@ -19,6 +19,7 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
   Widget build(BuildContext context) {
     final arguments = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
     bool isEdit = arguments?['is_edit'] ?? false;
+    Fluttertoast.showToast(msg: isEdit.toString());
     final project = widget.projectModel;
     return Scaffold(
       backgroundColor: Colors.grey[100],
@@ -258,7 +259,6 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
   }
 
   Widget _buildSliverAppBar(ProjectModel project, bool isEdit) {
-    Fluttertoast.showToast(msg: isEdit.toString());
     return SliverAppBar(
       expandedHeight: 200.0,
       floating: false,
@@ -267,7 +267,7 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
       backgroundColor: Colors.blue[600],
       flexibleSpace: FlexibleSpaceBar(
         title: Text(
-          isEdit ? 'Edit':project.name ,
+          isEdit ? 'Edit' : project.name,
           style: GoogleFonts.poppins(
             fontWeight: FontWeight.bold,
             color: Colors.white,

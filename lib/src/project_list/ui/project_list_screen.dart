@@ -116,4 +116,3 @@ class _ProjectListScreenState extends State<ProjectListScreen>
     );
   }
 }
-

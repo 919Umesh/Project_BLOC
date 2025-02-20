@@ -28,7 +28,8 @@ class ProjectListView extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => ProjectDetailsPage(projectModel: project),
+                  builder: (context) =>
+                      ProjectDetailsPage(projectModel: project),
                   settings: const RouteSettings(
                     arguments: <String, dynamic>{
                       'is_edit': false,
@@ -84,7 +85,8 @@ class ProjectInfoRow extends StatelessWidget {
   final String label;
   final String value;
 
-  const ProjectInfoRow({super.key,
+  const ProjectInfoRow({
+    super.key,
     required this.icon,
     required this.label,
     required this.value,
@@ -167,7 +169,8 @@ class ErrorView extends StatelessWidget {
   final String message;
   final VoidCallback onRetry;
 
-  const ErrorView({super.key, 
+  const ErrorView({
+    super.key,
     required this.message,
     required this.onRetry,
   });
