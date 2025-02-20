@@ -31,7 +31,7 @@ class ProjectListView extends StatelessWidget {
                   builder: (context) => ProjectDetailsPage(projectModel: project),
                   settings: const RouteSettings(
                     arguments: <String, dynamic>{
-                      'is_edit': true,
+                      'is_edit': false,
                     },
                   ),
                 ),
