@@ -1,9 +1,6 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
 import '../../project_list.dart';
 import '../reuseable_widget.dart';
 
@@ -18,7 +15,7 @@ class _InProgressProjectsScreenState extends State<InProgressProjectsScreen> {
   @override
   void initState() {
     super.initState();
-    Fluttertoast.showToast(msg: 'In-progress');
+    Fluttertoast.showToast(msg: 'In-Progress');
     context.read<ProjectListBloc>().add(
        LoadProjectRequested(status: 'in-progress'),
     );

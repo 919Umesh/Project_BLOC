@@ -16,7 +16,6 @@ class ProjectListView extends StatelessWidget {
         child: CircularProgressIndicator(),
       );
     }
-
     return ListView.builder(
       padding: const EdgeInsets.only(left: 10, right: 10, bottom: 3, top: 3),
       itemCount: projectList.length,
@@ -85,7 +84,7 @@ class ProjectInfoRow extends StatelessWidget {
   final String label;
   final String value;
 
-  const ProjectInfoRow({
+  const ProjectInfoRow({super.key,
     required this.icon,
     required this.label,
     required this.value,
@@ -121,7 +120,7 @@ class ProjectInfoRow extends StatelessWidget {
 class StatusChip extends StatelessWidget {
   final String status;
 
-  const StatusChip({required this.status});
+  const StatusChip({super.key, required this.status});
 
   @override
   Widget build(BuildContext context) {
