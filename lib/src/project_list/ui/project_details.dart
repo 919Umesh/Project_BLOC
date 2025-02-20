@@ -7,6 +7,7 @@ import '../model/project_list_model.dart';
 
 class ProjectDetailsPage extends StatefulWidget {
   final ProjectModel projectModel;
+
   const ProjectDetailsPage({super.key, required this.projectModel});
 
   @override
@@ -25,7 +26,7 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
         children: [
           CustomScrollView(
             slivers: [
-              _buildSliverAppBar(project,isEdit),
+              _buildSliverAppBar(project, isEdit),
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
@@ -256,8 +257,7 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
     );
   }
 
-
-  Widget _buildSliverAppBar(ProjectModel project,bool isEdit) {
+  Widget _buildSliverAppBar(ProjectModel project, bool isEdit) {
     return SliverAppBar(
       expandedHeight: 200.0,
       floating: false,
@@ -266,7 +266,7 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
       backgroundColor: Colors.blue[600],
       flexibleSpace: FlexibleSpaceBar(
         title: Text(
-          isEdit?project.name:'Edit',
+          isEdit ? project.name : 'Edit',
           style: GoogleFonts.poppins(
             fontWeight: FontWeight.bold,
             color: Colors.white,
@@ -498,18 +498,21 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
               backgroundColor: Colors.blue[600],
               foregroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(vertical: 16),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12)),
             ),
           ),
         ),
         const SizedBox(width: 12),
         ElevatedButton(
-          onPressed: () => Fluttertoast.showToast(msg: "Sharing project details..."),
+          onPressed: () =>
+              Fluttertoast.showToast(msg: "Sharing project details..."),
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.grey[200],
             foregroundColor: Colors.grey[800],
             padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
           child: const Icon(Bootstrap.share),
         ),
