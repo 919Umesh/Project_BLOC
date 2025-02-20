@@ -15,7 +15,6 @@ class _PendingProjectsScreenState extends State<PendingProjectsScreen> {
   @override
   void initState() {
     super.initState();
-    Fluttertoast.showToast(msg: 'Pending');
     context.read<ProjectListBloc>().add(LoadProjectRequested(status: 'pending'),
     );
   }

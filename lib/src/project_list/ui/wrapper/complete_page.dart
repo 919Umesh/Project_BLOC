@@ -15,7 +15,6 @@ class _CompletedProjectsScreenState extends State<CompletedProjectsScreen> {
   @override
   void initState() {
     super.initState();
-    Fluttertoast.showToast(msg: 'Complete');
     context.read<ProjectListBloc>().add(
        LoadProjectRequested(status: 'complete'),
     );

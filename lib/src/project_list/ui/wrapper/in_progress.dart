@@ -15,7 +15,6 @@ class _InProgressProjectsScreenState extends State<InProgressProjectsScreen> {
   @override
   void initState() {
     super.initState();
-    Fluttertoast.showToast(msg: 'In-Progress');
     context.read<ProjectListBloc>().add(
        LoadProjectRequested(status: 'in-progress'),
     );
