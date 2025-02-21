@@ -286,15 +286,16 @@ class _OrderReportPageState extends State<OrderReportPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 10.0,right: 10.0,top: 8,bottom: 5),
+            padding: const EdgeInsets.only(
+                left: 10.0, right: 10.0, top: 8, bottom: 5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   productName,
                   overflow: TextOverflow.ellipsis,
-                  style:  GoogleFonts.poppins(
-                    fontSize: 15,
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
                     fontWeight: FontWeight.w500,
                     color: Colors.black87,
                   ),
