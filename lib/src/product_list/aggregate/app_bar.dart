@@ -24,13 +24,13 @@ class _AppBarPageState extends State<AppBarPage> {
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return [
               SliverAppBar(
-                backgroundColor: Colors.blue[400],
+                backgroundColor: Colors.green.shade400,
                 leading: CircularIconButton(
                   icon: Bootstrap.chevron_left,
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  padding: 10.0,
+                  padding: 5.0,
                   backgroundColor: Colors.white,
                   iconColor: Colors.black,
                 ),
