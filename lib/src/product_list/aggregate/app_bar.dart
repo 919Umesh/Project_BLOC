@@ -34,15 +34,6 @@ class _AppBarPageState extends State<AppBarPage> {
                   backgroundColor: Colors.white,
                   iconColor: Colors.black,
                 ),
-                // leading: IconButton(
-                //   icon: const Icon(
-                //     Bootstrap.chevron_left,
-                //     color: Colors.white,
-                //   ),
-                //   onPressed: () {
-                //     Navigator.of(context).pop();
-                //   },
-                // ),
                 actions: [
                   CircularIconButton(
                     icon: Bootstrap.share,
