@@ -2,17 +2,22 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
+import 'package:dio_cache_interceptor_hive_store/dio_cache_interceptor_hive_store.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:project_bloc/app/constant/api_endpoints.dart';
 import 'package:project_bloc/app/temp/custom_log.dart';
 import 'package:project_bloc/core/injection/injection_helper.dart';
 import 'package:project_bloc/core/services/api/api_constants.dart';
+import 'package:path_provider/path_provider.dart';
 
 final apiProvider = locator<APIProvider>();
 
 class APIProvider {
   static final APIProvider _instance = APIProvider._internal();
+  Dio? _dio;
+  CacheOptions? _cacheOptions;
 
   factory APIProvider() {
     return _instance;
@@ -20,6 +25,37 @@ class APIProvider {
 
   APIProvider._internal();
 
+  Future<void> _initCache() async {
+    if (_cacheOptions != null) return;
+    Fluttertoast.showToast(msg: 'Cache');
+    final cacheDir = await getTemporaryDirectory();
+    final cacheStore = HiveCacheStore('${cacheDir.path}/dio_cache');
+
+    _cacheOptions = CacheOptions(
+      store: cacheStore,
+      hitCacheOnErrorExcept: [401, 403, 200],
+      maxStale: const Duration(days: 7),
+      priority: CachePriority.high,
+      policy: CachePolicy.refreshForceCache,
+    );
+  }
+
+
+  Future<Dio> _getDioInstance() async {
+    if (_dio != null) return _dio!;
+
+    await _initCache();
+
+    _dio = Dio(BaseOptions(
+      connectTimeout: const Duration(seconds: 20),
+      receiveTimeout: const Duration(seconds: 20),
+      sendTimeout: const Duration(seconds: 20),
+    ));
+
+    _dio!.interceptors.add(DioCacheInterceptor(options: _cacheOptions!));
+
+    return _dio!;
+  }
   /// [ getAPI ] used to handle all [ GET ] api call
   Future getAPI(
       {required String endPoint,
@@ -32,16 +68,17 @@ class APIProvider {
         if (authToken != null) 'Authorization': 'Bearer $authToken',
       };
 
-      Dio dio = Dio(BaseOptions(
-        headers: headers,
-        connectTimeout: const Duration(seconds: 20),
-        receiveTimeout: const Duration(seconds: 20),
-        sendTimeout: const Duration(seconds: 20),
-      ));
+      Dio dio = await _getDioInstance();
+
+      dio.options.headers = headers;
 
       Response response = await dio.get(
         api,
         queryParameters: queryParams,
+        options: Options(
+          extra: _cacheOptions!.toExtra(),
+        ),
+
       );
 
       _logRequest(api, response.data, queryParams);
@@ -50,8 +87,7 @@ class APIProvider {
         return response.data;
       } else {
         CustomLog.errorLog(value: response.data);
-        throw Exception(
-            "Failed to fetch data. Status Code: ${response.statusCode}");
+        throw Exception("Failed to fetch data. Status Code: ${response.statusCode}");
       }
     }
     on DioException catch (e) {
@@ -117,38 +153,6 @@ class APIProvider {
       debugPrint("API ERROR $e");
       return jsonEncode(APIConstants.errorMap);
     }
-  }
-
-  /// [postFormDataAPI] used to handle all [POST] API calls with FormData (multipart).
-  Future postFormDataAPI({
-    required String endPoint,
-    required FormData formData,
-  }) async {
-    String api = ApiEndpoints.baseURL + endPoint;
-    Dio dio = Dio(BaseOptions(
-      connectTimeout: const Duration(seconds: 30),
-      receiveTimeout: const Duration(seconds: 30),
-      sendTimeout: const Duration(seconds: 30),
-    ));
-    Response? result;
-    try {
-      result = await dio.post(
-        api,
-        data: formData,
-      );
-      CustomLog.successLog(value: "RESPONSE=> $result");
-      debugPrint('----------result-----------');
-      CustomLog.successLog(value: "RESPONSE=> ${result.data}");
-    } on DioException catch (e) {
-      debugPrint('\n postDataToServer error message : ${e.message}');
-      debugPrint('\n postDataToServer error : ${e.error}');
-      debugPrint('-------------gdf-------');
-      Fluttertoast.showToast(msg: 'dfd');
-      debugPrint('\n postDataToServer error response : ${e.response}');
-    } on SocketException catch (e) {
-      return Fluttertoast.showToast(msg: e.toString());
-    }
-    return result!;
   }
 
   Future<dynamic> postAPIUnified({
