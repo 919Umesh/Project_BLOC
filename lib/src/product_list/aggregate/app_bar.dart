@@ -34,11 +34,22 @@ class _AppBarPageState extends State<AppBarPage> {
                 ),
                 actions: [
                   IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
+                    onPressed: () {
+                      // Your onPressed logic here
+                    },
+                    icon: Container(
+                      padding: const EdgeInsets.all(8.0), // Adjust padding for the circle size
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white, // Circle color
+                      ),
+                      child: const Icon(
                         Bootstrap.share,
-                        color: Colors.white,
-                      )),
+                        color: Colors.black, // Icon color inside the circle
+                      ),
+                    ),
+                  ),
+
                   IconButton(
                       onPressed: () {},
                       icon: const Icon(
