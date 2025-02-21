@@ -250,11 +250,11 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
                       value: 'Choice 2', child: Text('Choice 2')),
                 ],
               ),
-              BlocBuilder<ProductListBloc, ProductListState>(
+              BlocBuilder<UserListBloc, UserListState>(
                 builder: (context, state) {
-                  if (state is ProductListLoading) {
+                  if (state is UserNameLoading) {
                     return const Center(child: CircularProgressIndicator());
-                  } else if (state is ProductListSuccess) {
+                  } else if (state is UserNameLoadSuccess) {
                     return FormBuilderFilterChip(
                       name: 'first_filter',
                       decoration: const InputDecoration(
@@ -270,14 +270,14 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
                         side: const BorderSide(color: Colors.blue),
                       ),
                       labelStyle: const TextStyle(color: Colors.black),
-                      options: state.products.map((product) {
+                      options: state.userList.map((users) {
                         return FormBuilderChipOption(
-                          value: product.id, // Use dynamic values
-                          child: Text(product.name), // Display product name dynamically
+                          value: users.id, // Use dynamic values
+                          child: Text(users.name), // Display product name dynamically
                         );
                       }).toList(),
                     );
-                  } else if (state is ProductListFailure) {
+                  } else if (state is UserListLoadError) {
                     return Center(
                       child: Text(
                         'Error: ${state.errorMessage}',
