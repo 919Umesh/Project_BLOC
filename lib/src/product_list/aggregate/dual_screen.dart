@@ -1,17 +1,13 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:project_bloc/src/product_list/aggregate/app_bar.dart';
 import 'package:project_bloc/src/product_list/bloc/product_list_bloc.dart';
 import 'package:project_bloc/src/user_list/bloc/user_list_bloc.dart';
 import 'package:shimmer/shimmer.dart';
-
 import '../bloc/product_list_event.dart';
 import '../bloc/product_list_state.dart';
-import 'cache_manager.dart';
 import 'form_data.dart';
 
 class OrderReportPage extends StatefulWidget {
@@ -290,7 +286,7 @@ class _OrderReportPageState extends State<OrderReportPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.only(left: 10.0,right: 10.0,),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -312,7 +308,6 @@ class _OrderReportPageState extends State<OrderReportPage> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 4),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -326,7 +321,6 @@ class _OrderReportPageState extends State<OrderReportPage> {
                             color: Colors.grey[600],
                           ),
                         ),
-                        const SizedBox(height: 4),
                         Text(
                           unit,
                           style: const TextStyle(
@@ -347,7 +341,6 @@ class _OrderReportPageState extends State<OrderReportPage> {
                             color: Colors.grey[500],
                           ),
                         ),
-                        const SizedBox(height: 4),
                         Text(
                           '₹$salesRate',
                           style: const TextStyle(
