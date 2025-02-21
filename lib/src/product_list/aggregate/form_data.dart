@@ -230,6 +230,29 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
                   return const SizedBox();
                 },
               ),
+              FormBuilderRadioGroup(
+                name: 'first_option',
+                options: const[
+                  FormBuilderFieldOption(value: 'Male'),
+                  FormBuilderFieldOption(value: 'Female'),
+                ],
+              ),
+              FormBuilderRadioGroup(
+                name: 'second_option',
+                options: [
+                  FormBuilderFieldOption(value: 'Option A'),
+                  FormBuilderFieldOption(value: 'Option B'),
+                ],
+              ),
+              FormBuilderChoiceChip(
+                name: 'first_choice',
+                options: [
+                  FormBuilderChipOption(value: 'Choice 1', child: Text('Choice 1')),
+                  FormBuilderChipOption(value: 'Choice 2', child: Text('Choice 2')),
+                ],
+              ),
+
+
               const SizedBox(height: 16),
               SizedBox(
                 width: double.infinity,
