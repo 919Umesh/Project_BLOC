@@ -60,10 +60,7 @@ class _AppBarPageState extends State<AppBarPage> {
                 flexibleSpace: LayoutBuilder(
                   builder: (BuildContext context, BoxConstraints constraints) {
                     double appBarHeight = constraints.maxHeight;
-                    double opacity = 1.0 -
-                        ((appBarHeight - kToolbarHeight) /
-                                (200.0 - kToolbarHeight))
-                            .clamp(0.0, 1.0);
+                    double opacity = 1.0 - ((appBarHeight - kToolbarHeight) / (200.0 - kToolbarHeight)).clamp(0.0, 1.0);
                     return FlexibleSpaceBar(
                       centerTitle: true,
                       title: AnimatedOpacity(
@@ -158,8 +155,8 @@ class _AppBarPageState extends State<AppBarPage> {
                           ],
                         ),
                       ),
-                      _productCart(product.productImage, product.name,
-                          product.salesRate.toString(), product.unit),
+                      // _productCart(product.productImage, product.name,
+                      //     product.salesRate.toString(), product.unit),
                       const SizedBox(height: 16),
                       _buildInfoCard(
                         title: 'Additional Information',
