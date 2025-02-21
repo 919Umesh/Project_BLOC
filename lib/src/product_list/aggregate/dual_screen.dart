@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:project_bloc/src/product_list/aggregate/app_bar.dart';
 import 'package:project_bloc/src/product_list/bloc/product_list_bloc.dart';
 import 'package:project_bloc/src/user_list/bloc/user_list_bloc.dart';
 import 'package:shimmer/shimmer.dart';
@@ -213,77 +214,82 @@ class _OrderReportPageState extends State<OrderReportPage> {
                         (context, index) {
                           if (index < state.products.length) {
                             final product = state.products[index];
-                            return Card(
-                              elevation: 2,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(12),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey[200],
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Center(
-                                        child: CachedNetworkImage(
-                                          imageUrl: product.productImage,
-                                          memCacheWidth: 800,
-                                          memCacheHeight: 800,
-                                          maxWidthDiskCache: 1000,
-                                          maxHeightDiskCache: 1000,
-                                          placeholder: (context, url) =>
-                                              buildShimmerEffect(),
-                                          errorWidget: (context, url, error) =>
-                                              const Icon(Icons.error_outline),
-                                          width: 110,
-                                          height: 110,
-                                          fit: BoxFit.cover,
+                            return InkWell(
+                              onTap: (){
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context)=> AppBarPage(product: product,)));
+                              },
+                              child: Card(
+                                elevation: 2,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        height: 100,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey[200],
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                        child: Center(
+                                          child: CachedNetworkImage(
+                                            imageUrl: product.productImage,
+                                            memCacheWidth: 800,
+                                            memCacheHeight: 800,
+                                            maxWidthDiskCache: 1000,
+                                            maxHeightDiskCache: 1000,
+                                            placeholder: (context, url) =>
+                                                buildShimmerEffect(),
+                                            errorWidget: (context, url, error) =>
+                                                const Icon(Icons.error_outline),
+                                            width: 110,
+                                            height: 110,
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(height: 12),
-                                    Text(
-                                      product.name,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
+                                      const SizedBox(height: 12),
+                                      Text(
+                                        product.name,
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
                                       ),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      '\$${product.salesRate}',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.green[700],
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    const Spacer(),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 8,
-                                        vertical: 4,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: Colors.blue[50],
-                                        borderRadius: BorderRadius.circular(4),
-                                      ),
-                                      child: Text(
-                                        'Stock: ${product.unit}',
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        '\$${product.salesRate}',
                                         style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.blue[700],
+                                          fontSize: 14,
+                                          color: Colors.green[700],
+                                          fontWeight: FontWeight.w600,
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                      const Spacer(),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 8,
+                                          vertical: 4,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: Colors.blue[50],
+                                          borderRadius: BorderRadius.circular(4),
+                                        ),
+                                        child: Text(
+                                          'Stock: ${product.unit}',
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.blue[700],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             );

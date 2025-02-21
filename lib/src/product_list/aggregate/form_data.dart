@@ -54,14 +54,6 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
             fontWeight: FontWeight.w600,
           ),
         ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const AppBarPage()));
-              },
-              icon: const Icon(Bootstrap.activity))
-        ],
         elevation: 0,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,

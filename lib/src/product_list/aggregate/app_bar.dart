@@ -1,155 +1,234 @@
 import 'package:flutter/material.dart';
+import 'package:icons_plus/icons_plus.dart';
+import '../model/product_list_model.dart';
+import 'package:intl/intl.dart';
 
 class AppBarPage extends StatefulWidget {
-  const AppBarPage({super.key});
+  final ProductModel product;
+
+  const AppBarPage({super.key, required this.product});
 
   @override
-  State<AppBarPage> createState() => _AppBarPageState();
+  State createState() => _AppBarPageState();
 }
 
 class _AppBarPageState extends State<AppBarPage> {
   @override
   Widget build(BuildContext context) {
+    final product = widget.product;
     return SafeArea(
       child: Scaffold(
         body: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return [
               SliverAppBar(
-                expandedHeight: 200.0,
+                backgroundColor: Colors.blue[400],
+                leading: IconButton(
+                  icon: const Icon(
+                    Bootstrap.chevron_left,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                actions: [
+                  IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Bootstrap.share,
+                        color: Colors.white,
+                      )),
+                  IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Bootstrap.heart,
+                        color: Colors.white,
+                      )),
+                ],
+                expandedHeight: MediaQuery.of(context).size.height * 0.35,
                 floating: false,
                 pinned: true,
                 flexibleSpace: LayoutBuilder(
                   builder: (BuildContext context, BoxConstraints constraints) {
                     double appBarHeight = constraints.maxHeight;
-                    double opacity = 1.0 - ((appBarHeight - kToolbarHeight) / (200.0 - kToolbarHeight)).clamp(0.0, 1.0);
+                    double opacity = 1.0 -
+                        ((appBarHeight - kToolbarHeight) /
+                                (200.0 - kToolbarHeight))
+                            .clamp(0.0, 1.0);
                     return FlexibleSpaceBar(
                       centerTitle: true,
                       title: AnimatedOpacity(
                         opacity: opacity,
                         duration: const Duration(milliseconds: 300),
-                        child: const Text(
-                          "Product List",
-                          style: TextStyle(color: Colors.blue),
+                        child: Text(
+                          product.name,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                      background: Image.asset(
-                        'assets/images/PhotoBloc_3.jpg',
-                        fit: BoxFit.cover,
+                      background: Hero(
+                        tag: 'product-${product.id}',
+                        child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            Image.network(
+                              product.productImage,
+                              fit: BoxFit.cover,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    Colors.transparent,
+                                    Colors.black.withOpacity(0.3),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },
                 ),
               ),
-              // SliverAppBar(
-              //   floating: true,
-              //   expandedHeight: 80,
-              //   backgroundColor: Colors.purple[900],
-              //   flexibleSpace: FlexibleSpaceBar(
-              //     background: Padding(
-              //       padding: const EdgeInsets.fromLTRB(16, 40, 16, 8),
-              //       child: Row(
-              //         children: [
-              //           Expanded(
-              //             child: Container(
-              //               height: 40,
-              //               decoration: BoxDecoration(
-              //                 color: Colors.white,
-              //                 borderRadius: BorderRadius.circular(8),
-              //               ),
-              //               child: TextField(
-              //                 decoration: InputDecoration(
-              //                   hintText: 'Search products',
-              //                   prefixIcon: const Icon(Icons.search),
-              //                   suffixIcon: IconButton(
-              //                     icon: const Icon(Icons.camera_alt_outlined),
-              //                     onPressed: () {},
-              //                   ),
-              //                   border: InputBorder.none,
-              //                   contentPadding:
-              //                   const EdgeInsets.symmetric(horizontal: 16),
-              //                 ),
-              //               ),
-              //             ),
-              //           ),
-              //           const SizedBox(width: 8),
-              //           Container(
-              //             padding: const EdgeInsets.symmetric(
-              //                 horizontal: 12, vertical: 8),
-              //             decoration: BoxDecoration(
-              //               color: Colors.green,
-              //               borderRadius: BorderRadius.circular(4),
-              //             ),
-              //             child: const Text(
-              //               'Pay',
-              //               style: TextStyle(
-              //                   color: Colors.white,
-              //                   fontWeight: FontWeight.bold),
-              //             ),
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //   ),
-              // ),
             ];
           },
           body: CustomScrollView(
             slivers: [
-              // SliverAppBar(
-              //   floating: true,
-              //   expandedHeight: 80,
-              //   backgroundColor: Colors.purple[900],
-              //   flexibleSpace: FlexibleSpaceBar(
-              //     background: Padding(
-              //       padding: const EdgeInsets.fromLTRB(16, 40, 16, 8),
-              //       child: Row(
-              //         children: [
-              //           Expanded(
-              //             child: Container(
-              //               height: 40,
-              //               decoration: BoxDecoration(
-              //                 color: Colors.white,
-              //                 borderRadius: BorderRadius.circular(8),
-              //               ),
-              //               child: TextField(
-              //                 decoration: InputDecoration(
-              //                   hintText: 'Search products',
-              //                   prefixIcon: const Icon(Icons.search),
-              //                   suffixIcon: IconButton(
-              //                     icon: const Icon(Icons.camera_alt_outlined),
-              //                     onPressed: () {},
-              //                   ),
-              //                   border: InputBorder.none,
-              //                   contentPadding:
-              //                       const EdgeInsets.symmetric(horizontal: 16),
-              //                 ),
-              //               ),
-              //             ),
-              //           ),
-              //           const SizedBox(width: 8),
-              //           Container(
-              //             padding: const EdgeInsets.symmetric(
-              //                 horizontal: 12, vertical: 8),
-              //             decoration: BoxDecoration(
-              //               color: Colors.green,
-              //               borderRadius: BorderRadius.circular(4),
-              //             ),
-              //             child: const Text(
-              //               'Pay',
-              //               style: TextStyle(
-              //                   color: Colors.white,
-              //                   fontWeight: FontWeight.bold),
-              //             ),
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //   ),
-              // ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 8),
+                      _buildInfoCard(
+                        title: 'Product Details',
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _buildDetailRow('Name', product.name),
+                            _buildDetailRow('Unit', product.unit),
+                            _buildDetailRow(
+                                'Quantity', product.quantity.toString()),
+                            _buildDetailRow(
+                              'Sales Rate',
+                              '₹${product.salesRate.toStringAsFixed(2)}',
+                            ),
+                            _buildDetailRow(
+                              'Purchase Rate',
+                              '₹${product.purchaseRate.toStringAsFixed(2)}',
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      _buildInfoCard(
+                        title: 'Duration Details',
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _buildDetailRow(
+                              'Duration',
+                              '${product.duration} days',
+                            ),
+                            _buildDetailRow(
+                              'From Date',
+                              DateFormat('MMM dd, yyyy')
+                                  .format(product.fromDate),
+                            ),
+                            _buildDetailRow(
+                              'To Date',
+                              DateFormat('MMM dd, yyyy').format(product.toDate),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      _buildInfoCard(
+                        title: 'Additional Information',
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _buildDetailRow(
+                              'Created At',
+                              DateFormat('MMM dd, yyyy HH:mm')
+                                  .format(product.createdAt),
+                            ),
+                            _buildDetailRow(
+                              'Updated At',
+                              DateFormat('MMM dd, yyyy HH:mm')
+                                  .format(product.updatedAt),
+                            ),
+                            _buildDetailRow('Product ID', '#${product.id}'),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildInfoCard({required String title, required Widget child}) {
+    return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.blue,
+              ),
+            ),
+            const Divider(height: 24),
+            child,
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDetailRow(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 14,
+              color: Colors.grey,
+            ),
+          ),
+          Text(
+            value,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
       ),
     );
   }
