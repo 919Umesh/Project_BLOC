@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:icons_plus/icons_plus.dart';
+import '../../../core/extensions/custom_icon_button.dart';
 import '../model/product_list_model.dart';
 import 'package:intl/intl.dart';
 
@@ -23,39 +25,43 @@ class _AppBarPageState extends State<AppBarPage> {
             return [
               SliverAppBar(
                 backgroundColor: Colors.blue[400],
-                leading: IconButton(
-                  icon: const Icon(
-                    Bootstrap.chevron_left,
-                    color: Colors.white,
-                  ),
+                leading:CircularIconButton(
+                  icon: Bootstrap.chevron_left,
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
+                  padding: 10.0,
+                  backgroundColor: Colors.white,
+                  iconColor: Colors.black,
                 ),
+                // leading: IconButton(
+                //   icon: const Icon(
+                //     Bootstrap.chevron_left,
+                //     color: Colors.white,
+                //   ),
+                //   onPressed: () {
+                //     Navigator.of(context).pop();
+                //   },
+                // ),
                 actions: [
-                  IconButton(
+                  CircularIconButton(
+                    icon: Bootstrap.share,
                     onPressed: () {
-                      // Your onPressed logic here
+                      Fluttertoast.showToast(msg: 'Share');
                     },
-                    icon: Container(
-                      padding: const EdgeInsets.all(8.0), // Adjust padding for the circle size
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white, // Circle color
-                      ),
-                      child: const Icon(
-                        Bootstrap.share,
-                        color: Colors.black, // Icon color inside the circle
-                      ),
-                    ),
+                    padding: 10.0,
+                    backgroundColor: Colors.white,
+                    iconColor: Colors.black,
                   ),
-
-                  IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Bootstrap.heart,
-                        color: Colors.white,
-                      )),
+                  CircularIconButton(
+                    icon: Bootstrap.heart,
+                    onPressed: () {
+                     Fluttertoast.showToast(msg: 'Heart');
+                    },
+                    padding: 10.0,
+                    backgroundColor: Colors.white,
+                    iconColor: Colors.black,
+                  ),
                 ],
                 expandedHeight: MediaQuery.of(context).size.height * 0.35,
                 floating: false,
