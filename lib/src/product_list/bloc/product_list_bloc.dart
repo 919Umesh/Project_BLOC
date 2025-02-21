@@ -4,7 +4,7 @@ import '../product_list.dart';
 class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
   final List<ProductModel> _allProducts = [];
   int _currentPage = 1;
-  static const int _itemsPerPage = 10;
+  static const int _itemsPerPage = 5;
 
   ProductListBloc() : super(ProductListInitial()) {
     on<ProductListRequested>(_onProductListRequested);
