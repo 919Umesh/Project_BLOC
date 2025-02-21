@@ -20,6 +20,7 @@ class CreateProductBloc extends Bloc<CreateProductEvent, CreateProductState> {
       emit(CreateProductError(message: e.toString()));
     }
   }
+
   Future<void> _onProductUpdateRequested(UpdateProductRequested event, Emitter emit) async {
     emit(CreateProductLoading());
     try {

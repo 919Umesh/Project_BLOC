@@ -308,7 +308,7 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
                   debugPrint('Switch Value: $value');
                 },
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 10),
               FormBuilderCheckbox(
                 name: 'agree_terms',
                 title: const Text('I agree to the terms and conditions'),
@@ -324,7 +324,7 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
                   debugPrint('Checkbox value: $value');
                 },
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 12),
               SizedBox(
                 width: double.infinity,
                 height: 48,
