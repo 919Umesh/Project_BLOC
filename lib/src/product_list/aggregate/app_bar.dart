@@ -25,7 +25,7 @@ class _AppBarPageState extends State<AppBarPage> {
             return [
               SliverAppBar(
                 backgroundColor: Colors.blue[400],
-                leading:CircularIconButton(
+                leading: CircularIconButton(
                   icon: Bootstrap.chevron_left,
                   onPressed: () {
                     Navigator.of(context).pop();
@@ -47,7 +47,7 @@ class _AppBarPageState extends State<AppBarPage> {
                   CircularIconButton(
                     icon: Bootstrap.heart,
                     onPressed: () {
-                     Fluttertoast.showToast(msg: 'Heart');
+                      Fluttertoast.showToast(msg: 'Heart');
                     },
                     padding: 10.0,
                     backgroundColor: Colors.white,
@@ -60,7 +60,10 @@ class _AppBarPageState extends State<AppBarPage> {
                 flexibleSpace: LayoutBuilder(
                   builder: (BuildContext context, BoxConstraints constraints) {
                     double appBarHeight = constraints.maxHeight;
-                    double opacity = 1.0 - ((appBarHeight - kToolbarHeight) / (200.0 - kToolbarHeight)).clamp(0.0, 1.0);
+                    double opacity = 1.0 -
+                        ((appBarHeight - kToolbarHeight) /
+                                (200.0 - kToolbarHeight))
+                            .clamp(0.0, 1.0);
                     return FlexibleSpaceBar(
                       centerTitle: true,
                       title: AnimatedOpacity(
@@ -155,6 +158,8 @@ class _AppBarPageState extends State<AppBarPage> {
                           ],
                         ),
                       ),
+                      _productCart(product.productImage, product.name,
+                          product.salesRate.toString(), product.unit),
                       const SizedBox(height: 16),
                       _buildInfoCard(
                         title: 'Additional Information',
@@ -231,6 +236,119 @@ class _AppBarPageState extends State<AppBarPage> {
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _productCart(
+    String productImage,
+    String productName,
+    String salesRate,
+    String unit,
+  ) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 6,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Product Image
+          ClipRRect(
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+            child: Image.network(
+              productImage,
+              fit: BoxFit.cover,
+              height: 120,
+              width: double.infinity,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Product Name and Icon
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      productName,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.more_vert, size: 20),
+                      onPressed: () {
+                        // Add action here
+                      },
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                // Unit and Price
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Unit',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          unit,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black87,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          'Price',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          '₹$salesRate',
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.green,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ],

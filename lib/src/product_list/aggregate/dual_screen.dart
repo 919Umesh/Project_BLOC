@@ -169,8 +169,6 @@ class _OrderReportPageState extends State<OrderReportPage> {
                 ),
               ),
             ),
-
-            // Products Section
             const SliverPadding(
               padding: EdgeInsets.all(16.0),
               sliver: SliverToBoxAdapter(
@@ -189,7 +187,6 @@ class _OrderReportPageState extends State<OrderReportPage> {
                 ),
               ),
             ),
-
             BlocBuilder<ProductListBloc, ProductListState>(
               builder: (context, state) {
                 if (state is ProductListLoading &&
@@ -215,83 +212,20 @@ class _OrderReportPageState extends State<OrderReportPage> {
                           if (index < state.products.length) {
                             final product = state.products[index];
                             return InkWell(
-                              onTap: (){
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context)=> AppBarPage(product: product,)));
-                              },
-                              child: Card(
-                                elevation: 2,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        height: 100,
-                                        decoration: BoxDecoration(
-                                          color: Colors.grey[200],
-                                          borderRadius: BorderRadius.circular(8),
-                                        ),
-                                        child: Center(
-                                          child: CachedNetworkImage(
-                                            imageUrl: product.productImage,
-                                            memCacheWidth: 800,
-                                            memCacheHeight: 800,
-                                            maxWidthDiskCache: 1000,
-                                            maxHeightDiskCache: 1000,
-                                            placeholder: (context, url) =>
-                                                buildShimmerEffect(),
-                                            errorWidget: (context, url, error) =>
-                                                const Icon(Icons.error_outline),
-                                            width: 110,
-                                            height: 110,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(height: 12),
-                                      Text(
-                                        product.name,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      const SizedBox(height: 4),
-                                      Text(
-                                        '\$${product.salesRate}',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.green[700],
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                      const Spacer(),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 8,
-                                          vertical: 4,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: Colors.blue[50],
-                                          borderRadius: BorderRadius.circular(4),
-                                        ),
-                                        child: Text(
-                                          'Stock: ${product.unit}',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.blue[700],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => AppBarPage(
+                                      product: product,
+                                    ),
                                   ),
-                                ),
-                              ),
+                                );
+                              },
+                              child: _productCart(
+                                  product.productImage,
+                                  product.name,
+                                  product.salesRate.toString(),
+                                  product.unit),
                             );
                           } else if (!state.hasReachedEnd) {
                             return const Center(
@@ -321,6 +255,115 @@ class _OrderReportPageState extends State<OrderReportPage> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _productCart(
+    String productImage,
+    String productName,
+    String salesRate,
+    String unit,
+  ) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 6,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+            child: Image.network(
+              productImage,
+              fit: BoxFit.cover,
+              height: 120,
+              width: double.infinity,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      productName,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.more_vert, size: 20),
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 4),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Unit',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          unit,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black87,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          'Price',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey[500],
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          '₹$salesRate',
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.green,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
