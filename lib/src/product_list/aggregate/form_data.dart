@@ -45,10 +45,13 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text('Create Ledger Entry', style: GoogleFonts.poppins(
-          fontSize: 18,
-          fontWeight: FontWeight.w600,
-        ),),
+        title: Text(
+          'Create Ledger Entry',
+          style: GoogleFonts.poppins(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
         elevation: 0,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
@@ -134,7 +137,8 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
                 validator: FormBuilderValidators.compose([
                   FormBuilderValidators.required(
                     errorText: 'Please enter an amount',
@@ -176,8 +180,8 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
               BlocBuilder<ProductListBloc, ProductListState>(
                 builder: (context, state) {
                   if (state is ProductListLoading) {
-                    return const ShimmerEffect(width: double.infinity, height: 50, borderRadius: 8);
-
+                    return const ShimmerEffect(
+                        width: double.infinity, height: 50, borderRadius: 8);
                   } else if (state is ProductListSuccess) {
                     return FormBuilderDropdown<String>(
                       name: 'product_id',
@@ -232,26 +236,91 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
               ),
               FormBuilderRadioGroup(
                 name: 'first_option',
-                options: const[
+                options: const [
                   FormBuilderFieldOption(value: 'Male'),
                   FormBuilderFieldOption(value: 'Female'),
                 ],
               ),
-              FormBuilderRadioGroup(
-                name: 'second_option',
-                options: [
-                  FormBuilderFieldOption(value: 'Option A'),
-                  FormBuilderFieldOption(value: 'Option B'),
-                ],
-              ),
               FormBuilderChoiceChip(
                 name: 'first_choice',
-                options: [
-                  FormBuilderChipOption(value: 'Choice 1', child: Text('Choice 1')),
-                  FormBuilderChipOption(value: 'Choice 2', child: Text('Choice 2')),
+                options: const [
+                  FormBuilderChipOption(
+                      value: 'Choice 1', child: Text('Choice 1')),
+                  FormBuilderChipOption(
+                      value: 'Choice 2', child: Text('Choice 2')),
                 ],
               ),
-
+              // FormBuilderFilterChip(
+              //   name: 'first_filter',
+              //   options: const[
+              //     FormBuilderChipOption(value: 'Filter 1', child: Text('Filter 1')),
+              //     FormBuilderChipOption(value: 'Filter 2', child: Text('Filter 2')),
+              //   ],
+              // ),
+              // FormBuilderFilterChip(
+              //   name: 'first_filter',
+              //   decoration: const InputDecoration(
+              //     labelText: 'Select Filters',
+              //     border: InputBorder.none,
+              //   ),
+              //   spacing: 8.0,
+              //   runSpacing: 8.0,
+              //   selectedColor: Colors.blue,
+              //   backgroundColor: Colors.grey[200],
+              //   shape: RoundedRectangleBorder(
+              //     borderRadius: BorderRadius.circular(20),
+              //     side: const BorderSide(color: Colors.blue),
+              //   ),
+              //   labelStyle: const TextStyle(color: Colors.black),
+              //   options: const [
+              //     FormBuilderChipOption(
+              //       value: 'Filter 1',
+              //       child: Text('Filter 1'),
+              //     ),
+              //     FormBuilderChipOption(
+              //       value: 'Filter 2',
+              //       child: Text('Filter 2'),
+              //     ),
+              //   ],
+              // ),
+              BlocBuilder<ProductListBloc, ProductListState>(
+                builder: (context, state) {
+                  if (state is ProductListLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (state is ProductListSuccess) {
+                    return FormBuilderFilterChip(
+                      name: 'first_filter',
+                      decoration: const InputDecoration(
+                        labelText: 'Select Filters',
+                        border: InputBorder.none,
+                      ),
+                      spacing: 8.0,
+                      runSpacing: 8.0,
+                      selectedColor: Colors.blue,
+                      backgroundColor: Colors.grey[200],
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        side: const BorderSide(color: Colors.blue),
+                      ),
+                      labelStyle: const TextStyle(color: Colors.black),
+                      options: state.products.map((product) {
+                        return FormBuilderChipOption(
+                          value: product.id, // Use dynamic values
+                          child: Text(product.name), // Display product name dynamically
+                        );
+                      }).toList(),
+                    );
+                  } else if (state is ProductListFailure) {
+                    return Center(
+                      child: Text(
+                        'Error: ${state.errorMessage}',
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                    );
+                  }
+                  return const SizedBox();
+                },
+              ),
 
               const SizedBox(height: 16),
               SizedBox(
@@ -265,13 +334,12 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                  child:  Text(
+                  child: Text(
                     'Create Ledger Entry',
                     style: GoogleFonts.poppins(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: Colors.white
-                    ),
+                        color: Colors.white),
                   ),
                 ),
               ),
