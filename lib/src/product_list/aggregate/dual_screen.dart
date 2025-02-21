@@ -60,9 +60,12 @@ class _OrderReportPageState extends State<OrderReportPage> {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         actions: [
-          IconButton(onPressed: (){
-            Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const LedgerFormPage()));
-          }, icon: const Icon(Bootstrap.person)),
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const LedgerFormPage()));
+              },
+              icon: const Icon(Bootstrap.person)),
         ],
       ),
       body: RefreshIndicator(
@@ -78,7 +81,7 @@ class _OrderReportPageState extends State<OrderReportPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                     Text(
+                    Text(
                       'Users',
                       style: GoogleFonts.poppins(
                         fontSize: 24,
@@ -111,7 +114,8 @@ class _OrderReportPageState extends State<OrderReportPage> {
                                     child: Padding(
                                       padding: const EdgeInsets.all(16),
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           const SizedBox(height: 12),
                                           Text(
@@ -135,7 +139,8 @@ class _OrderReportPageState extends State<OrderReportPage> {
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor: Colors.blue,
                                               shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(8),
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
                                               ),
                                             ),
                                             child: Text(user.v),
@@ -197,14 +202,15 @@ class _OrderReportPageState extends State<OrderReportPage> {
                   return SliverPadding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     sliver: SliverGrid(
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         mainAxisSpacing: 16,
                         crossAxisSpacing: 16,
                         childAspectRatio: 0.75,
                       ),
                       delegate: SliverChildBuilderDelegate(
-                            (context, index) {
+                        (context, index) {
                           if (index < state.products.length) {
                             final product = state.products[index];
                             return Card(
@@ -223,18 +229,20 @@ class _OrderReportPageState extends State<OrderReportPage> {
                                         color: Colors.grey[200],
                                         borderRadius: BorderRadius.circular(8),
                                       ),
-                                      child:
-                                      Center(
+                                      child: Center(
                                         child: CachedNetworkImage(
                                           imageUrl: product.productImage,
-                                          memCacheWidth: 1000,
-                                          memCacheHeight: 1000,
-                                          maxWidthDiskCache: 2000,
-                                          maxHeightDiskCache: 2000,
-                                          placeholder: (context, url) => buildShimmerEffect(),
-                                          errorWidget: (context, url, error) => const Icon(Icons.error, size: 50, color: Colors.red),
+                                          memCacheWidth: 800,
+                                          memCacheHeight: 800,
+                                          maxWidthDiskCache: 1000,
+                                          maxHeightDiskCache: 1000,
+                                          placeholder: (context, url) =>
+                                              buildShimmerEffect(),
+                                          errorWidget: (context, url, error) =>
+                                              const Icon(Icons.error_outline),
+                                          width: 110,
+                                          height: 110,
                                           fit: BoxFit.cover,
-                                          cacheManager: CustomCacheManager.instance,
                                         ),
                                       ),
                                     ),
