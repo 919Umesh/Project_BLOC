@@ -250,39 +250,6 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
                       value: 'Choice 2', child: Text('Choice 2')),
                 ],
               ),
-              // FormBuilderFilterChip(
-              //   name: 'first_filter',
-              //   options: const[
-              //     FormBuilderChipOption(value: 'Filter 1', child: Text('Filter 1')),
-              //     FormBuilderChipOption(value: 'Filter 2', child: Text('Filter 2')),
-              //   ],
-              // ),
-              // FormBuilderFilterChip(
-              //   name: 'first_filter',
-              //   decoration: const InputDecoration(
-              //     labelText: 'Select Filters',
-              //     border: InputBorder.none,
-              //   ),
-              //   spacing: 8.0,
-              //   runSpacing: 8.0,
-              //   selectedColor: Colors.blue,
-              //   backgroundColor: Colors.grey[200],
-              //   shape: RoundedRectangleBorder(
-              //     borderRadius: BorderRadius.circular(20),
-              //     side: const BorderSide(color: Colors.blue),
-              //   ),
-              //   labelStyle: const TextStyle(color: Colors.black),
-              //   options: const [
-              //     FormBuilderChipOption(
-              //       value: 'Filter 1',
-              //       child: Text('Filter 1'),
-              //     ),
-              //     FormBuilderChipOption(
-              //       value: 'Filter 2',
-              //       child: Text('Filter 2'),
-              //     ),
-              //   ],
-              // ),
               BlocBuilder<ProductListBloc, ProductListState>(
                 builder: (context, state) {
                   if (state is ProductListLoading) {
