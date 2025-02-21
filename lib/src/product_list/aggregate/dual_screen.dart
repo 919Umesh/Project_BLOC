@@ -281,32 +281,23 @@ class _OrderReportPageState extends State<OrderReportPage> {
             child: Image.network(
               productImage,
               fit: BoxFit.cover,
-              height: 120,
+              height: 140,
               width: double.infinity,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 10.0,right: 10.0,),
+            padding: const EdgeInsets.only(left: 10.0,right: 10.0,top: 8,bottom: 5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      productName,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
-                      ),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.more_vert, size: 20),
-                      onPressed: () {},
-                    ),
-                  ],
+                Text(
+                  productName,
+                  overflow: TextOverflow.ellipsis,
+                  style:  GoogleFonts.poppins(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black87,
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -316,14 +307,14 @@ class _OrderReportPageState extends State<OrderReportPage> {
                       children: [
                         Text(
                           'Unit',
-                          style: TextStyle(
+                          style: GoogleFonts.poppins(
                             fontSize: 12,
                             color: Colors.grey[600],
                           ),
                         ),
                         Text(
                           unit,
-                          style: const TextStyle(
+                          style: GoogleFonts.poppins(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                             color: Colors.black87,
@@ -336,14 +327,14 @@ class _OrderReportPageState extends State<OrderReportPage> {
                       children: [
                         Text(
                           'Price',
-                          style: TextStyle(
+                          style: GoogleFonts.poppins(
                             fontSize: 12,
                             color: Colors.grey[500],
                           ),
                         ),
                         Text(
                           '₹$salesRate',
-                          style: const TextStyle(
+                          style: GoogleFonts.poppins(
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
                             color: Colors.green,
