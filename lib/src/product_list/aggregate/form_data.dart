@@ -3,12 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:project_bloc/src/product_list/bloc/product_list_bloc.dart';
 import 'package:project_bloc/src/product_list/bloc/product_list_state.dart';
 import 'package:project_bloc/src/user_list/bloc/user_list_bloc.dart';
 
 import '../../../core/extensions/shimmer_effect.dart';
 import '../bloc/product_list_event.dart';
+import 'app_bar.dart';
 
 class LedgerFormPage extends StatefulWidget {
   const LedgerFormPage({super.key});
@@ -52,6 +54,14 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
             fontWeight: FontWeight.w600,
           ),
         ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const AppBarPage()));
+              },
+              icon: const Icon(Bootstrap.activity))
+        ],
         elevation: 0,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
@@ -273,7 +283,8 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
                       options: state.userList.map((users) {
                         return FormBuilderChipOption(
                           value: users.id, // Use dynamic values
-                          child: Text(users.name), // Display product name dynamically
+                          child: Text(
+                              users.name), // Display product name dynamically
                         );
                       }).toList(),
                     );
@@ -292,12 +303,15 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
               FormBuilderSwitch(
                 name: 'enable_feature',
                 title: const Text('Enable Feature'),
-                initialValue: false, // Default value
+                initialValue: false,
+                // Default value
                 decoration: const InputDecoration(
                   border: InputBorder.none,
                 ),
-                activeColor: Colors.blue, // Color when switched on
-                inactiveThumbColor: Colors.grey, // Color when switched off
+                activeColor: Colors.blue,
+                // Color when switched on
+                inactiveThumbColor: Colors.grey,
+                // Color when switched off
                 inactiveTrackColor: Colors.grey[300],
                 validator: FormBuilderValidators.compose([
                   FormBuilderValidators.required(
