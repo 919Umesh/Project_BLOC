@@ -288,7 +288,42 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
                   return const SizedBox();
                 },
               ),
-
+              const SizedBox(height: 16),
+              FormBuilderSwitch(
+                name: 'enable_feature',
+                title: const Text('Enable Feature'),
+                initialValue: false, // Default value
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                ),
+                activeColor: Colors.blue, // Color when switched on
+                inactiveThumbColor: Colors.grey, // Color when switched off
+                inactiveTrackColor: Colors.grey[300],
+                validator: FormBuilderValidators.compose([
+                  FormBuilderValidators.required(
+                    errorText: 'This field is required',
+                  ),
+                ]),
+                onChanged: (value) {
+                  debugPrint('Switch Value: $value');
+                },
+              ),
+              const SizedBox(height: 12),
+              FormBuilderCheckbox(
+                name: 'agree_terms',
+                title: const Text('I agree to the terms and conditions'),
+                initialValue: false,
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                ),
+                validator: FormBuilderValidators.equal(
+                  true,
+                  errorText: 'You must accept terms and conditions to continue',
+                ),
+                onChanged: (value) {
+                  debugPrint('Checkbox value: $value');
+                },
+              ),
               const SizedBox(height: 16),
               SizedBox(
                 width: double.infinity,
