@@ -39,8 +39,6 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
       _formKey.currentState!.fields.forEach((key, field) {
         debugPrint('$key: ${field.value}');
       });
-      debugPrint('Form Data: $formData');
-      debugPrint('Image File Path: ${_imageFile?.path}');
       debugPrint('Complete Form Data: $formData');
     }
   }
