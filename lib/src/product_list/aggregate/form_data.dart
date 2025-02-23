@@ -132,6 +132,7 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
               CustomImagePicker(
                 defaultImageAsset: 'assets/images/google.png',
                 onImageSelected: (file, multipartFile) {
+                  //SetState to update the selected image
                   setState(() {
                     _imageFile = file;
                   });
