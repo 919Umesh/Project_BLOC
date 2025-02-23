@@ -71,6 +71,7 @@ class _WalletPaymentState extends State<WalletPayment> {
               label: Text('Mobile Number'),
             ),
             controller: _mobileController,
+            keyboardType: TextInputType.number,
           ),
           TextFormField(
             validator: (v) => (v?.isEmpty ?? true) ? 'Required ' : null,
@@ -78,6 +79,7 @@ class _WalletPaymentState extends State<WalletPayment> {
               label: Text('Khalti MPIN'),
             ),
             controller: _pinController,
+            keyboardType: TextInputType.number,
           ),
           const SizedBox(height: 24),
           ElevatedButton(
