@@ -88,8 +88,8 @@ class _WalletPaymentState extends State<WalletPayment> {
                 request: PaymentInitiationRequestModel(
                   amount: 1000,
                   mobile: _mobileController.text,
-                  productIdentity: 'mac-mini',
-                  productName: 'Apple Mac Mini',
+                  productIdentity: 'Fruits',
+                  productName: 'Apple',
                   transactionPin: _pinController.text,
                   productUrl: 'https://khalti.com/bazaar/mac-mini-16-512-m1',
                   additionalData: {
