@@ -106,11 +106,11 @@ class _OrderReportPageState extends State<OrderReportPage> {
                                   width: 280,
                                   margin: const EdgeInsets.only(right: 16),
                                   child: InkWell(
-                                    onTap: (){
-                                      Fluttertoast.showToast(msg: user.name);
-                                    },
-                                    child: _userCard(user.id,user.name,user.email,user.v)
-                                  ),
+                                      onTap: () {
+                                        Fluttertoast.showToast(msg: user.name);
+                                      },
+                                      child: _userCard(user.id, user.name,
+                                          user.email, user.v)),
                                 );
                               },
                             );
@@ -182,7 +182,11 @@ class _OrderReportPageState extends State<OrderReportPage> {
                                   ),
                                 );
                               },
-                              child: _productCart(product.productImage, product.name, product.salesRate.toString(), product.unit),
+                              child: _productCart(
+                                  product.productImage,
+                                  product.name,
+                                  product.salesRate.toString(),
+                                  product.unit),
                             );
                           } else if (!state.hasReachedEnd) {
                             return const Center(
@@ -314,7 +318,12 @@ class _OrderReportPageState extends State<OrderReportPage> {
     );
   }
 
-  Widget _userCard(String id,String name,String email,String v,){
+  Widget _userCard(
+    String id,
+    String name,
+    String email,
+    String v,
+  ) {
     return Card(
       elevation: 8,
       shadowColor: Colors.blue.withOpacity(0.2),
@@ -339,7 +348,6 @@ class _OrderReportPageState extends State<OrderReportPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-
               CircleAvatar(
                 radius: 30,
                 backgroundColor: Colors.blue.shade100,
@@ -353,11 +361,9 @@ class _OrderReportPageState extends State<OrderReportPage> {
                 ),
               ),
               const SizedBox(height: 12),
-
-              // User Name
               Text(
                 name,
-                style:GoogleFonts.poppins(
+                style: GoogleFonts.poppins(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
                   letterSpacing: 0.5,
@@ -366,10 +372,7 @@ class _OrderReportPageState extends State<OrderReportPage> {
               const SizedBox(height: 8),
               Row(
                 children: [
-                  Icon(Icons.email_outlined,
-                      size: 16,
-                      color: Colors.grey[600]
-                  ),
+                  Icon(Icons.email_outlined, size: 16, color: Colors.grey[600]),
                   const SizedBox(width: 8),
                   Text(
                     email,

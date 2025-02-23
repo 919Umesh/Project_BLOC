@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:project_bloc/src/create_project/ui/create_project_screen.dart';
+import '../../src/khalti/khalti_page.dart';
 import '../../src/login/ui/login_screen.dart';
 import '../../src/product_list/ui/product_list_screen.dart';
 import '../../src/project_list/ui/project_list_screen.dart';
@@ -31,6 +32,9 @@ class RouteGenerator {
         return _pageTransition(child: const ProductListScreen());
       case AppRoute.userListLocal:
         return _pageTransition(child: const UserListLocal());
+      case AppRoute.khaltiAppPath:
+        return _pageTransition(child: const KhaltiExampleApp());
+      // KhaltiExampleApp
 
       default:
         return _pageTransition(

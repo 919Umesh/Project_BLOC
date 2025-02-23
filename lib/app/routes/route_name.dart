@@ -12,4 +12,5 @@ class AppRoute {
   static const String productListScreenPath = "/ProductListScreenPath";
   static const String productDetailsScreenPath = "/ProductDetailsScreenPath";
   static const String userListLocal = "/UserListLocal";
+  static const String khaltiAppPath = "/KhaltiAppPath";
 }

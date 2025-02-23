@@ -61,10 +61,9 @@ class _ProjectListScreenState extends State<ProjectListScreen>
         ),
       ),
       actions: [
+      //  khaltiAppPath
         IconButton(
-          onPressed: () => Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const PageWrapper()),
-          ),
+          onPressed: () =>  Navigator.pushNamed(context, AppRoute.khaltiAppPath),
           icon: const Icon(Bootstrap.house),
         ),
         IconButton(

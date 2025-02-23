@@ -46,7 +46,6 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
   Future<void> _onUserNameList(UserNameRequested event, Emitter<UserListState> emit) async {
     try {
       emit(UserNameLoading());
-      Fluttertoast.showToast(msg: "Db");
       final dataList = await _userListRepository.getUserNameList();
       emit(UserNameLoadSuccess(userList: dataList));
     } catch (e) {

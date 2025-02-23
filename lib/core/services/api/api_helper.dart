@@ -27,7 +27,9 @@ class APIProvider {
 
   Future<void> _initCache() async {
     if (_cacheOptions != null) return;
+
     Fluttertoast.showToast(msg: 'Cache');
+
     final cacheDir = await getTemporaryDirectory();
     final cacheStore = HiveCacheStore('${cacheDir.path}/dio_cache');
 
