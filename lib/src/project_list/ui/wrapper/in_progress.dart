@@ -14,9 +14,7 @@ class _InProgressProjectsScreenState extends State<InProgressProjectsScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<ProjectListBloc>().add(
-       LoadProjectRequested(status: 'in-progress'),
-    );
+    context.read<ProjectListBloc>().add(LoadProjectRequested(status: 'in-progress'),);
   }
 
   @override
