@@ -7,6 +7,7 @@ import 'core/core.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureDependencies();
+  //Initialize the khalti package
   await Khalti.init(
     publicKey: 'test_public_key_dc74e0fd57cb46cd93832aee0a507256',
     enabledDebugging: false,
