@@ -21,7 +21,6 @@ class CreateProductBloc extends Bloc<CreateProductEvent, CreateProductState> {
     }
   }
 
-  //Update the product with id
   Future<void> _onProductUpdateRequested(UpdateProductRequested event, Emitter emit) async {
     emit(CreateProductLoading());
     try {
