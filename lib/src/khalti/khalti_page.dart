@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:khalti/khalti.dart';
+import 'package:project_bloc/app/temp/custom_log.dart';
 import 'package:url_launcher/url_launcher.dart' as url_launcher;
 
 class KhaltiExampleApp extends StatelessWidget {
-  const KhaltiExampleApp({Key? key}) : super(key: key);
+  const KhaltiExampleApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class KhaltiExampleApp extends StatelessWidget {
             tabs: [
               Tab(text: 'Wallet Payment'),
               Tab(text: 'EBanking'),
-              Tab(text: 'MBanking'),
+             Tab(text: 'MBanking'),
             ],
           ),
         ),
@@ -24,7 +25,7 @@ class KhaltiExampleApp extends StatelessWidget {
           children: [
             WalletPayment(),
             Banking(paymentType: PaymentType.eBanking),
-            Banking(paymentType: PaymentType.mobileCheckout),
+           Banking(paymentType: PaymentType.mobileCheckout),
           ],
         ),
       ),
@@ -33,7 +34,7 @@ class KhaltiExampleApp extends StatelessWidget {
 }
 
 class WalletPayment extends StatefulWidget {
-  const WalletPayment({Key? key}) : super(key: key);
+  const WalletPayment({super.key});
 
   @override
   State<WalletPayment> createState() => _WalletPaymentState();
@@ -174,7 +175,7 @@ class _BankingState extends State<Banking> with AutomaticKeepAliveClientMixin {
             itemCount: banks.length,
             itemBuilder: (context, index) {
               final bank = banks[index];
-
+              CustomLog.successLog(value: bank);
               return ListTile(
                 leading: SizedBox.square(
                   dimension: 40,

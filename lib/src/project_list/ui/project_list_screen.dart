@@ -5,7 +5,6 @@ import 'package:project_bloc/src/project_list/ui/wrapper/complete_page.dart';
 import 'package:project_bloc/src/project_list/ui/wrapper/in_progress.dart';
 import 'package:project_bloc/src/project_list/ui/wrapper/pending_page.dart';
 import '../../../app/routes/route_name.dart';
-import '../../page_tabs/page_wrapper.dart';
 import 'drawer_section.dart';
 
 class ProjectListScreen extends StatefulWidget {
@@ -64,7 +63,7 @@ class _ProjectListScreenState extends State<ProjectListScreen>
       //  khaltiAppPath
         IconButton(
           onPressed: () =>  Navigator.pushNamed(context, AppRoute.khaltiAppPath),
-          icon: const Icon(Bootstrap.house),
+          icon: const Icon(Bootstrap.house_add),
         ),
         IconButton(
           onPressed: () =>
