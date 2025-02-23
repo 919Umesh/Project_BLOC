@@ -36,8 +36,6 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
   void _onSubmit() {
     if (_formKey.currentState?.saveAndValidate() ?? false) {
       final formData = Map<String, dynamic>.from(_formKey.currentState!.value);
-      formData['image_file'] = _imageFile;
-      debugPrint('--------- Form Fields ------');
       _formKey.currentState!.fields.forEach((key, field) {
         debugPrint('$key: ${field.value}');
       });
