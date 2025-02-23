@@ -129,18 +129,18 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
                 },
               ),
               const SizedBox(height: 12),
-              CustomImagePicker(
-                defaultImageAsset: 'assets/images/google.png',
-                onImageSelected: (file, multipartFile) {
-                  //SetState to update the selected image
-                  setState(() {
-                    _imageFile = file;
-                  });
-                debugPrint('-----File------');
-                debugPrint('Path:${file.path}');
-                },
-              ),
-              const SizedBox(height: 12),
+              // CustomImagePicker(
+              //   defaultImageAsset: 'assets/images/google.png',
+              //   onImageSelected: (file, multipartFile) {
+              //     //SetState to update the selected image
+              //     setState(() {
+              //       _imageFile = file;
+              //     });
+              //   debugPrint('-----File------');
+              //   debugPrint('Path:${file.path}');
+              //   },
+              // ),
+              //const SizedBox(height: 12),
               FormBuilderTextField(
                 name: 'amount',
                 decoration: InputDecoration(
