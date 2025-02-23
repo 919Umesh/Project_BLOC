@@ -111,9 +111,17 @@ class _ProjectSearchViewState extends State<ProjectSearchView> {
                       final project = state.projects[index];
                       return InkWell(
                         onTap: (){
-                          // Navigator.of(context).push(
-                          //   MaterialPageRoute(builder: (context) =>  ProjectDetailsPage(name: project.name,address: project.location,)),
-                          // );
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  ProjectDetailsPage(projectModel: project),
+                              settings: const RouteSettings(
+                                arguments: <String, dynamic>{
+                                  'is_edit': false,
+                                },
+                              ),
+                            ),
+                          );
                         },
                           child: _ProjectCard(project: project));
                     },
