@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:dual_image_picker/dual_image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -20,6 +22,7 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
   final _formKey = GlobalKey<FormBuilderState>();
   String? selectedUserId;
   String? selectedProductId;
+  File? _imageFile;
 
   @override
   void initState() {
@@ -31,12 +34,15 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
 
   void _onSubmit() {
     if (_formKey.currentState?.saveAndValidate() ?? false) {
-      final formData = _formKey.currentState!.value;
+      final formData = Map<String, dynamic>.from(_formKey.currentState!.value);
+      formData['image_file'] = _imageFile;
       debugPrint('--------- Form Fields ------');
       _formKey.currentState!.fields.forEach((key, field) {
         debugPrint('$key: ${field.value}');
       });
       debugPrint('Form Data: $formData');
+      debugPrint('Image File Path: ${_imageFile?.path}');
+      debugPrint('Complete Form Data: $formData');
     }
   }
 
@@ -122,7 +128,18 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
                   return const SizedBox();
                 },
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 12),
+              CustomImagePicker(
+                defaultImageAsset: 'assets/images/google.png',
+                onImageSelected: (file, multipartFile) {
+                  setState(() {
+                    _imageFile = file;
+                  });
+                debugPrint('-----File------');
+                debugPrint('Path:${file.path}');
+                },
+              ),
+              const SizedBox(height: 12),
               FormBuilderTextField(
                 name: 'amount',
                 decoration: InputDecoration(
