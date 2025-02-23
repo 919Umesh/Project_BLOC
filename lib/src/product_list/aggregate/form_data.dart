@@ -24,6 +24,7 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
   String? selectedProductId;
   File? _imageFile;
 
+  //Init part of the screen which initialize when the screen is open everytime
   @override
   void initState() {
     super.initState();
