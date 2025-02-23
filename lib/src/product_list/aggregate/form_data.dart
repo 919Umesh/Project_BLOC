@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:dual_image_picker/dual_image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -24,7 +23,6 @@ class _LedgerFormPageState extends State<LedgerFormPage> {
   String? selectedProductId;
   File? _imageFile;
 
-  //Init part of the screen which initialize when the screen is open everytime
   @override
   void initState() {
     super.initState();
