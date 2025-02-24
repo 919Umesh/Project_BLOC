@@ -4,7 +4,6 @@ import '../../../app/app.dart';
 import '../../../core/core.dart';
 import '../bloc/splash_bloc.dart';
 
-//Splash Screen
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
