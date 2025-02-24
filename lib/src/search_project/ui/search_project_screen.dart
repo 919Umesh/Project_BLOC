@@ -7,7 +7,7 @@ import '../../project_list/model/project_list_model.dart';
 import '../../project_list/ui/project_details.dart';
 import '../bloc/search_project_bloc.dart';
 
-//Search Project Screen
+
 class ProjectSearchView extends StatefulWidget {
   const ProjectSearchView({super.key});
 
