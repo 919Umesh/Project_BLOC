@@ -4,7 +4,7 @@ import 'package:icons_plus/icons_plus.dart';
 import '../../../core/extensions/custom_icon_button.dart';
 import '../model/product_list_model.dart';
 import 'package:intl/intl.dart';
-//Dynamic App Bar
+
 class AppBarPage extends StatefulWidget {
   final ProductModel product;
 

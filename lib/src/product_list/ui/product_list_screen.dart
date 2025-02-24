@@ -18,7 +18,6 @@ class ProductListScreen extends StatefulWidget {
 
 class _ProductListScreenState extends State<ProductListScreen> {
   final ScrollController _scrollController = ScrollController();
-  //bool _showScrollToTop = false;
 
   @override
   void initState() {
@@ -32,18 +31,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
         _scrollController.position.maxScrollExtent * 0.8) {
       context.read<ProductListBloc>().add(ProductListLoadMoreRequested());
     }
-    // // Show/hide scroll to top button based on scroll position
-    // setState(() {
-    //   _showScrollToTop = _scrollController.offset > 200; // Show after 200 pixels of scroll
-    // });
   }
-  // void _scrollToTop() {
-  //   _scrollController.animateTo(
-  //     0,
-  //     duration: const Duration(milliseconds: 500),
-  //     curve: Curves.easeInOut,
-  //   );
-  // }
 
   @override
   void dispose() {
@@ -87,18 +75,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          // // Scroll to top button
-          // if (_showScrollToTop)
-          //   Padding(
-          //     padding: const EdgeInsets.only(bottom: 10),
-          //     child: FloatingActionButton(
-          //       heroTag: 'scrollToTop',
-          //       mini: true,
-          //       onPressed: _scrollToTop,
-          //       backgroundColor: Colors.white,
-          //       child: const Icon(Icons.arrow_upward, color: Colors.black87),
-          //     ),
-          //   ),
           FloatingActionButton.extended(
             onPressed: () {
               Navigator.of(context).push(
