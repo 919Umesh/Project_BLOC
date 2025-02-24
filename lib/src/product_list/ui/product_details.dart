@@ -109,7 +109,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             ),
             const SizedBox(height: 8),
             Text(
-              'Additional',
+              'Additional details about the product...',
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.grey[600],
