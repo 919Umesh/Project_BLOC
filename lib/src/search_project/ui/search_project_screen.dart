@@ -47,7 +47,6 @@ class _ProjectSearchViewState extends State<ProjectSearchView> {
           ),
         ),
       ),
-      //On init
       body: Column(
         children: [
           Container(

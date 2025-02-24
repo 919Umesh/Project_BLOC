@@ -11,6 +11,7 @@ class ProductResponseModel {
   final List<ProductModel> products;
   Pagination pagination;
 
+  //Factory Model class
   factory ProductResponseModel.fromJson(Map<String, dynamic> json) {
     return ProductResponseModel(
       status: json["status"] ?? 0,
