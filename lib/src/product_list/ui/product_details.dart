@@ -18,7 +18,7 @@ class ProductDetailScreen extends StatefulWidget {
   @override
   State<ProductDetailScreen> createState() => _ProductDetailScreenState();
 }
-
+//Widget
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         ),
         backgroundColor: kPrimaryColor,
       ),
-      //APPbAR
+
       appBar: AppBar(
         title: Text(widget.name),
       ),
