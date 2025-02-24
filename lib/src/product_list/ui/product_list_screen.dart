@@ -67,7 +67,10 @@ class _ProductListScreenState extends State<ProductListScreen> {
           IconButton(
               onPressed: () {
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const OrderReportPage()));
+                  MaterialPageRoute(
+                    builder: (context) => const OrderReportPage(),
+                  ),
+                );
               },
               icon: const Icon(Bootstrap.house_add)),
         ],
@@ -79,22 +82,24 @@ class _ProductListScreenState extends State<ProductListScreen> {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                    builder: (context) => CreateProductScreen(
-                          isEditing: false,
-                          productModel: ProductModel(
-                              id: '',
-                              name: '',
-                              salesRate: 0,
-                              purchaseRate: 0,
-                              quantity: 0,
-                              unit: '',
-                              duration: '',
-                              fromDate: DateTime.now(),
-                              toDate: DateTime.now(),
-                              productImage: '',
-                              createdAt: DateTime.now(),
-                              updatedAt: DateTime.now()),
-                        )),
+                  builder: (context) => CreateProductScreen(
+                    isEditing: false,
+                    productModel: ProductModel(
+                      id: '',
+                      name: '',
+                      salesRate: 0,
+                      purchaseRate: 0,
+                      quantity: 0,
+                      unit: '',
+                      duration: '',
+                      fromDate: DateTime.now(),
+                      toDate: DateTime.now(),
+                      productImage: '',
+                      createdAt: DateTime.now(),
+                      updatedAt: DateTime.now(),
+                    ),
+                  ),
+                ),
               );
             },
             icon: const Icon(Icons.add, color: Colors.white),
@@ -179,7 +184,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 ),
               );
             }
-
             return ListView.builder(
               controller: _scrollController,
               padding: const EdgeInsets.all(16),
@@ -247,10 +251,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                  builder: (context) => CreateProductScreen(
-                        isEditing: true,
-                        productModel: product,
-                      )),
+                builder: (context) => CreateProductScreen(
+                  isEditing: true,
+                  productModel: product,
+                ),
+              ),
             );
           },
           icon: const Icon(Bootstrap.arrow_right),

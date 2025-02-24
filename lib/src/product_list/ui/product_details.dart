@@ -37,6 +37,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         ),
         backgroundColor: kPrimaryColor,
       ),
+      //APPbAR
       appBar: AppBar(
         title: Text(widget.name),
       ),
