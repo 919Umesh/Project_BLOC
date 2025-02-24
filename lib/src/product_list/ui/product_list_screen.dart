@@ -101,7 +101,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
               //   AppRoute.createProductScreenPath,
               //   settings: RouteSettings(
               //     arguments: {
-              //       'first': FirstPage().controller.text,  // Ensure controller is properly defined
+              //       'first': FirstPage().controller.text,
               //       'second': SecondPage().controller.text,
               //       'third': ThirdPage().controller.text,
               //     },
@@ -150,9 +150,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                   const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {
-                      context
-                          .read<ProductListBloc>()
-                          .add(ProductListRequested());
+                      context.read<ProductListBloc>().add(ProductListRequested());
                     },
                     child: const Text('Retry'),
                   ),
