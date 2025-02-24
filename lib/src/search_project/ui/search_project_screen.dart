@@ -93,6 +93,7 @@ class _ProjectSearchViewState extends State<ProjectSearchView> {
                   );
                 }
               },
+              //Builder Methods
               builder: (context, state) {
                 if (state is SearchLoading) {
                   return const Center(
