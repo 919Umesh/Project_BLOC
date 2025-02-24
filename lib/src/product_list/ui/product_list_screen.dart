@@ -233,12 +233,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            // IconButton(
-            //     onPressed: () {
-            //       FlutterClipboard.copy(product.name).then((value) =>
-            //           Fluttertoast.showToast(msg: 'Copied: ${product.name}'));
-            //     },
-            //     icon: const Icon(Bootstrap.copy))
           ],
         ),
         subtitle: Text(

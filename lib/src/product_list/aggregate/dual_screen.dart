@@ -319,7 +319,6 @@ class _OrderReportPageState extends State<OrderReportPage> {
     );
   }
 
-
   //User Info card
   Widget _userCard(
     String id,
