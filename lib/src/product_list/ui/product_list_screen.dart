@@ -96,17 +96,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
                               updatedAt: DateTime.now()),
                         )),
               );
-              // Navigator.pushNamed(
-              //   context,
-              //   AppRoute.createProductScreenPath,
-              //   settings: RouteSettings(
-              //     arguments: {
-              //       'first': FirstPage().controller.text,
-              //       'second': SecondPage().controller.text,
-              //       'third': ThirdPage().controller.text,
-              //     },
-              //   ),
-              // );
             },
             icon: const Icon(Icons.add, color: Colors.white),
             label: BlocBuilder<ProductListBloc, ProductListState>(

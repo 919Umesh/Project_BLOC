@@ -155,8 +155,6 @@ class _AppBarPageState extends State<AppBarPage> {
                           ],
                         ),
                       ),
-                      // _productCart(product.productImage, product.name,
-                      //     product.salesRate.toString(), product.unit),
                       const SizedBox(height: 16),
                       _buildInfoCard(
                         title: 'Additional Information',

@@ -62,7 +62,6 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                                         as ImageProvider
                                     : const AssetImage(
                                         'assets/images/default_profile.png'),
-                            // Fallback image
                             onBackgroundImageError: (_, __) {
                               debugPrint("Error loading image");
                             },
