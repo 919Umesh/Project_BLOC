@@ -3,10 +3,10 @@ import '../../../../core/core.dart';
 import '../model/product_list_model.dart';
 
 class ProductListRepository {
+  //List Model
   static Future<List<ProductModel>> getProductList(
       {required int page, required int limit}) async {
     try {
-      //Repository with pagination
       var response = await apiProvider.getAPI(
           endPoint: ApiEndpoints.getProductList,
           queryParams: {
