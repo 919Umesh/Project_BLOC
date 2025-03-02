@@ -26,15 +26,12 @@ class RouteGenerator {
         return _pageTransition(child: const ProjectListScreen());
       case AppRoute.searchProjectListScreenPath:
         return _pageTransition(child: const ProjectSearchView());
-      // case AppRoute.createProductScreenPath:
-      //   return _pageTransition(child: const CreateProductScreen());
       case AppRoute.productListScreenPath:
         return _pageTransition(child: const ProductListScreen());
       case AppRoute.userListLocal:
         return _pageTransition(child: const UserListLocal());
       case AppRoute.khaltiAppPath:
         return _pageTransition(child: const KhaltiExampleApp());
-      // KhaltiExampleApp
 
       default:
         return _pageTransition(
