@@ -8,7 +8,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureDependencies();
   await Khalti.init(
-    publicKey: 'test_public_key_dc74e0fd57cb46cd93832aee0a507256',
+    publicKey: 'b0c9156478474dc1bfe3bf4774502a3d',
     enabledDebugging: false,
   );
   runApp(const MyApp());
