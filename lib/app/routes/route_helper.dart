@@ -31,7 +31,7 @@ class RouteGenerator {
       case AppRoute.userListLocal:
         return _pageTransition(child: const UserListLocal());
       case AppRoute.khaltiAppPath:
-        return _pageTransition(child: const KhaltiExampleApp());
+        return _pageTransition(child: const KhaltiPaymentPage());
 
       default:
         return _pageTransition(
