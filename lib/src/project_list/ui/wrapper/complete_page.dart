@@ -26,7 +26,6 @@ class _CompletedProjectsScreenState extends State<CompletedProjectsScreen> {
         }
 
         if (state is ProjectListLoadSuccess) {
-          //The reuseable widget is use to show the project list
           return ProjectListView(projectList: state.projects);
         }
 
