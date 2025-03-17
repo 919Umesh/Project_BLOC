@@ -23,5 +23,13 @@ class DatePickerBloc extends Bloc<DatePickerEvent, DatePickerState> {
   }
 
   Future<void> onDatePickerConfirm(BuildContext context) async {
+    final fromDate = state.fromDate;
+    final toDate = state.toDate;
+    getLedgerDateWiseFromDB(fromDate, toDate);
+  }
+
+  void getLedgerDateWiseFromDB(String fromDate, String toDate) {
+    debugPrint('-------------------Time-------------------');
+    debugPrint('Fetching data for dates: $fromDate to $toDate');
   }
 }
