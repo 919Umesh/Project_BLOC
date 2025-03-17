@@ -6,6 +6,7 @@ import 'package:project_bloc/src/user_list/bloc/user_list_bloc.dart';
 import '../src/create_product/bloc/create_product_bloc.dart';
 import '../src/create_project/bloc/create_project_bloc.dart';
 import '../src/create_project/repository/create_project_repo.dart';
+import '../src/datetime_picker/bloc/datetime_bloc.dart';
 import '../src/login/bloc/login_bloc.dart';
 import '../src/product_list/bloc/product_list_bloc.dart';
 import '../src/project_list/bloc/project_list_bloc.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => SearchBloc()),
         BlocProvider(create: (context) => CreateProductBloc()),
         BlocProvider(create: (context) => ProductListBloc()),
+        BlocProvider(create: (context) => DatePickerBloc()),
       ],
       child: OKToast(
         child: MaterialApp(

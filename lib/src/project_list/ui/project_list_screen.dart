@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:project_bloc/src/project_list/ui/wrapper/complete_page.dart';
 import 'package:project_bloc/src/project_list/ui/wrapper/in_progress.dart';
 import 'package:project_bloc/src/project_list/ui/wrapper/pending_page.dart';
 import '../../../app/routes/route_name.dart';
+import '../../../core/widgets/showAlert.dart';
+import '../../datetime_picker/bloc/datetime_bloc.dart';
+import '../../datetime_picker/ui/datetime_screen.dart';
 import 'drawer_section.dart';
 
 class ProjectListScreen extends StatefulWidget {
@@ -60,9 +64,20 @@ class _ProjectListScreenState extends State<ProjectListScreen>
         ),
       ),
       actions: [
-      //  khaltiAppPath
         IconButton(
-          onPressed: () =>  Navigator.pushNamed(context, AppRoute.khaltiAppPath),
+          onPressed: () {
+            ShowAlert(context).alert(
+              child: BlocProvider(
+                create: (context) => DatePickerBloc()..add(InitializeDatePicker()),
+                child: DatePickerWidget1(
+                  onConfirm: () async {
+                    final bloc = context.read<DatePickerBloc>();
+                    await bloc.onDatePickerConfirm(context);
+                  },
+                ),
+              ),
+            );
+          },
           icon: const Icon(Bootstrap.house_add),
         ),
         IconButton(
