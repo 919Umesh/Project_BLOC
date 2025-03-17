@@ -26,6 +26,7 @@ class _ProjectListScreenState extends State<ProjectListScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    context.read<DatePickerBloc>().add(InitializeDatePicker());
   }
 
   @override
@@ -69,6 +70,7 @@ class _ProjectListScreenState extends State<ProjectListScreen>
             ShowAlert(context).alert(
               child: DatePickerWidget1(
                 onConfirm: () async {
+                  InitializeDatePicker();
                   final bloc = context.read<DatePickerBloc>();
                   await bloc.onDatePickerConfirm(context);
                 },
