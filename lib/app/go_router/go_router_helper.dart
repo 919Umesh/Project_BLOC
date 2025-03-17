@@ -13,7 +13,6 @@ import '../../src/user_list/ui/user_local.dart';
 
 final GoRouter router = GoRouter(
   routes: [
-
     GoRoute(
       path: AppRoute.splashScreenPath,
       builder: (context, state) => const SplashScreen(),
