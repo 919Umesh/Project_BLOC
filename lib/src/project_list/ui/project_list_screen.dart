@@ -70,7 +70,6 @@ class _ProjectListScreenState extends State<ProjectListScreen>
             ShowAlert(context).alert(
               child: DatePickerWidget(
                 onConfirm: () async {
-                  InitializeDatePicker();
                   final bloc = context.read<DatePickerBloc>();
                   await bloc.onDatePickerConfirm(context);
                 },

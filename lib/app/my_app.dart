@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => UserListBloc(userListRepository: UserListRepository())),
         BlocProvider(create: (context) => CreateProjectBloc(createProjectRepository: CreateProjectRepository()),),
         BlocProvider(create: (context) => LoginBloc(loginRepository: LoginRepository()),),
-        BlocProvider(create: (context) => ProjectListBloc()),
+        BlocProvider(create: (context) => ProjectListBloc(datePickerBloc: DatePickerBloc())),
         BlocProvider(create: (context) => SearchBloc()),
         BlocProvider(create: (context) => CreateProductBloc()),
         BlocProvider(create: (context) => ProductListBloc()),
