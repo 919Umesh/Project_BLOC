@@ -83,6 +83,7 @@ class DatePickerWidget extends StatelessWidget {
             iconColor: Colors.blue.shade700,
             onSelect: (date) {
               context.read<DatePickerBloc>().add(UpdateFromDate(date));
+
             },
           ),
           const SizedBox(height: 15.0),
@@ -120,7 +121,6 @@ class DatePickerWidget extends StatelessWidget {
           final selectedDate = await MyDatePicker(context).nepaliDate();
           if (selectedDate.isNotEmpty) {
             onSelect(selectedDate);
-            Fluttertoast.showToast(msg: selectedDate);
           }
         },
         child: Padding(
