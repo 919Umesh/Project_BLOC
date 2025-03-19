@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import '../../../core/widgets/datetime_picker.dart';
 import '../bloc/datetime_bloc.dart';
 
@@ -120,7 +119,6 @@ class DatePickerWidget extends StatelessWidget {
           final selectedDate = await MyDatePicker(context).nepaliDate();
           if (selectedDate.isNotEmpty) {
             onSelect(selectedDate);
-            Fluttertoast.showToast(msg: selectedDate);
           }
         },
         child: Padding(

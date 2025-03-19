@@ -32,6 +32,5 @@ class DatePickerBloc extends Bloc<DatePickerEvent, DatePickerState> {
   void getLedgerDateWiseFromDB(String fromDate, String toDate) {
     debugPrint('-------------------Time-------------------');
     debugPrint('Fetching data for dates: $fromDate to $toDate');
-    Fluttertoast.showToast(msg: 'From Date:$fromDate and To Date:$toDate');
   }
 }
