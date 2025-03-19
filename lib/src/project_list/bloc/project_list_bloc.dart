@@ -22,9 +22,6 @@ class ProjectListBloc extends Bloc<ProjectListEvent, ProjectListState> {
   Future<void> getProject(LoadProjectRequested event, Emitter emit) async {
     try {
       emit(ProjectListLoading());
-      final dateState = datePickerBloc.state;
-      debugPrint('-----------------ToDate------------');
-      debugPrint(dateState.toDate);
       await Future.delayed(const Duration(milliseconds: 500));
       final projects = await ProjectListRepository.getProjectList(status: event.status);
       emit(ProjectListLoadSuccess(projects: projects));
