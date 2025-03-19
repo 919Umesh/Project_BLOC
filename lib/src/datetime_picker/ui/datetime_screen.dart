@@ -4,10 +4,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import '../../../core/widgets/datetime_picker.dart';
 import '../bloc/datetime_bloc.dart';
 
-class DatePickerWidget1 extends StatelessWidget {
+class DatePickerWidget extends StatelessWidget {
   final VoidCallback onConfirm;
 
-  const DatePickerWidget1({super.key, required this.onConfirm});
+  const DatePickerWidget({super.key, required this.onConfirm});
 
 
   @override

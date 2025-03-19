@@ -68,7 +68,7 @@ class _ProjectListScreenState extends State<ProjectListScreen>
         IconButton(
           onPressed: () {
             ShowAlert(context).alert(
-              child: DatePickerWidget1(
+              child: DatePickerWidget(
                 onConfirm: () async {
                   InitializeDatePicker();
                   final bloc = context.read<DatePickerBloc>();

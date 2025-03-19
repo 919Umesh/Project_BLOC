@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nepali_date_picker/nepali_date_picker.dart';
 part 'datetime_event.dart';
 part 'datetime_state.dart';
@@ -31,5 +32,6 @@ class DatePickerBloc extends Bloc<DatePickerEvent, DatePickerState> {
   void getLedgerDateWiseFromDB(String fromDate, String toDate) {
     debugPrint('-------------------Time-------------------');
     debugPrint('Fetching data for dates: $fromDate to $toDate');
+    Fluttertoast.showToast(msg: 'From Date:$fromDate and To Date:$toDate');
   }
 }
