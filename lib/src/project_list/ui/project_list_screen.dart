@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:project_bloc/src/project_list/ui/wrapper/complete_page.dart';
@@ -30,7 +31,18 @@ class _ProjectListScreenState extends State<ProjectListScreen>
     context.read<ProjectListBloc>();
     context.read<DatePickerBloc>().add(InitializeDatePicker());
   }
+  Future<void> onDatePickerConfirm(BuildContext context) async {
+    final datePickerState = context.read<DatePickerBloc>().state;
+    final fromDate = datePickerState.fromDate;
+    final toDate = datePickerState.toDate;
+    getLedgerDateWiseFromDB(fromDate, toDate);
+  }
 
+  void getLedgerDateWiseFromDB(String fromDate, String toDate) {
+    debugPrint('-------------------Time-------------------');
+    debugPrint('Fetching data for dates: $fromDate to $toDate');
+    Fluttertoast.showToast(msg: 'From Date: $fromDate and To Date: $toDate');
+  }
   @override
   void dispose() {
     _tabController.dispose();
@@ -72,8 +84,7 @@ class _ProjectListScreenState extends State<ProjectListScreen>
             ShowAlert(context).alert(
               child: DatePickerWidget(
                 onConfirm: () async {
-                  final bloc = context.read<ProjectListBloc>();
-                  await bloc.onDatePickerConfirm(context);
+                  await onDatePickerConfirm(context);
                 },
               ),
             );
