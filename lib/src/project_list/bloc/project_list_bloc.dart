@@ -12,6 +12,9 @@ class ProjectListBloc extends Bloc<ProjectListEvent, ProjectListState> {
     on<LoadProjectRequested>((event, emit) async {
       await getProject(event, emit);
     });
+    on<FilterDateRequested>((event, emit) async {
+      await getFilterDate(event, emit);
+    });
   }
 
   Future<void> getProject(LoadProjectRequested event, Emitter emit) async {
@@ -24,14 +27,14 @@ class ProjectListBloc extends Bloc<ProjectListEvent, ProjectListState> {
     }
   }
 
-  Future<void> getFilterDate(LoadProjectRequested event, Emitter emit) async {
+  Future<void> getFilterDate(FilterDateRequested event, Emitter emit) async {
     try {
-      emit(ProjectListLoading());
+      emit(FilterDateLoading());
       final dateState = datePickerBloc.state;
       final projects = await ProjectListRepository.getProjectList(status: dateState.fromDate);
-      emit(ProjectListLoadSuccess(projects: projects));
+      emit(FilterDateSuccess(dateList:projects));
     } catch (e) {
-      emit(ProjectListLoadError(errorMessage: e.toString()));
+      emit(FilterDateError(filterError: e.toString()));
     }
   }
 

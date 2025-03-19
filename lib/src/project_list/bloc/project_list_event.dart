@@ -8,3 +8,9 @@ class LoadProjectRequested extends ProjectListEvent {
 
   List<Object?> get props => [status];
 }
+
+class FilterDateRequested extends ProjectListEvent {
+  FilterDateRequested();
+
+  List<Object?> get props => [];
+}
