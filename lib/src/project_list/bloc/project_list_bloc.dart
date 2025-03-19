@@ -40,4 +40,16 @@ class ProjectListBloc extends Bloc<ProjectListEvent, ProjectListState> {
       emit(FilterDateError(filterError: e.toString()));
     }
   }
+  Future<void> onDatePickerConfirm(BuildContext context) async {
+    final state = datePickerBloc.state;
+    final fromDate = state.fromDate;
+    final toDate = state.toDate;
+    getLedgerDateWiseFromDB(fromDate, toDate);
+  }
+
+  void getLedgerDateWiseFromDB(String fromDate, String toDate) {
+    debugPrint('-------------------Time-------------------');
+    debugPrint('Fetching data for dates: $fromDate to $toDate');
+    Fluttertoast.showToast(msg: 'From Date:$fromDate and To Date:$toDate');
+  }
 }

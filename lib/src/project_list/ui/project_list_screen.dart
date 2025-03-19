@@ -9,6 +9,7 @@ import '../../../app/routes/route_name.dart';
 import '../../../core/widgets/showAlert.dart';
 import '../../datetime_picker/bloc/datetime_bloc.dart';
 import '../../datetime_picker/ui/datetime_screen.dart';
+import '../bloc/project_list_bloc.dart';
 import 'drawer_section.dart';
 
 class ProjectListScreen extends StatefulWidget {
@@ -70,7 +71,7 @@ class _ProjectListScreenState extends State<ProjectListScreen>
             ShowAlert(context).alert(
               child: DatePickerWidget(
                 onConfirm: () async {
-                  final bloc = context.read<DatePickerBloc>();
+                  final bloc = context.read<ProjectListBloc>();
                   await bloc.onDatePickerConfirm(context);
                 },
               ),
