@@ -20,6 +20,7 @@ class ProjectListBloc extends Bloc<ProjectListEvent, ProjectListState> {
   Future<void> getProject(LoadProjectRequested event, Emitter emit) async {
     try {
       emit(ProjectListLoading());
+      await Future.delayed(const Duration(seconds: 1));
       final projects = await ProjectListRepository.getProjectList(status: event.status);
       emit(ProjectListLoadSuccess(projects: projects));
     } catch (e) {

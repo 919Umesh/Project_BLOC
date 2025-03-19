@@ -24,13 +24,43 @@ class _PendingProjectsScreenState extends State<PendingProjectsScreen> {
     return BlocBuilder<ProjectListBloc, ProjectListState>(
       builder: (context, state) {
         if (state is ProjectListLoading) {
-          return  const SizedBox(
-            height: 80,
-            width: 80,
-            child: LoadingIndicator(
-              indicatorType: Indicator.ballTrianglePathColored,
-              colors: [Colors.blue, Colors.red, Colors.green],
-              strokeWidth: 4,
+          return Center(
+            child: Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.1),
+                    spreadRadius: 1,
+                    blurRadius: 10,
+                  ),
+                ],
+              ),
+              child: const Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    height: 80,
+                    width: 80,
+                    child: LoadingIndicator(
+                      indicatorType: Indicator.ballTrianglePathColored,
+                      colors: [Colors.blue, Colors.red, Colors.green],
+                      strokeWidth: 4,
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    'Loading Projects...',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         }
