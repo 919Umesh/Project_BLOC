@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import '../../project_list.dart';
 import '../reuseable_widget.dart';
 
@@ -22,7 +23,15 @@ class _CompletedProjectsScreenState extends State<CompletedProjectsScreen> {
     return BlocBuilder<ProjectListBloc, ProjectListState>(
       builder: (context, state) {
         if (state is ProjectListLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return  const SizedBox(
+            height: 80,
+            width: 80,
+            child: LoadingIndicator(
+              indicatorType: Indicator.ballTrianglePathColored,
+              colors: [Colors.blue, Colors.red, Colors.green],
+              strokeWidth: 4,
+            ),
+          );
         }
 
         if (state is ProjectListLoadSuccess) {
