@@ -27,6 +27,7 @@ class _ProjectListScreenState extends State<ProjectListScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    context.read<ProjectListBloc>();
     context.read<DatePickerBloc>().add(InitializeDatePicker());
   }
 
